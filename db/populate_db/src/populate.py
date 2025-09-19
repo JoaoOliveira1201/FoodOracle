@@ -289,69 +289,32 @@ async def populate_trucks(db_manager):
 
 
 async def populate_quotes(db_manager, file_manager):
-    """Populate Quote table with PDF documents, ensuring every product has at least 3 pending quotes"""
+    """Populate Quote table with PDF documents"""
     print("Populating quotes...")
 
     suppliers = db_manager.get_user_ids("Supplier")
     products = db_manager.get_product_ids()
-    
-    if not suppliers or not products:
-        print("No suppliers or products available; skipping quotes.")
-        return
-    
     status_choices = ["Pending", "Approved", "Rejected"]
     status_weights = [0.25, 0.6, 0.15]
-    
-    created_quotes = 0
-    
-    # First phase: Ensure every product has at least 3 pending quotes
-    print(f"✓ Phase 1: Creating 3 pending quotes for each of the {len(products)} products...")
-    for product_id in products:
-        # Create exactly 3 pending quotes for this product
-        for i in range(3):
-            supplier_id = random.choice(suppliers)
-            uploaded_path = await file_manager.upload_quote_pdf(
-                created_quotes, supplier_id, product_id
-            )
-            submission_date = datetime.now() - timedelta(days=random.randint(0, 120))
 
-            await db_manager.conn.execute(
-                """INSERT INTO Quote (SupplierID, ProductID, PdfDocumentPath, Status, SubmissionDate) 
-                   VALUES ($1, $2, $3, $4, $5)""",
-                supplier_id,
-                product_id,
-                uploaded_path,
-                "Pending",  # Force status to Pending for the minimum required quotes
-                submission_date,
-            )
-            created_quotes += 1
+    for i in range(POPULATION_COUNTS["quotes"]):
+        supplier_id = random.choice(suppliers)
+        product_id = random.choice(products)
+        uploaded_path = await file_manager.upload_quote_pdf(i, supplier_id, product_id)
+        status = random.choices(status_choices, weights=status_weights)[0]
+        submission_date = datetime.now() - timedelta(days=random.randint(0, 120))
 
-    # Second phase: Create additional random quotes to reach the target count
-    remaining_quotes = max(0, POPULATION_COUNTS["quotes"] - created_quotes)
-    if remaining_quotes > 0:
-        print(f"✓ Phase 2: Creating {remaining_quotes} additional random quotes...")
-        for i in range(remaining_quotes):
-            supplier_id = random.choice(suppliers)
-            product_id = random.choice(products)
-            uploaded_path = await file_manager.upload_quote_pdf(
-                created_quotes, supplier_id, product_id
-            )
-            status = random.choices(status_choices, weights=status_weights)[0]
-            submission_date = datetime.now() - timedelta(days=random.randint(0, 120))
+        await db_manager.conn.execute(
+            """INSERT INTO Quote (SupplierID, ProductID, PdfDocumentPath, Status, SubmissionDate) 
+               VALUES ($1, $2, $3, $4, $5)""",
+            supplier_id,
+            product_id,
+            uploaded_path,
+            status,
+            submission_date,
+        )
 
-            await db_manager.conn.execute(
-                """INSERT INTO Quote (SupplierID, ProductID, PdfDocumentPath, Status, SubmissionDate) 
-                   VALUES ($1, $2, $3, $4, $5)""",
-                supplier_id,
-                product_id,
-                uploaded_path,
-                status,
-                submission_date,
-            )
-            created_quotes += 1
-
-    print(f"✓ Created {created_quotes} quotes with PDF documents")
-    print(f"✓ Guaranteed: Every product has at least 3 pending quotes")
+    print(f"✓ Created {POPULATION_COUNTS['quotes']} quotes with PDF documents")
 
 
 async def ensure_test_supplier_approved_quotes(db_manager, file_manager):

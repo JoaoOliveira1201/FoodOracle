@@ -1,0 +1,88 @@
+services:
+  # PostgreSQL Database with PostGIS
+  database:
+    image: postgis/postgis:15-3.3
+    container_name: supply_chain_db
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - supply_chain_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U supply_chain_user -d supply_chain_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MinIO Object Storage
+  minio:
+    image: minio/minio:latest
+    container_name: supply_chain_minio
+    env_file:
+      - .env
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - supply_chain_network
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: supply_chain_backend
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      database:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    networks:
+      - supply_chain_network
+    volumes:
+      - ./backend:/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # React UI
+  frontend:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: supply_chain_frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - backend
+    networks:
+      - supply_chain_network
+
+
+volumes:
+  postgres_data:
+  minio_data:
+
+networks:
+  supply_chain_network:
+    driver: bridge
