@@ -1,0 +1,7 @@
+asyncpg>=0.29.0
+minio
+Faker
+python-dotenv
+reportlab
+geopy
+tqdm

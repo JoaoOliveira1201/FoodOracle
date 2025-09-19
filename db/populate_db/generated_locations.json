@@ -1,0 +1,1806 @@
+{
+  "user_locations": [
+    {
+      "longitude": -8.215900467360072,
+      "latitude": 39.47869235961723,
+      "address": "Abrantes, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.825893528888642,
+      "latitude": 39.042449780302434,
+      "address": "Azambuja, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.73061919668888,
+      "latitude": 41.182837475980634,
+      "address": "Peso da Régua, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.7160592385511615,
+      "latitude": 38.08993615236936,
+      "address": "Beja, Beja, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.124265408283675,
+      "latitude": 38.87769144533978,
+      "address": "Elvas, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.276409181456838,
+      "latitude": 41.43051334695003,
+      "address": "Guimarães, Braga, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.924861753588681,
+      "latitude": 39.72811766661238,
+      "address": "Marinha Grande, Leiria, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.446322223767499,
+      "latitude": 42.04090268811204,
+      "address": "Monção, Viana do Castelo, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.611671550710504,
+      "latitude": 39.8699588143325,
+      "address": "Pombal, Leiria, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.649071537980848,
+      "latitude": 41.58920646694225,
+      "address": "Barcelos, Braga, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.783455300895096,
+      "latitude": 39.129139314518845,
+      "address": "Cartaxo, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.3537452859996675,
+      "latitude": 41.6394744452477,
+      "address": "Miranda do Douro, Distrito de Bragança, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.347310777410917,
+      "latitude": 40.686124920884744,
+      "address": "Celorico da Beira, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.242572099084374,
+      "latitude": 41.71362598301418,
+      "address": "Valpaços, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.67582076975438,
+      "latitude": 41.70145752633158,
+      "address": "Viana do Castelo, Viana do Castelo, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.672827666489999,
+      "latitude": 38.666230453335835,
+      "address": "Redondo, Évora, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.199929015893641,
+      "latitude": 40.23133225100171,
+      "address": "Penamacor, Castelo Branco, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.757496233721426,
+      "latitude": 41.154464138719604,
+      "address": "Senhora da Hora, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.22173075455139,
+      "latitude": 41.54005417672758,
+      "address": "Fafe, Braga, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.674080039154314,
+      "latitude": 41.71379735145614,
+      "address": "Bragança, Distrito de Bragança, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.986744520666482,
+      "latitude": 40.17220761809846,
+      "address": "Góis, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.699853310510218,
+      "latitude": 39.337065535829666,
+      "address": "Santarém, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.790108759738494,
+      "latitude": 39.41841103767223,
+      "address": "Gavião, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.6368952741558385,
+      "latitude": 41.16869361524428,
+      "address": "Sabrosa, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.969004286561726,
+      "latitude": 41.15619782085927,
+      "address": "Torre de Moncorvo, Distrito de Bragança, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.833692760738252,
+      "latitude": 38.559285580422326,
+      "address": "Setúbal, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.640906074952898,
+      "latitude": 39.75671631466337,
+      "address": "Ourém, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.321596030411776,
+      "latitude": 40.563784369059064,
+      "address": "Guarda, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.060738983429744,
+      "latitude": 38.617708358831976,
+      "address": "Montemor-o-Novo, Évora, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.193974007062474,
+      "latitude": 39.03783220627545,
+      "address": "Torres Vedras, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.452546408203759,
+      "latitude": 39.22763319734633,
+      "address": "Portalegre, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.919790294771517,
+      "latitude": 40.199210869267574,
+      "address": "Teixeira, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.565398109681166,
+      "latitude": 39.49876372550379,
+      "address": "Torres Novas, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.355650269213486,
+      "latitude": 38.516457381704285,
+      "address": "Capelins (Santo António), Évora, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.094914364916783,
+      "latitude": 39.92678493353141,
+      "address": "Idanha-a-Nova, Castelo Branco, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.955356270124391,
+      "latitude": 40.48300639776758,
+      "address": "Aldeia da Ribeira, Vilar Maior e Badamalos, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.398516603433649,
+      "latitude": 38.389897607211616,
+      "address": "Alcácer do Sal, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.474842523103275,
+      "latitude": 39.96782456283214,
+      "address": "Castelo Branco, Castelo Branco, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.709428660242438,
+      "latitude": 41.07950067385172,
+      "address": "Vila Nova de Gaia, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.868819672971711,
+      "latitude": 39.20675996179001,
+      "address": "Avis, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.586724585610432,
+      "latitude": 38.10883618437934,
+      "address": "Grândola, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.839599336002621,
+      "latitude": 38.758442474720624,
+      "address": "Alcochete, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.510867330929285,
+      "latitude": 40.61584823433804,
+      "address": "Juncais, Vila Ruiva e Vila Soeiro do Chão, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.830794229819619,
+      "latitude": 41.32502131017265,
+      "address": "Alfândega da Fé, Distrito de Bragança, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.89122414442857,
+      "latitude": 37.62335950569471,
+      "address": "Castro Verde, Beja, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.40407234480926,
+      "latitude": 37.74472139813007,
+      "address": "Odemira, Beja, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.450550096538137,
+      "latitude": 41.218954716764,
+      "address": "Valongo, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.366523284918284,
+      "latitude": 40.23194447724714,
+      "address": "Coimbra, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.577624921260638,
+      "latitude": 40.82269129127674,
+      "address": "Ovar, Aveiro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.674704333717786,
+      "latitude": 39.81429383475306,
+      "address": "Leiria, Leiria, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.600358983158586,
+      "latitude": 37.84671830081828,
+      "address": "Santiago do Cacém, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.064411448543595,
+      "latitude": 40.68892418766447,
+      "address": "Queirã, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.925077452981417,
+      "latitude": 40.025222536156015,
+      "address": "Pampilhosa da Serra, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.443816345919464,
+      "latitude": 41.0854215375194,
+      "address": "Gondomar, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.984098426478456,
+      "latitude": 37.1687511996151,
+      "address": "Loulé, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.897692186379625,
+      "latitude": 40.423858023819555,
+      "address": "Rebolosa, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.059658037439156,
+      "latitude": 38.51205498745126,
+      "address": "Évora, Évora, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.903681628766863,
+      "latitude": 40.78556716737588,
+      "address": "Viseu, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.766276470488547,
+      "latitude": 38.9539941678409,
+      "address": "Benavente, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.346618758866828,
+      "latitude": 40.100929351767164,
+      "address": "Miranda do Corvo, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.619074830940255,
+      "latitude": 40.77245258873146,
+      "address": "Sátão, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.502464438313133,
+      "latitude": 36.995988966846845,
+      "address": "Lagoa, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.824732320594306,
+      "latitude": 41.39222037894016,
+      "address": "Mondim de Basto, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.882835879052219,
+      "latitude": 40.94822551114501,
+      "address": "Castro Daire, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.055657732065063,
+      "latitude": 38.53420550676442,
+      "address": "Quinta do Conde, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.600456632836133,
+      "latitude": 40.123914600435604,
+      "address": "Soure, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.668742732710163,
+      "latitude": 40.615224456434234,
+      "address": "Ílhavo, Aveiro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.457988486478891,
+      "latitude": 37.322449743809145,
+      "address": "Monchique, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.606873269473546,
+      "latitude": 41.696569434289664,
+      "address": "Chaves, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.604156218602195,
+      "latitude": 38.88197859940285,
+      "address": "Estremoz, Évora, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.397862271874743,
+      "latitude": 41.04780632738633,
+      "address": "Penedono, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.332369427392177,
+      "latitude": 38.62972976885573,
+      "address": "Parede, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.390260108546451,
+      "latitude": 40.92010969285571,
+      "address": "Arouca, Aveiro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.191002553296943,
+      "latitude": 39.34106969377775,
+      "address": "Óbidos, Leiria, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.061308584874322,
+      "latitude": 41.619113787080025,
+      "address": "Vieira do Minho, Braga, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.7451589666470735,
+      "latitude": 37.32815556229745,
+      "address": "Tavira, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.504211521834762,
+      "latitude": 40.332097045632786,
+      "address": "Cantanhede, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.425304684226134,
+      "latitude": 41.2395153278318,
+      "address": "Alijó, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.1698486224397575,
+      "latitude": 41.41840415426674,
+      "address": "Mirandela, Distrito de Bragança, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.253712591405266,
+      "latitude": 38.71939794205186,
+      "address": "Oeiras, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.063890750092138,
+      "latitude": 38.78339439413998,
+      "address": "Samouco, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.791611688854776,
+      "latitude": 38.11878646474779,
+      "address": "Vidigueira, Beja, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.035008991071374,
+      "latitude": 40.64801122960847,
+      "address": "Atalaia e Safurdão, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.080673071795637,
+      "latitude": 38.763420608396515,
+      "address": "Arraiolos, Évora, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.231151557845234,
+      "latitude": 39.029074858584906,
+      "address": "Ponte de Sor, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.896178290354615,
+      "latitude": 37.045907009509655,
+      "address": "Faro, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.959784654931592,
+      "latitude": 38.837288925044916,
+      "address": "Samora Correia, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.661525354173193,
+      "latitude": 37.471865221400755,
+      "address": "São Teotónio, Beja, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.54584793291487,
+      "latitude": 39.301191045261355,
+      "address": "Chamusca, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.122912721790315,
+      "latitude": 40.34967660264962,
+      "address": "Sabugal e Aldeia de Santo António, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.552989339923696,
+      "latitude": 40.07701262378866,
+      "address": "Condeixa-a-Nova, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.007968902900815,
+      "latitude": 40.302881317038214,
+      "address": "Tábua, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.435674923743264,
+      "latitude": 41.160353598834256,
+      "address": "Paredes, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.56706193478218,
+      "latitude": 37.602681869958545,
+      "address": "Mértola, Beja, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.876634133620922,
+      "latitude": 41.2625348799572,
+      "address": "Mogadouro, Distrito de Bragança, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.958889343330918,
+      "latitude": 38.6662878477752,
+      "address": "Montijo, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.1321127515539,
+      "latitude": 38.08222417684275,
+      "address": "Moura, Beja, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.07870949397366,
+      "latitude": 41.70858050029182,
+      "address": "Vinhais, Distrito de Bragança, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.560357003350681,
+      "latitude": 40.679297367193726,
+      "address": "Albergaria-a-Velha, Aveiro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.091964431857397,
+      "latitude": 41.38364485892099,
+      "address": "Celorico de Basto, Braga, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.480600761892665,
+      "latitude": 39.183667673522464,
+      "address": "Almeirim, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.683907762510759,
+      "latitude": 41.22718159471155,
+      "address": "Vila Real, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.17665851410462,
+      "latitude": 38.82633093895097,
+      "address": "Loures, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.03004917858535,
+      "latitude": 39.5080567629828,
+      "address": "Mação, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.471169193917722,
+      "latitude": 41.62516383435565,
+      "address": "Vila Verde, Braga, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.266392461193055,
+      "latitude": 37.45510079543598,
+      "address": "Ourique, Beja, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.480744223753907,
+      "latitude": 39.18625107164946,
+      "address": "Crato, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.614564419672394,
+      "latitude": 40.22517991211344,
+      "address": "Tentúgal, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.980316750559982,
+      "latitude": 38.790569307410756,
+      "address": "Póvoa de Santa Iria, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.32704339943104,
+      "latitude": 37.36635971456201,
+      "address": "São Marcos da Serra, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.51932888580453,
+      "latitude": 41.31314717972246,
+      "address": "Trofa, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.817089140689856,
+      "latitude": 39.31433004576261,
+      "address": "Alter do Chão, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.228080629960001,
+      "latitude": 41.337604927376645,
+      "address": "Felgueiras, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.086782732592503,
+      "latitude": 38.28442348320406,
+      "address": "Alvito, Beja, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.463800359690705,
+      "latitude": 41.405990895350676,
+      "address": "Vila Nova de Famalicão, Braga, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.83659745447509,
+      "latitude": 38.593379970358946,
+      "address": "Palmela, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.380386131363604,
+      "latitude": 40.76998555768849,
+      "address": "Trancoso, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.4124402263563525,
+      "latitude": 41.51190210248163,
+      "address": "Jou, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.65174503021949,
+      "latitude": 37.32130887686008,
+      "address": "Vaqueiros, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.453086716231724,
+      "latitude": 41.19757537768749,
+      "address": "São João da Pesqueira, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.393612614276195,
+      "latitude": 40.16138322633958,
+      "address": "Fundão, Castelo Branco, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.108420916485668,
+      "latitude": 40.64028363272053,
+      "address": "Fornelo do Monte, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.2375967037057425,
+      "latitude": 40.931300082573614,
+      "address": "Marialva, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.42535404871543,
+      "latitude": 37.790491123282145,
+      "address": "Serpa, Beja, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.5319241545818825,
+      "latitude": 39.73238478738306,
+      "address": "Vila Velha de Ródão, Castelo Branco, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.799494559130807,
+      "latitude": 39.655722594614204,
+      "address": "Batalha, Leiria, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.58611420603478,
+      "latitude": 39.20414355386825,
+      "address": "Alpiarça, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.873132098859248,
+      "latitude": 41.46703549444316,
+      "address": "Ribeira de Pena, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.775151363615318,
+      "latitude": 41.230127560569066,
+      "address": "Matosinhos, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.635007151100291,
+      "latitude": 41.7401237579311,
+      "address": "Ponte de Lima, Viana do Castelo, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.627336692065478,
+      "latitude": 40.79205489853242,
+      "address": "Estarreja, Aveiro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.836768365217441,
+      "latitude": 40.30062470991173,
+      "address": "Alvoco das Várzeas, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.924058381246031,
+      "latitude": 40.40201724001017,
+      "address": "Travanca de Lagos, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.613465184870718,
+      "latitude": 39.035757821676164,
+      "address": "Glória do Ribatejo, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.947181912540387,
+      "latitude": 38.99523335657714,
+      "address": "Castanheira do Ribatejo e Cachoeiras, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.281977502053508,
+      "latitude": 39.30189855566786,
+      "address": "Peniche, Leiria, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.135229195901747,
+      "latitude": 39.0198889124843,
+      "address": "Sobral de Monte Agraço, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.05912112167501,
+      "latitude": 40.37323669667664,
+      "address": "Santa Comba Dão, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.242550351451175,
+      "latitude": 41.09585748034371,
+      "address": "Alpendorada, Várzea e Torrão, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.395406829406836,
+      "latitude": 39.99647219117316,
+      "address": "Penela, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.142714532286863,
+      "latitude": 40.044122001887246,
+      "address": "Alvares, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.952684028480838,
+      "latitude": 40.74327373728552,
+      "address": "Almeida, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.279757672614725,
+      "latitude": 41.95912515831762,
+      "address": "Arcos de Valdevez, Viana do Castelo, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.234880704881746,
+      "latitude": 40.288056213591574,
+      "address": "Penacova, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.326240117750853,
+      "latitude": 39.591985987668885,
+      "address": "Tomar, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.771179098900813,
+      "latitude": 41.83314941723445,
+      "address": "Caminha, Viana do Castelo, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.684885505910499,
+      "latitude": 40.11834509176498,
+      "address": "Montemor-o-Velho, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.049948501150906,
+      "latitude": 39.365158494554834,
+      "address": "Caldas da Rainha, Leiria, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.254774773129267,
+      "latitude": 37.339429416464355,
+      "address": "São Bartolomeu de Messines, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.4324415977688325,
+      "latitude": 40.68454924814103,
+      "address": "Sobral Pichorro e Fuinhas, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.48093135113661,
+      "latitude": 39.540555564427045,
+      "address": "Castelo de Vide, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.551448933555074,
+      "latitude": 40.337956474538615,
+      "address": "Manteigas, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.222409159241625,
+      "latitude": 38.55648238603778,
+      "address": "Almada, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.670686326357391,
+      "latitude": 40.569058339453406,
+      "address": "Mangualde, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.684766717811059,
+      "latitude": 40.187033247098455,
+      "address": "Covilhã, Castelo Branco, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.844540637202734,
+      "latitude": 41.45164023841311,
+      "address": "Macedo de Cavaleiros, Distrito de Bragança, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.375109582292781,
+      "latitude": 40.35638711052964,
+      "address": "Mealhada, Aveiro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.992086767815311,
+      "latitude": 41.140179272813846,
+      "address": "Baião, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.039020200061133,
+      "latitude": 38.579660643488616,
+      "address": "Palhais e Coina, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.463209526265851,
+      "latitude": 38.67575169495262,
+      "address": "Alandroal (Nossa Senhora da Conceição), São Brás dos Matos (Mina do Bugalho) e Juromenha (Nossa Senhora do Loreto), Évora, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.036896063149067,
+      "latitude": 39.874568399308295,
+      "address": "Sertã, Castelo Branco, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.114898066983388,
+      "latitude": 38.66065577273067,
+      "address": "Amora, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.03410773727455,
+      "latitude": 38.668113763583534,
+      "address": "Moita, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.2854801952579145,
+      "latitude": 40.93549746335682,
+      "address": "Outeiro de Gatos, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.597943377256303,
+      "latitude": 41.6045986869696,
+      "address": "Vimioso, Distrito de Bragança, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.203302252635785,
+      "latitude": 40.4091170440175,
+      "address": "Pousafoles do Bispo, Pena Lobo e Lomba, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.378652098631065,
+      "latitude": 37.22818808975059,
+      "address": "Silves, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.252781097903021,
+      "latitude": 38.93917566604255,
+      "address": "Couço, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.493113826001676,
+      "latitude": 41.47601321714478,
+      "address": "Vila Pouca de Aguiar, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.334727636335467,
+      "latitude": 39.366072157394605,
+      "address": "Marvão, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.067124029402795,
+      "latitude": 37.100520025009054,
+      "address": "Quarteira, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.04169190575432,
+      "latitude": 39.11586002146459,
+      "address": "Alenquer, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.122737227559798,
+      "latitude": 39.674953778967186,
+      "address": "Vila de Rei, Castelo Branco, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.00808052673534,
+      "latitude": 40.80245183013753,
+      "address": "São Pedro do Sul, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.192581165560032,
+      "latitude": 41.5527869959523,
+      "address": "Póvoa de Lanhoso, Braga, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.907077167553423,
+      "latitude": 39.01942488739588,
+      "address": "Vila Nova da Rainha, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.536997487754501,
+      "latitude": 37.206019788051634,
+      "address": "Vila Real de Santo António, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.432058091216543,
+      "latitude": 40.466537703794124,
+      "address": "Anadia, Aveiro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.379481030483461,
+      "latitude": 37.35102871509797,
+      "address": "Alferce, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.598111787850973,
+      "latitude": 38.31070407449835,
+      "address": "Portel, Évora, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.090294490833484,
+      "latitude": 39.20918213650634,
+      "address": "Cadaval, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.791399765984318,
+      "latitude": 37.13710506786449,
+      "address": "Olhão, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.891218735376723,
+      "latitude": 40.82367180442519,
+      "address": "Figueira de Castelo Rodrigo, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.998372861649122,
+      "latitude": 39.69928226458927,
+      "address": "Alcobaça, Leiria, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.803725329353709,
+      "latitude": 37.39841365053713,
+      "address": "Aljezur, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.701880618977714,
+      "latitude": 41.13138490301424,
+      "address": "Porto, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.346246933253715,
+      "latitude": 41.34146771299193,
+      "address": "Santo Tirso, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.327602970105856,
+      "latitude": 41.57247692944496,
+      "address": "Braga, Braga, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.7823339711138,
+      "latitude": 38.94792302212114,
+      "address": "Sousel, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.407623199409823,
+      "latitude": 41.257664581515826,
+      "address": "Frazão Arreigada, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.94854337126393,
+      "latitude": 39.959048366946405,
+      "address": "Oleiros, Castelo Branco, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.931810312656437,
+      "latitude": 41.819154299306476,
+      "address": "Montalegre, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.563884600131567,
+      "latitude": 40.9528320021822,
+      "address": "Santa Maria da Feira, Aveiro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.241004987309477,
+      "latitude": 37.99015369235632,
+      "address": "São João de Negrilhos, Beja, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.348677967671129,
+      "latitude": 38.48758363126734,
+      "address": "Reguengos de Monsaraz, Évora, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.621650626170796,
+      "latitude": 41.65532222547529,
+      "address": "Argozelo, Distrito de Bragança, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.6637100426276,
+      "latitude": 39.55738983129905,
+      "address": "Minde, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.036063849055461,
+      "latitude": 41.588924644834286,
+      "address": "Cabeceiras de Basto, Braga, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.51344712488313,
+      "latitude": 37.418821301953706,
+      "address": "Alcoutim e Pereiro, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.306725818729412,
+      "latitude": 38.768993985857556,
+      "address": "Cacém e São Marcos, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.607694220734007,
+      "latitude": 39.42638563166049,
+      "address": "Nisa, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.037741519449689,
+      "latitude": 40.6122037386198,
+      "address": "Tondela, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.173463261642558,
+      "latitude": 42.04562413171499,
+      "address": "Melgaço, Viana do Castelo, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.403528398217519,
+      "latitude": 38.308744576036446,
+      "address": "Luz, Évora, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.857450700728943,
+      "latitude": 40.51720482643046,
+      "address": "Nelas, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.227060535105453,
+      "latitude": 38.74560304757638,
+      "address": "Amadora, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.6222016118094125,
+      "latitude": 41.674398472088775,
+      "address": "Boticas, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.405638382166508,
+      "latitude": 38.76754669415543,
+      "address": "Vila Viçosa, Évora, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.662709864213582,
+      "latitude": 41.2536108431925,
+      "address": "Vila Nova da Telha, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.186933572394008,
+      "latitude": 41.87933057339253,
+      "address": "Ponte da Barca, Viana do Castelo, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.4659968161918,
+      "latitude": 37.119685555974,
+      "address": "Lagoa e Carvoeiro, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.521435931290951,
+      "latitude": 39.18614894406367,
+      "address": "Monforte, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.85070198945829,
+      "latitude": 40.200642080229784,
+      "address": "Figueira da Foz, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.928769300477153,
+      "latitude": 39.62362325231872,
+      "address": "Juncal, Leiria, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.836588765116877,
+      "latitude": 40.87710991642396,
+      "address": "Pendilhe, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.478220086428733,
+      "latitude": 38.698475356338825,
+      "address": "Cascais, Lisboa, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.592501234434978,
+      "latitude": 37.237557828403084,
+      "address": "Portimão, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.445801841992747,
+      "latitude": 39.01760220750489,
+      "address": "Coruche, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.640488498853728,
+      "latitude": 37.12730663612202,
+      "address": "Lagos, Faro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.09427288300479,
+      "latitude": 40.40097796267233,
+      "address": "Pega, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.037553037846143,
+      "latitude": 41.25568571615899,
+      "address": "Amarante, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.9275142086255865,
+      "latitude": 37.5169996383281,
+      "address": "Almodôvar, Beja, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -6.9298614208514095,
+      "latitude": 41.085683726024996,
+      "address": "Freixo de Espada à Cinta, Distrito de Bragança, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.649302825432935,
+      "latitude": 41.26409697569446,
+      "address": "Castêlo da Maia, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.226204252623909,
+      "latitude": 41.15844686182854,
+      "address": "Penafiel, Porto, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.21186175267534,
+      "latitude": 41.88859574202404,
+      "address": "Soajo, Viana do Castelo, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.198094649531805,
+      "latitude": 39.11193403096073,
+      "address": "Arronches, Portalegre, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.104716789085887,
+      "latitude": 40.676803950206306,
+      "address": "Lamegal, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.178097186727785,
+      "latitude": 38.899416896324226,
+      "address": "Mora, Évora, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.0425061280421986,
+      "latitude": 40.79385392608418,
+      "address": "Alto do Palurdo, Guarda, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.314875585156825,
+      "latitude": 40.255198704540135,
+      "address": "Lorvão, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.753239691351832,
+      "latitude": 41.510769062016465,
+      "address": "Esposende, Braga, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.871379271599537,
+      "latitude": 41.82161187077322,
+      "address": "Vila Praia de Âncora, Viana do Castelo, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.75810317623122,
+      "latitude": 41.04282877592867,
+      "address": "Tarouca, Viseu, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.87848848406005,
+      "latitude": 37.9438965335008,
+      "address": "Sines, Setúbal, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.339822740557418,
+      "latitude": 39.504496460080176,
+      "address": "Praia do Ribatejo, Santarém, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.847448436986172,
+      "latitude": 41.234963112085524,
+      "address": "Fontes, Vila Real, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -8.457189497610136,
+      "latitude": 40.54033316466048,
+      "address": "Águeda, Aveiro, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -7.937428629858701,
+      "latitude": 40.299966346225474,
+      "address": "Lourosa, Coimbra, Portugal",
+      "type": "user"
+    },
+    {
+      "longitude": -9.264958516150946,
+      "latitude": 38.76660510922227,
+      "address": "Massamá e Monte Abraão, Lisboa, Portugal",
+      "type": "user"
+    }
+  ],
+  "city_locations": [
+    {
+      "longitude": -8.482927897059636,
+      "latitude": 38.72875690436724,
+      "address": "Vendas Novas, Évora, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.113445604332467,
+      "latitude": 40.24803901611704,
+      "address": "Pombeiro da Beira, Coimbra, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -6.870085249816613,
+      "latitude": 40.4206270808905,
+      "address": "Nave de Haver, Guarda, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.599846020316709,
+      "latitude": 39.11959841044366,
+      "address": "Fronteira, Portalegre, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.481490574047099,
+      "latitude": 40.51708326605766,
+      "address": "Oliveira do Bairro, Aveiro, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.111960167928302,
+      "latitude": 39.1037742223848,
+      "address": "Campo Maior, Portalegre, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.020285616706438,
+      "latitude": 37.0849164011896,
+      "address": "Almancil, Faro, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.093913375018563,
+      "latitude": 41.1489723059521,
+      "address": "Soalhães, Porto, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.70590636616261,
+      "latitude": 40.31194759270205,
+      "address": "Seia, Guarda, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.963589350999126,
+      "latitude": 38.905176537494214,
+      "address": "Vila Franca de Xira, Lisboa, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.542984495306676,
+      "latitude": 41.88117332987082,
+      "address": "Castanheira, Viana do Castelo, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.356460694459784,
+      "latitude": 40.363261346351834,
+      "address": "Belmonte, Castelo Branco, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.687793472450965,
+      "latitude": 40.955428753000426,
+      "address": "Leomil, Viseu, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.930992779822157,
+      "latitude": 38.33137714272771,
+      "address": "Viana do Alentejo, Évora, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -9.228607398526062,
+      "latitude": 38.91719367335882,
+      "address": "Mafra, Lisboa, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.134324996338075,
+      "latitude": 40.85500518421029,
+      "address": "Vale do Côa, Guarda, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.426442875862483,
+      "latitude": 39.92583732673016,
+      "address": "Ansião, Leiria, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.173721524397612,
+      "latitude": 37.917600114906314,
+      "address": "Aljustrel e Rio de Moinhos, Beja, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.692282091502246,
+      "latitude": 40.805835073463385,
+      "address": "Torreira, Aveiro, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.65688875053644,
+      "latitude": 41.872153649802904,
+      "address": "Coura, Viana do Castelo, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.20277362439377,
+      "latitude": 40.737447107685355,
+      "address": "Oliveira de Frades, Viseu, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.392890892091392,
+      "latitude": 40.77610447661718,
+      "address": "Sever do Vouga, Aveiro, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.793793736501414,
+      "latitude": 39.04424051714771,
+      "address": "Salvaterra de Magos, Santarém, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.19813314445935,
+      "latitude": 39.91893200349015,
+      "address": "Pedrógão Grande, Leiria, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.925499773177169,
+      "latitude": 38.259911518446295,
+      "address": "Cuba, Beja, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.180483826702948,
+      "latitude": 38.180145720038794,
+      "address": "Ferreira do Alentejo, Beja, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.840399317264341,
+      "latitude": 39.62855689951,
+      "address": "Proença-a-Nova, Castelo Branco, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.60336693563886,
+      "latitude": 41.238226073034966,
+      "address": "Cidade da Maia, Porto, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -9.4494015671837,
+      "latitude": 38.782591697676935,
+      "address": "Colares, Lisboa, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.369695534064283,
+      "latitude": 41.008198935348744,
+      "address": "Castelo de Paiva, Aveiro, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.518777676137151,
+      "latitude": 40.6518235818998,
+      "address": "Rancosinho, Guarda, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.282463917985286,
+      "latitude": 37.896677132744486,
+      "address": "Messejana, Beja, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.849437602688829,
+      "latitude": 39.49854160579919,
+      "address": "Porto de Mós, Leiria, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -9.450950298298128,
+      "latitude": 38.86589289356381,
+      "address": "São João das Lampas e Terrugem, Lisboa, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.008570620805079,
+      "latitude": 40.971374520939904,
+      "address": "Alhões, Bustelo, Gralheira e Ramires, Viseu, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -9.043362313667277,
+      "latitude": 39.026223284009895,
+      "address": "Carregado, Lisboa, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.477857529840922,
+      "latitude": 40.76953962116994,
+      "address": "Aguiar da Beira, Guarda, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.7910820626673605,
+      "latitude": 40.86571638892737,
+      "address": "Vila Cova à Coelheira, Viseu, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.385924274421235,
+      "latitude": 40.84942320022638,
+      "address": "Vale de Cambra, Aveiro, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.76212595643762,
+      "latitude": 40.4760572929207,
+      "address": "Mira, Coimbra, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.254786871827369,
+      "latitude": 40.50699131573051,
+      "address": "Mortágua, Viseu, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.276553125076931,
+      "latitude": 40.99418199102211,
+      "address": "Poço do Canto, Guarda, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.208201944201821,
+      "latitude": 40.62191225723477,
+      "address": "Alcofra, Viseu, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.366290179147938,
+      "latitude": 41.62614479766834,
+      "address": "Amares, Braga, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -9.09908116792968,
+      "latitude": 38.461792183155346,
+      "address": "Sesimbra, Setúbal, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -9.403883410930835,
+      "latitude": 38.780882160367774,
+      "address": "Sintra (Santa Maria e São Miguel, São Martinho e São Pedro de Penaferrim), Lisboa, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.923498025623311,
+      "latitude": 40.187919265005654,
+      "address": "Cepos e Teixeira, Coimbra, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.093592390819117,
+      "latitude": 40.631255517374086,
+      "address": "Pínzio, Guarda, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.586944363045935,
+      "latitude": 41.22964015851614,
+      "address": "Nogueira e Silva Escura, Porto, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.843987484680524,
+      "latitude": 37.25581815841872,
+      "address": "São Brás de Alportel, Faro, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.641783713557201,
+      "latitude": 40.24822816024237,
+      "address": "Arazede, Coimbra, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.655673766718705,
+      "latitude": 40.43859742782112,
+      "address": "Vagos, Aveiro, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.84084508586819,
+      "latitude": 39.25373327602581,
+      "address": "Rio Maior, Santarém, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.147996636725402,
+      "latitude": 37.723811028300034,
+      "address": "Castro Verde, Beja, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -6.835096131974972,
+      "latitude": 41.93408134700166,
+      "address": "Bragança, Distrito de Bragança, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -8.8626571614837,
+      "latitude": 39.68737747187802,
+      "address": "Leiria, Leiria, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -6.954670929750824,
+      "latitude": 41.578881667140465,
+      "address": "Macedo de Cavaleiros, Distrito de Bragança, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -6.924470275623505,
+      "latitude": 40.563638820322836,
+      "address": "Almeida, Guarda, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -6.987951803940224,
+      "latitude": 41.75011099585448,
+      "address": "Vinhais, Distrito de Bragança, Portugal",
+      "type": "city"
+    },
+    {
+      "longitude": -7.067512406598624,
+      "latitude": 40.383202523768546,
+      "address": "Baraçal, Guarda, Portugal",
+      "type": "city"
+    }
+  ]
+}
