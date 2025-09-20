@@ -298,18 +298,49 @@ async def populate_trucks(db_manager):
 
 
 async def populate_quotes(db_manager, file_manager):
-    """Populate Quote table with PDF documents"""
+    """Populate Quote table with PDF documents, ensuring at least 3 pending supplier quotes for each product"""
     print("Populating quotes...")
 
     suppliers = db_manager.get_user_ids("Supplier")
     products = db_manager.get_product_ids()
     status_choices = ["Pending", "Approved", "Rejected"]
     status_weights = [0.25, 0.6, 0.15]
-
-    for i in range(POPULATION_COUNTS["quotes"]):
+    
+    quote_counter = 0
+    
+    # First, ensure each product has at least 3 pending quotes from different suppliers
+    print(f"Ensuring at least 3 pending quotes for each of {len(products)} products...")
+    for product_id in products:
+        # Get 3 different suppliers for this product
+        product_suppliers = random.sample(suppliers, min(3, len(suppliers)))
+        
+        for supplier_id in product_suppliers:
+            uploaded_path = await file_manager.upload_quote_pdf(quote_counter, supplier_id, product_id)
+            submission_date = datetime.now() - timedelta(days=random.randint(0, 60))  # Recent pending quotes
+            
+            await db_manager.conn.execute(
+                """INSERT INTO Quote (SupplierID, ProductID, PdfDocumentPath, Status, SubmissionDate) 
+                   VALUES ($1, $2, $3, $4, $5)""",
+                supplier_id,
+                product_id,
+                uploaded_path,
+                "Pending",
+                submission_date,
+            )
+            quote_counter += 1
+    
+    # Calculate remaining quotes to reach the target
+    guaranteed_quotes = len(products) * 3
+    remaining_quotes = max(0, POPULATION_COUNTS["quotes"] - guaranteed_quotes)
+    
+    print(f"Created {guaranteed_quotes} guaranteed pending quotes")
+    print(f"Creating {remaining_quotes} additional random quotes...")
+    
+    # Fill remaining quota with random quotes (mixed statuses)
+    for i in range(remaining_quotes):
         supplier_id = random.choice(suppliers)
         product_id = random.choice(products)
-        uploaded_path = await file_manager.upload_quote_pdf(i, supplier_id, product_id)
+        uploaded_path = await file_manager.upload_quote_pdf(quote_counter, supplier_id, product_id)
         status = random.choices(status_choices, weights=status_weights)[0]
         submission_date = datetime.now() - timedelta(days=random.randint(0, 120))
 
@@ -322,8 +353,11 @@ async def populate_quotes(db_manager, file_manager):
             status,
             submission_date,
         )
+        quote_counter += 1
 
-    print(f"✓ Created {POPULATION_COUNTS['quotes']} quotes with PDF documents")
+    total_quotes = guaranteed_quotes + remaining_quotes
+    print(f"✓ Created {total_quotes} quotes with PDF documents")
+    print(f"✓ Guaranteed: Each product has at least 3 pending supplier quotes")
 
 
 async def ensure_test_supplier_approved_quotes(db_manager, file_manager):

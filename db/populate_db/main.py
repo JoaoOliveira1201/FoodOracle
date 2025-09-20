@@ -7,7 +7,7 @@ This script populates the database with sample data including:
 - Products with pricing and shelf life information
 - Warehouses with location and capacity data
 - Trucks with driver assignments and locations
-- Quotes with PDF documents (ensures Test Supplier has approved quotes for at least 3 products)
+- Quotes with PDF documents (ensures at least 3 pending supplier quotes for each product, plus Test Supplier has approved quotes for at least 3 products)
 - Product records with quality images
 - Orders, trips, and warehouse transfers
 

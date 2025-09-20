@@ -42,7 +42,7 @@ SAMPLE_FILES = {
 
 # Population counts - hardcoded values
 POPULATION_COUNTS = {
-    "quotes": 120,
+    "quotes": 250,  # Increased to accommodate 3 pending quotes per product (56*3=168) plus additional random quotes
     "product_records": 3000,  # Significantly increased to support better inventory distribution
     "orders": 8000,  # Reduced to preserve more InStock inventory
     "trips": 1210,  # Increased to provide ~6 trips per driver (70 drivers)
