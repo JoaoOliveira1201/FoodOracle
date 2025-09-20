@@ -23,7 +23,7 @@ Para usar o virtual environment que criaram façam
 
 quando vocês ativam em principio o vosso terminal mostra isso logo no inicio. Exemplo:
 ```bash
-(venv) joao@DESKTOP-RT8E91W:/mnt/c/Users/olive/Desktop/cenaDaSupplyChain/$ ls
+(venv) joao@DESKTOP-RT8E91W:/mnt/c/Users/olive/Desktop/FoodOracle/$ ls
 README.md  backend  db  docker compose.yml  ia  python101.md  ui
 ```
 

@@ -85,7 +85,7 @@ db-populate:
 db-reset:
 	@echo "Resetting database..."
 	docker compose down database
-	docker volume rm cenaDaSupplyChain_postgres_data || true
+	docker volume rm FoodOracle_postgres_data || true
 	docker compose up --build -d database
 	@echo "Database reset complete"
 
