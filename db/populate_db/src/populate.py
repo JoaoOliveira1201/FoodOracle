@@ -120,11 +120,20 @@ async def populate_products(db_manager):
     """Populate Product table with generated products"""
     print("Populating products...")
 
+    # Create a copy of available products to track which ones are unused
+    available_products = PRODUCE_ITEMS.copy()
+    random.shuffle(available_products)  # Randomize order for variety
+
     for i in range(PRODUCT_TARGET_COUNT):
-        name = random.choice(PRODUCE_ITEMS)
-        # Make names unique if duplicates arise
-        if name in db_manager.product_ids:
-            name = f"{name} {faker.unique.numerify(text='###')}"
+        # First try to use an unused product from the original list
+        if available_products:
+            name = available_products.pop(0)  # Take first available unused product
+        else:
+            # Fallback to random selection with unique naming when all original products are used
+            name = random.choice(PRODUCE_ITEMS)
+            # Make names unique if duplicates arise
+            if name in db_manager.product_ids:
+                name = f"{name} {faker.unique.numerify(text='###')}"
 
         base_price = random.randint(80, 800)
         discount_percentage = random.choice([5, 10, 15, 20, 25, 30, 35, 40])
