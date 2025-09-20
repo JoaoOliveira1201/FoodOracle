@@ -23,6 +23,7 @@ interface ButtonProps {
   disabled?: boolean;
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
   buttonBlock?: boolean;
+  marginClass?: string; // <-- NEW prop for custom margins
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -33,9 +34,10 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   type = "button",
   buttonBlock = false,
+  marginClass = "me-2 mb-2", // <-- Default margins (same as before)
 }) => {
   const baseStyles =
-    "rounded-lg text-center me-2 mb-2 font-medium cursor-pointer transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
+    "rounded-lg text-center font-medium cursor-pointer transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const colorStyles: Record<ButtonColor, string> = {
     primary: "bg-indigo-600 text-white hover:bg-indigo-700",
@@ -77,7 +79,7 @@ const Button: React.FC<ButtonProps> = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${baseStyles} ${colorStyles[color || "primary"]} ${sizeStyles[size || "base"]} ${buttonBlock ? "w-full" : ""}`}
+      className={`${baseStyles} ${colorStyles[color]} ${sizeStyles[size]} ${buttonBlock ? "w-full" : ""} ${marginClass}`}
     >
       {label}
     </button>

@@ -7,7 +7,10 @@ import { CartProvider } from "./contexts/CartContext";
 
 export const meta: Route.MetaFunction = () => [
   { title: "Food Oracle - Supply Chain Management" },
-  { name: "description", content: "AI-powered supply chain management system for food distribution and inventory optimization" },
+  {
+    name: "description",
+    content: "AI-powered supply chain management system for food distribution and inventory optimization",
+  },
   { name: "viewport", content: "width=device-width, initial-scale=1" },
 ];
 
@@ -30,7 +33,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

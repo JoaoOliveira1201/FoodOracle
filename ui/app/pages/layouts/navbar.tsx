@@ -22,9 +22,18 @@ export default function Navbar() {
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-          <a href="/home" className="flex items-center space-x-3 rtl:space-x-reverse group hover:scale-105 transition-transform duration-200 ease-in-out">
-            <img src="/iconNoBackground.png" className="h-12 w-12 group-hover:rotate-12 transition-transform duration-200 ease-in-out" alt="Food Oracle Logo" />
-            <span className="self-center text-2xl font-bold whitespace-nowrap dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 ease-in-out">Food Oracle</span>
+          <a
+            href="/home"
+            className="flex items-center space-x-3 rtl:space-x-reverse group hover:scale-105 transition-transform duration-200 ease-in-out"
+          >
+            <img
+              src="/iconNoBackground.png"
+              className="h-12 w-12 group-hover:rotate-12 transition-transform duration-200 ease-in-out"
+              alt="Food Oracle Logo"
+            />
+            <span className="self-center text-2xl font-bold whitespace-nowrap dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-200 ease-in-out">
+              Food Oracle
+            </span>
           </a>
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
             {/* Cart button only on available-items route */}
@@ -75,11 +84,7 @@ export default function Navbar() {
                         <div>${totalAmount}</div>
                       </div>
                       <div className="mt-2 flex gap-2">
-                        <Button
-                          color="secondary"
-                          label="Clear"
-                          onClick={() => clear()}
-                        />
+                        <Button color="secondary" label="Clear" onClick={() => clear()} />
                         <Button
                           color="primary"
                           label="Checkout"
@@ -101,7 +106,9 @@ export default function Navbar() {
                     <div className="text-sm font-semibold text-gray-900 dark:text-white">
                       {user.name || `User #${user.user_id}`}
                     </div>
-                    <div className={`px-3 py-1 text-xs font-medium rounded-full shadow-sm ${getRoleBadgeColor(user.role)}`}>
+                    <div
+                      className={`px-3 py-0 text-xs font-medium rounded-full shadow-sm ${getRoleBadgeColor(user.role)}`}
+                    >
                       {formatRoleDisplayName(user.role)}
                     </div>
                   </div>
@@ -109,6 +116,7 @@ export default function Navbar() {
               </div>
             )}
             <Button
+              marginClass=""
               label="Logout"
               color="primary-outline"
               onClick={() => {

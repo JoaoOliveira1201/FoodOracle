@@ -27,21 +27,58 @@ function Bubble({ message, isMine }: any) {
             <ReactMarkdown
               components={{
                 // Custom styling for markdown elements
-                h1: ({ children }) => <h1 className="text-lg font-bold mb-3 mt-2 first:mt-0 text-zinc-900 dark:text-zinc-100">{children}</h1>,
-                h2: ({ children }) => <h2 className="text-base font-bold mb-2 mt-3 first:mt-0 text-zinc-900 dark:text-zinc-100">{children}</h2>,
-                h3: ({ children }) => <h3 className="text-sm font-bold mb-2 mt-2 first:mt-0 text-zinc-900 dark:text-zinc-100">{children}</h3>,
-                p: ({ children }) => <p className="mb-3 last:mb-0 text-zinc-900 dark:text-zinc-100 leading-relaxed">{children}</p>,
-                strong: ({ children }) => <strong className="font-bold text-zinc-900 dark:text-white">{children}</strong>,
+                h1: ({ children }) => (
+                  <h1 className="text-lg font-bold mb-3 mt-2 first:mt-0 text-zinc-900 dark:text-zinc-100">
+                    {children}
+                  </h1>
+                ),
+                h2: ({ children }) => (
+                  <h2 className="text-base font-bold mb-2 mt-3 first:mt-0 text-zinc-900 dark:text-zinc-100">
+                    {children}
+                  </h2>
+                ),
+                h3: ({ children }) => (
+                  <h3 className="text-sm font-bold mb-2 mt-2 first:mt-0 text-zinc-900 dark:text-zinc-100">
+                    {children}
+                  </h3>
+                ),
+                p: ({ children }) => (
+                  <p className="mb-3 last:mb-0 text-zinc-900 dark:text-zinc-100 leading-relaxed">{children}</p>
+                ),
+                strong: ({ children }) => (
+                  <strong className="font-bold text-zinc-900 dark:text-white">{children}</strong>
+                ),
                 em: ({ children }) => <em className="italic text-zinc-800 dark:text-zinc-200">{children}</em>,
-                ul: ({ children }) => <ul className="list-disc ml-4 mb-3 space-y-1 text-zinc-900 dark:text-zinc-100">{children}</ul>,
-                ol: ({ children }) => <ol className="list-decimal ml-4 mb-3 space-y-1 text-zinc-900 dark:text-zinc-100">{children}</ol>,
+                ul: ({ children }) => (
+                  <ul className="list-disc ml-4 mb-3 space-y-1 text-zinc-900 dark:text-zinc-100">{children}</ul>
+                ),
+                ol: ({ children }) => (
+                  <ol className="list-decimal ml-4 mb-3 space-y-1 text-zinc-900 dark:text-zinc-100">{children}</ol>
+                ),
                 li: ({ children }) => <li className="text-zinc-900 dark:text-zinc-100 leading-relaxed">{children}</li>,
-                code: ({ children }) => <code className="bg-zinc-300 dark:bg-zinc-700 px-1.5 py-0.5 rounded text-xs font-mono text-zinc-900 dark:text-zinc-100">{children}</code>,
-                pre: ({ children }) => <pre className="bg-zinc-300 dark:bg-zinc-700 p-3 rounded text-xs font-mono overflow-x-auto mb-3 text-zinc-900 dark:text-zinc-100 border border-zinc-400 dark:border-zinc-600">{children}</pre>,
-                blockquote: ({ children }) => <blockquote className="border-l-4 border-zinc-400 dark:border-zinc-600 pl-4 italic mb-3 text-zinc-800 dark:text-zinc-200 bg-zinc-100 dark:bg-zinc-700/30 py-2 rounded-r">{children}</blockquote>,
+                code: ({ children }) => (
+                  <code className="bg-zinc-300 dark:bg-zinc-700 px-1.5 py-0.5 rounded text-xs font-mono text-zinc-900 dark:text-zinc-100">
+                    {children}
+                  </code>
+                ),
+                pre: ({ children }) => (
+                  <pre className="bg-zinc-300 dark:bg-zinc-700 p-3 rounded text-xs font-mono overflow-x-auto mb-3 text-zinc-900 dark:text-zinc-100 border border-zinc-400 dark:border-zinc-600">
+                    {children}
+                  </pre>
+                ),
+                blockquote: ({ children }) => (
+                  <blockquote className="border-l-4 border-zinc-400 dark:border-zinc-600 pl-4 italic mb-3 text-zinc-800 dark:text-zinc-200 bg-zinc-100 dark:bg-zinc-700/30 py-2 rounded-r">
+                    {children}
+                  </blockquote>
+                ),
                 hr: () => <hr className="border-zinc-300 dark:border-zinc-600 my-4" />,
                 a: ({ children, href }) => (
-                  <a href={href} className="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 transition-colors" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={href}
+                    className="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {children}
                   </a>
                 ),
@@ -118,30 +155,20 @@ export function ChatWindow({
 
   // Function to animate text streaming
   function streamText(text: string, messageId: string) {
-    const words = text.split(' ');
-    let currentText = '';
+    const words = text.split(" ");
+    let currentText = "";
     let wordIndex = 0;
 
     const streamInterval = setInterval(() => {
       if (wordIndex < words.length) {
-        currentText += (wordIndex > 0 ? ' ' : '') + words[wordIndex];
+        currentText += (wordIndex > 0 ? " " : "") + words[wordIndex];
         setMessages((prev) =>
-          prev.map((msg) => 
-            msg.id === messageId 
-              ? { ...msg, text: currentText, status: "typing" } 
-              : msg
-          )
+          prev.map((msg) => (msg.id === messageId ? { ...msg, text: currentText, status: "typing" } : msg))
         );
         wordIndex++;
       } else {
         clearInterval(streamInterval);
-        setMessages((prev) =>
-          prev.map((msg) => 
-            msg.id === messageId 
-              ? { ...msg, status: "sent" } 
-              : msg
-          )
-        );
+        setMessages((prev) => prev.map((msg) => (msg.id === messageId ? { ...msg, status: "sent" } : msg)));
         // Re-enable send button when streaming is complete
         setDisableSend(false);
       }
@@ -173,8 +200,8 @@ export function ChatWindow({
     // Call external onSend prop to get assistant response
     try {
       // Small delay to ensure unique timestamp for assistant message
-      await new Promise(resolve => setTimeout(resolve, 10));
-      
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
       const assistantMessageId = `assistant_${Date.now()}`;
       const reply = {
         id: assistantMessageId,
@@ -191,19 +218,22 @@ export function ChatWindow({
 
       // Start streaming the response text
       streamText(replyText, assistantMessageId);
-
     } catch (err) {
       console.error("Error in onSend:", err);
       // Add error message instead of leaving "Thinking..."
-      setMessages((prev) => 
-        prev.filter(msg => msg.status !== "typing").concat([{
-          id: `error_${Date.now()}`,
-          role: "assistant", 
-          name: assistantName,
-          text: "Sorry, I encountered an error processing your message. Please try again.",
-          time: new Date().toISOString(),
-          status: "sent"
-        }])
+      setMessages((prev) =>
+        prev
+          .filter((msg) => msg.status !== "typing")
+          .concat([
+            {
+              id: `error_${Date.now()}`,
+              role: "assistant",
+              name: assistantName,
+              text: "Sorry, I encountered an error processing your message. Please try again.",
+              time: new Date().toISOString(),
+              status: "sent",
+            },
+          ])
       );
       // Re-enable send button on error
       setDisableSend(false);
@@ -221,7 +251,7 @@ export function ChatWindow({
     <div className={classNames("w-full p-4 sm:p-8")}>
       <div className="mx-auto flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
         {/* Messages */}
-        <div ref={viewportRef} className="h-[60vh] w-full overflow-y-auto bg-zinc-50 p-4 dark:bg-zinc-900">
+        <div ref={viewportRef} className="h-[60vh] w-full overflow-y-auto bg-zinc-50 p-4 dark:bg-zinc-900/65">
           {messages.map((m) => (
             <div key={m.id} className="mb-3 flex w-full gap-2 flex-col">
               <Bubble message={m} isMine={m.role === "user"} />
@@ -230,7 +260,7 @@ export function ChatWindow({
         </div>
 
         {/* Composer */}
-        <div className="border-t border-zinc-200 p-3 dark:border-zinc-800">
+        <div className="border-t border-zinc-200 p-3 dark:border-zinc-700">
           <div className="flex items-end gap-2">
             <textarea
               value={input}
