@@ -14,6 +14,7 @@ class DatabaseSettings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
+        extra = "ignore"  # Allow extra fields in .env file
 
     @property
     def async_database_url(self) -> str:

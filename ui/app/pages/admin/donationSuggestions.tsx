@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "~/components/Button";
 import { useAuth } from "~/contexts/AuthContext";
+import { LocationInfoModal } from "~/components/LocationInfoModal";
 
 interface DonationLocation {
   name: string;
@@ -38,12 +39,17 @@ interface InventoryMetrics {
 }
 
 export function DonationSuggestionsPage() {
-  const { isAdmin } = useAuth();
+  const { isAdmin, isSupplier } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
   const [data, setData] = useState<DonationResponse | null>(null);
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
   const [inventoryData, setInventoryData] = useState<InventoryMetrics | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<{
+    name: string;
+    address?: string;
+  } | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchDonationSuggestions = async () => {
     setLoading(true);
@@ -121,6 +127,21 @@ export function DonationSuggestionsPage() {
 
   const toggleCardExpansion = (recordId: number) => {
     setExpandedCard(expandedCard === recordId ? null : recordId);
+  };
+
+  const handleGetLocationInfo = (locationName: string, suggestion: DonationSuggestion) => {
+    setSelectedLocation({
+      name: locationName,
+      address: suggestion.warehouse_name + ", " +
+        suggestion.warehouse_location.latitude + ", " +
+        suggestion.warehouse_location.longitude
+    });
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedLocation(null);
   };
 
   const renderEnvironmentalImpact = () => {
@@ -398,11 +419,22 @@ export function DonationSuggestionsPage() {
                             key={locationIndex}
                             className="border border-gray-200 dark:border-gray-600 rounded-lg p-3 bg-gray-50 dark:bg-gray-700"
                           >
-                            <div className="flex items-center">
-                              <div className="w-6 h-6 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-3">
-                                <span className="text-green-600 dark:text-green-400 text-xs">✓</span>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center flex-1">
+                                <div className="w-6 h-6 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                  <span className="text-green-600 dark:text-green-400 text-xs">✓</span>
+                                </div>
+                                <h6 className="font-medium text-gray-900 dark:text-white text-sm">{location.name}</h6>
                               </div>
-                              <h6 className="font-medium text-gray-900 dark:text-white text-sm">{location.name}</h6>
+                              <button
+                                onClick={() => handleGetLocationInfo(location.name, suggestion)}
+                                className="ml-3 px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-md transition-colors flex-shrink-0 flex items-center"
+                              >
+                                <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Get Info
+                              </button>
                             </div>
                           </div>
                         ))}
@@ -421,6 +453,16 @@ export function DonationSuggestionsPage() {
             ))}
           </div>
         </div>
+      )}
+
+      {/* Location Info Modal */}
+      {selectedLocation && (
+        <LocationInfoModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          locationName={selectedLocation.name}
+          locationAddress={selectedLocation.address}
+        />
       )}
     </div>
   );

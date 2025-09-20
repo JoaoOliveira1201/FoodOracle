@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database import get_db_session
 from .src.donation_service import DonationService
+from .src.openai_service import OpenAILocationService
 
 router = APIRouter(prefix="/donation-suggestions", tags=["Donation Suggestions"])
 
@@ -24,6 +25,24 @@ class DonationResponse(BaseModel):
     total_products_expiring: int
     top_10_by_weight: List[DonationSuggestion]
     message: str
+
+
+class LocationInfoRequest(BaseModel):
+    location_name: str
+    location_address: str = None
+
+
+class LocationInfoResponse(BaseModel):
+    location_name: str
+    phone: str
+    schedule: str
+    address: str
+    website: str
+    additional_info: str
+    error: bool = False
+
+    class Config:
+        extra = "ignore"  # Ignore extra fields
 
 
 @router.get("/expiring-products", response_model=DonationResponse)
@@ -82,6 +101,41 @@ async def get_donation_suggestions(db: AsyncSession = Depends(get_db_session)):
         )
 
 
+@router.post("/location-info", response_model=LocationInfoResponse)
+async def get_location_info(request: LocationInfoRequest):
+    """
+    Get detailed information about a donation location using OpenAI web search.
+    Returns contact information, schedule, and other relevant details.
+    """
+    try:
+        # Initialize OpenAI service
+        openai_service = OpenAILocationService()
+
+        # Get location information
+        location_info = await openai_service.get_location_info(
+            request.location_name,
+            request.location_address
+        )
+
+        # Clean the location_info dictionary to remove any keys with leading underscores
+        cleaned_info = {k: v for k, v in location_info.items() if not k.startswith('_')}
+
+        return LocationInfoResponse(**cleaned_info)
+
+    except ValueError as ve:
+        # Handle API key or configuration errors
+        raise HTTPException(
+            status_code=500,
+            detail=f"Configuration error: {str(ve)}"
+        )
+    except Exception as e:
+        # Handle other errors
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error fetching location information: {str(e)}"
+        )
+
+
 @router.get("/status")
 def get_status():
     """Get the status of the donation suggestions service"""
@@ -92,5 +146,6 @@ def get_status():
             "Find products expiring in next 3 days",
             "Sort by weight (top 10)",
             "AI-powered location suggestions for donations",
+            "Get detailed location information via OpenAI",
         ],
     }
