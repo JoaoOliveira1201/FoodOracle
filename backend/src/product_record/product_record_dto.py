@@ -174,6 +174,9 @@ class SupplierStatisticsDto(BaseModel):
     average_days_to_sell: float
     performance_rating: str  # "Excellent", "Good", "Average", "Below Average", "Poor"
     products_list: list  # List of product names
+    supplier_tier: str  # "Platinum", "Gold", "Silver", "Bronze", "Basic"
+    tier_score: float  # Overall calculated score (0-100)
+    tier_breakdown: dict  # Breakdown by component for transparency
 
     class Config:
         from_attributes = True

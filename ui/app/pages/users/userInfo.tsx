@@ -43,6 +43,13 @@ interface SupplierStatistics {
   average_days_to_sell: number;
   performance_rating: string;
   products_list: string[];
+  supplier_tier: string;
+  tier_score: number;
+  tier_breakdown: {
+    quality_component: number;
+    quantity_component: number;
+    success_rate_component: number;
+  };
 }
 
 export function UserInfo() {
@@ -124,6 +131,52 @@ export function UserInfo() {
         return "Truck Driver";
       default:
         return role;
+    }
+  };
+
+  const getTierInfo = (tier: string) => {
+    switch (tier.toLowerCase()) {
+      case "platinum":
+        return {
+          image: "/platinum.png",
+          color: "from-purple-500 to-pink-500",
+          bgColor: "bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20",
+          borderColor: "border-purple-300 dark:border-purple-700",
+          textColor: "text-purple-800 dark:text-purple-200"
+        };
+      case "gold":
+        return {
+          image: "/gold.png",
+          color: "from-yellow-400 to-orange-400",
+          bgColor: "bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/20 dark:to-orange-900/20",
+          borderColor: "border-yellow-300 dark:border-yellow-700",
+          textColor: "text-yellow-800 dark:text-yellow-200"
+        };
+      case "silver":
+        return {
+          image: "/silver.png",
+          color: "from-gray-400 to-gray-500",
+          bgColor: "bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700/20 dark:to-gray-800/20",
+          borderColor: "border-gray-300 dark:border-gray-600",
+          textColor: "text-gray-800 dark:text-gray-200"
+        };
+      case "bronze":
+        return {
+          image: "/bronze.png",
+          color: "from-orange-600 to-red-600",
+          bgColor: "bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/20 dark:to-red-900/20",
+          borderColor: "border-orange-300 dark:border-orange-700",
+          textColor: "text-orange-800 dark:text-orange-200"
+        };
+      case "basic":
+      default:
+        return {
+          image: "/basic.png",
+          color: "from-gray-500 to-gray-600",
+          bgColor: "bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800/20 dark:to-gray-900/20",
+          borderColor: "border-gray-200 dark:border-gray-600",
+          textColor: "text-gray-700 dark:text-gray-300"
+        };
     }
   };
 
@@ -358,6 +411,103 @@ export function UserInfo() {
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Supplier Tier Display */}
+        {userDetail.role === "Supplier" && !statsLoading && supplierStats && supplierStats.supplier_tier && (
+          <div className="bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+            <h2 className="text-2xl font-semibold mb-6 text-white">Supplier Tier Classification</h2>
+
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
+              {/* Tier Image and Name */}
+              <div className="flex flex-col items-center">
+                <div className={`${getTierInfo(supplierStats.supplier_tier).bgColor} ${getTierInfo(supplierStats.supplier_tier).borderColor} border-2 rounded-full p-8 mb-4 shadow-lg`}>
+                  <img
+                    src={getTierInfo(supplierStats.supplier_tier).image}
+                    alt={`${supplierStats.supplier_tier} Tier`}
+                    className="w-24 h-24 object-contain"
+                  />
+                </div>
+                <h3 className={`text-3xl font-bold ${getTierInfo(supplierStats.supplier_tier).textColor} mb-2`}>
+                  {supplierStats.supplier_tier.toUpperCase()} TIER
+                </h3>
+                <div className="text-center">
+                  <div className="text-xl font-semibold text-white mb-1">
+                    Score: {supplierStats.tier_score}/100
+                  </div>
+                  <div className="text-sm text-gray-400">
+                    Based on weighted performance metrics
+                  </div>
+                </div>
+              </div>
+
+              {/* Tier Breakdown */}
+              <div className="flex-1 max-w-md">
+                <h4 className="text-lg font-semibold text-white mb-4">Score Breakdown</h4>
+                <div className="space-y-3">
+                  {/* Quality Component */}
+                  <div className="bg-gray-700 p-3 rounded-lg">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-sm text-gray-300">Product Quality (60%)</span>
+                      <span className="text-sm font-semibold text-green-400">
+                        {supplierStats.tier_breakdown.quality_component.toFixed(1)} pts
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-600 rounded-full h-2">
+                      <div
+                        className="bg-green-500 h-2 rounded-full transition-all duration-300"
+                        style={{ width: `${(supplierStats.tier_breakdown.quality_component / 60) * 100}%` }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  {/* Quantity Component */}
+                  <div className="bg-gray-700 p-3 rounded-lg">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-sm text-gray-300">Quantity Delivered (30%)</span>
+                      <span className="text-sm font-semibold text-blue-400">
+                        {supplierStats.tier_breakdown.quantity_component.toFixed(1)} pts
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-600 rounded-full h-2">
+                      <div
+                        className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+                        style={{ width: `${(supplierStats.tier_breakdown.quantity_component / 30) * 100}%` }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  {/* Success Rate Component */}
+                  <div className="bg-gray-700 p-3 rounded-lg">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-sm text-gray-300">Success Rate (10%)</span>
+                      <span className="text-sm font-semibold text-purple-400">
+                        {supplierStats.tier_breakdown.success_rate_component.toFixed(1)} pts
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-600 rounded-full h-2">
+                      <div
+                        className="bg-purple-500 h-2 rounded-full transition-all duration-300"
+                        style={{ width: `${(supplierStats.tier_breakdown.success_rate_component / 10) * 100}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Tier Requirements */}
+                <div className="mt-4 p-3 bg-gray-700 rounded-lg">
+                  <h5 className="text-xs font-semibold text-gray-400 mb-2">TIER REQUIREMENTS</h5>
+                  <div className="text-xs text-gray-500 space-y-1">
+                    <div>Platinum: 90-100 pts</div>
+                    <div>Gold: 80-89 pts</div>
+                    <div>Silver: 70-79 pts</div>
+                    <div>Bronze: 50-69 pts</div>
+                    <div>Basic: &lt;50 pts</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 

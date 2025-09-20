@@ -788,6 +788,26 @@ class ProductRecordRepository:
             else:
                 performance_rating = "Poor"
 
+            # Calculate supplier tier score based on weighted formula
+            # Quality: 60% weight, Quantity: 30% weight, Success Rate: 10% weight
+            quality_component = good_rate * 0.6  # Good rate percentage * 60%
+            quantity_component = min(100, (total_quantity_kg / 1000) * 100) * 0.3  # Normalized quantity * 30%
+            success_rate_component = sell_rate * 0.1  # Sold rate percentage * 10%
+
+            tier_score = quality_component + quantity_component + success_rate_component
+
+            # Determine tier based on score
+            if tier_score >= 90:
+                supplier_tier = "Platinum"
+            elif tier_score >= 80:
+                supplier_tier = "Gold"
+            elif tier_score >= 70:
+                supplier_tier = "Silver"
+            elif tier_score >= 50:
+                supplier_tier = "Bronze"
+            else:
+                supplier_tier = "Basic"
+
             return {
                 "total_products_registered": len(products_set),
                 "total_quantity_kg": total_quantity_kg,
@@ -801,6 +821,13 @@ class ProductRecordRepository:
                 "average_days_to_sell": round(avg_days_to_sell, 1),
                 "performance_rating": performance_rating,
                 "products_list": list(products_set),
+                "supplier_tier": supplier_tier,
+                "tier_score": round(tier_score, 2),
+                "tier_breakdown": {
+                    "quality_component": round(quality_component, 1),
+                    "quantity_component": round(quantity_component, 1),
+                    "success_rate_component": round(success_rate_component, 1)
+                },
             }
 
         except SQLAlchemyError as e:
