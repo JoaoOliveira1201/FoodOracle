@@ -64,7 +64,7 @@ async def save_progress(location_type: str, locations: list, count: int):
     try:
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(progress_data, f, indent=2, ensure_ascii=False)
-        print(f"💾 Saved progress: {filename}")
+        print(f"� Saved progress: {filename}")
     except Exception as e:
         print(f"⚠️ Failed to save progress: {e}")
 
@@ -78,7 +78,7 @@ def cleanup_progress_files():
     for file in progress_files:
         try:
             os.remove(file)
-            print(f"🗑️ Cleaned up: {file}")
+            print(f"�️ Cleaned up: {file}")
         except Exception as e:
             print(f"⚠️ Failed to remove {file}: {e}")
 
@@ -108,12 +108,12 @@ async def process_coordinate_batch(
                     spain_keywords = ["Espanha", "Spain", "España", "Espana"]
                     if any(keyword in address for keyword in spain_keywords):
                         print(
-                            f"🚫 SPAIN REJECTED: ({latitude}, {longitude}) → {address}"
+                            f"� SPAIN REJECTED: ({latitude}, {longitude}) → {address}"
                         )
                         return longitude, latitude, "SPAIN_REJECTED"
                     else:
                         print(
-                            f"✅ PORTUGAL ACCEPTED: ({latitude}, {longitude}) → {address}"
+                            f" PORTUGAL ACCEPTED: ({latitude}, {longitude}) → {address}"
                         )
 
                 return longitude, latitude, address
@@ -176,7 +176,7 @@ async def generate_locations_with_addresses_sequential(count: int = 1000):
         Dictionary containing user locations, city locations, and metadata
     """
     print(
-        f"🌍 Starting reliable sequential generation of {count} unique locations (240 user + 60 city)..."
+        f"� Starting reliable sequential generation of {count} unique locations (240 user + 60 city)..."
     )
     print("⚡ Using sequential processing for maximum reliability")
 
@@ -193,7 +193,7 @@ async def generate_locations_with_addresses_sequential(count: int = 1000):
     spain_keywords = ["Espanha", "Spain", "España", "Espana"]
 
     # Generate user locations - NEVER GIVE UP!
-    print("📍 Generating 240 unique user locations...")
+    print("� Generating 240 unique user locations...")
     attempts = 0
 
     with tqdm(total=user_target, desc="User locations", unit="loc") as pbar:
@@ -209,7 +209,7 @@ async def generate_locations_with_addresses_sequential(count: int = 1000):
             # Show leniency status
             if attempts == 1000:
                 print(
-                    "\n🔥 Becoming lenient: Allowing duplicates after 1000 attempts (but NEVER Spain)"
+                    "\n� Becoming lenient: Allowing duplicates after 1000 attempts (but NEVER Spain)"
                 )
 
             try:
@@ -252,7 +252,7 @@ async def generate_locations_with_addresses_sequential(count: int = 1000):
                 continue
 
     # Generate city locations - NEVER GIVE UP!
-    print("📍 Generating 60 unique city locations...")
+    print("� Generating 60 unique city locations...")
     city_attempts = 0
 
     with tqdm(total=city_target, desc="City locations", unit="loc") as pbar:
@@ -268,13 +268,13 @@ async def generate_locations_with_addresses_sequential(count: int = 1000):
             # Show leniency status for city locations
             if city_attempts == 400:
                 print(
-                    "\n🔥 City locations becoming lenient: Allowing duplicates after 400 attempts (but NEVER Spain)"
+                    "\n� City locations becoming lenient: Allowing duplicates after 400 attempts (but NEVER Spain)"
                 )
 
             # Debug city coordinate generation every 50 attempts
             if city_attempts % 50 == 0:
                 print(
-                    f"\n🔍 City attempts: {city_attempts}, Generated coordinates: ({longitude}, {latitude})"
+                    f"\n� City attempts: {city_attempts}, Generated coordinates: ({longitude}, {latitude})"
                 )
 
             try:
@@ -290,7 +290,7 @@ async def generate_locations_with_addresses_sequential(count: int = 1000):
                 if any(keyword in address for keyword in spain_keywords):
                     stats["spain_rejected"] += 1
                     print(
-                        f"🚫 City Spain rejected: ({longitude}, {latitude}) → {address}"
+                        f"� City Spain rejected: ({longitude}, {latitude}) → {address}"
                     )
                     continue
 
@@ -298,7 +298,7 @@ async def generate_locations_with_addresses_sequential(count: int = 1000):
                 normalized_address = address.strip().lower()
                 if duplicate_check_enabled and normalized_address in seen_addresses:
                     stats["duplicate_rejected"] += 1
-                    print(f"🔄 City duplicate rejected: {address}")
+                    print(f"� City duplicate rejected: {address}")
                     continue
 
                 # Success!
@@ -310,7 +310,7 @@ async def generate_locations_with_addresses_sequential(count: int = 1000):
                     "type": "city",
                 }
                 print(
-                    f"✅ City location success: ({longitude}, {latitude}) → {address}"
+                    f" City location success: ({longitude}, {latitude}) → {address}"
                 )
                 city_locations.append(location_data)
                 pbar.update(1)
@@ -324,7 +324,7 @@ async def generate_locations_with_addresses_sequential(count: int = 1000):
                 continue
 
     print(
-        f"✅ Generated {len(user_locations)} user locations and {len(city_locations)} city locations"
+        f" Generated {len(user_locations)} user locations and {len(city_locations)} city locations"
     )
 
     # Save final progress files
@@ -334,7 +334,7 @@ async def generate_locations_with_addresses_sequential(count: int = 1000):
         await save_progress("city", city_locations, len(city_locations))
 
     # FINAL VALIDATION: Double-check for any Spain locations or duplicates that might have slipped through
-    print("🔍 Final validation: checking for Spain locations and duplicates...")
+    print("� Final validation: checking for Spain locations and duplicates...")
 
     all_locations = user_locations + city_locations
     spain_keywords = ["Espanha", "Spain", "España", "Espana"]
@@ -358,14 +358,14 @@ async def generate_locations_with_addresses_sequential(count: int = 1000):
 
     # If validation errors found, raise exception
     if validation_errors:
-        print("❌ VALIDATION FAILED!")
+        print(" VALIDATION FAILED!")
         for error in validation_errors:
             print(f"  {error}")
         raise Exception(
             f"Validation failed: {len(validation_errors)} errors found. Spain locations or duplicates detected!"
         )
 
-    print("✅ Validation passed: No Spain locations or duplicates found!")
+    print(" Validation passed: No Spain locations or duplicates found!")
 
     # Compile results
     total_generated = len(user_locations) + len(city_locations)
@@ -407,7 +407,7 @@ async def generate_locations_with_addresses_sequential(count: int = 1000):
 async def main():
     """Main function to generate locations and save to JSON"""
     print("=" * 60)
-    print("🏗️  RELIABLE LOCATION GENERATOR FOR SUPPLY CHAIN DB")
+    print("�️  RELIABLE LOCATION GENERATOR FOR SUPPLY CHAIN DB")
     print("=" * 60)
 
     try:
@@ -422,9 +422,9 @@ async def main():
         # Print summary
         metadata = locations_data["metadata"]
         print("\n" + "=" * 60)
-        print("✅ LOCATION GENERATION COMPLETED")
+        print(" LOCATION GENERATION COMPLETED")
         print("=" * 60)
-        print(f"📊 SUMMARY:")
+        print(f"� SUMMARY:")
         print(f"  • Total unique locations generated: {metadata['total_generated']}")
         print(f"  • User locations: {metadata['user_locations_count']}")
         print(f"  • City locations: {metadata['city_locations_count']}")
@@ -437,7 +437,7 @@ async def main():
         print(f"  • Success rate: {metadata['success_rate']}")
         print(f"  • Processing mode: {metadata.get('processing_mode', 'unknown')}")
         print(
-            f"  • Final validation: {'✅ PASSED' if metadata.get('validation_passed') else '❌ FAILED'}"
+            f"  • Final validation: {' PASSED' if metadata.get('validation_passed') else ' FAILED'}"
         )
         print(f"  • Output file: {output_file}")
 
@@ -448,15 +448,15 @@ async def main():
 
         if metadata["spain_rejected_count"] > 0:
             print(
-                f"\n🇪🇸 REJECTED {metadata['spain_rejected_count']} locations in Spain"
+                f"\n�� REJECTED {metadata['spain_rejected_count']} locations in Spain"
             )
 
         if metadata["duplicate_rejected_count"] > 0:
             print(
-                f"\n🔄 REJECTED {metadata['duplicate_rejected_count']} duplicate locations"
+                f"\n� REJECTED {metadata['duplicate_rejected_count']} duplicate locations"
             )
 
-        print("\n🎉 Ready to use with populate script!")
+        print("\n� Ready to use with populate script!")
         print("=" * 60)
 
         # Clean up temporary progress files
@@ -464,7 +464,7 @@ async def main():
         cleanup_progress_files()
 
     except Exception as e:
-        print(f"❌ Error during location generation: {e}")
+        print(f" Error during location generation: {e}")
         raise
 
 

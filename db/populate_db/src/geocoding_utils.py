@@ -66,20 +66,20 @@ class GeocodingService:
                             address = f"{city}, {county}, {country}"
                             if not self.quiet:
                                 print(
-                                    f"✅ Geocoded ({latitude}, {longitude}) → {address}"
+                                    f" Geocoded ({latitude}, {longitude}) → {address}"
                                 )
                             return address
                         else:
                             address = f"{county}, {country}"
                             if not self.quiet:
                                 print(
-                                    f"✅ Geocoded ({latitude}, {longitude}) → {address} (no city)"
+                                    f" Geocoded ({latitude}, {longitude}) → {address} (no city)"
                                 )
                             return address
                     else:
                         # Missing mandatory fields, treat as failure
                         print(
-                            f"❌ Missing mandatory fields for ({latitude}, {longitude}): county='{county}', country='{country}'"
+                            f" Missing mandatory fields for ({latitude}, {longitude}): county='{county}', country='{country}'"
                         )
                         return None
 
@@ -100,7 +100,7 @@ class GeocodingService:
                     coord_key = f"({latitude}, {longitude})"
                     self.failed_coordinates.append(coord_key)
                     print(
-                        f"❌ Failed to geocode {coord_key} after {max_retries} attempts"
+                        f" Failed to geocode {coord_key} after {max_retries} attempts"
                     )
                     return None
 

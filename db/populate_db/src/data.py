@@ -68,7 +68,7 @@ def load_locations_from_json(json_file_path: str = "generated_locations.json") -
     try:
         # Check if file exists
         if not os.path.exists(json_file_path):
-            print(f"⚠️ Locations file not found: {json_file_path}")
+            print(f" Locations file not found: {json_file_path}")
             return False
 
         # Load JSON data
@@ -81,19 +81,19 @@ def load_locations_from_json(json_file_path: str = "generated_locations.json") -
 
         # Validate data
         if not _user_locations or not _city_locations:
-            print(f"⚠️ Invalid locations data in {json_file_path}")
+            print(f" Invalid locations data in {json_file_path}")
             return False
 
         metadata = _loaded_locations.get("metadata", {})
         print(
-            f"✅ Loaded {len(_user_locations)} user locations and {len(_city_locations)} city locations"
+            f" Loaded {len(_user_locations)} user locations and {len(_city_locations)} city locations"
         )
-        print(f"📊 Success rate: {metadata.get('success_rate', 'unknown')}")
+        print(f" Success rate: {metadata.get('success_rate', 'unknown')}")
 
         return True
 
     except Exception as e:
-        print(f"❌ Error loading locations from {json_file_path}: {e}")
+        print(f" Error loading locations from {json_file_path}: {e}")
         return False
 
 
@@ -112,7 +112,7 @@ def get_random_user_location() -> Tuple[float, float, str]:
         return (location["longitude"], location["latitude"], location["address"])
     else:
         # Fallback to original random generation
-        print("⚠️ No pre-generated user locations available, using fallback generation")
+        print(" No pre-generated user locations available, using fallback generation")
         return random_portugal_location_fallback()
 
 
@@ -131,7 +131,7 @@ def get_random_city_location() -> Tuple[float, float, str]:
         return (location["longitude"], location["latitude"], location["address"])
     else:
         # Fallback to original random generation
-        print("⚠️ No pre-generated city locations available, using fallback generation")
+        print(" No pre-generated city locations available, using fallback generation")
         return random_city_location_fallback()
 
 

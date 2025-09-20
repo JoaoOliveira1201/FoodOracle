@@ -28,7 +28,7 @@ class DatabaseManager:
         """Connect to PostgreSQL database"""
         print("Connecting to database...")
         self.conn = await asyncpg.connect(**DB_CONFIG)
-        print("✓ Database connected")
+        print("Database connected")
 
     async def disconnect(self):
         """Close database connection"""
@@ -57,7 +57,7 @@ class DatabaseManager:
             await self.conn.execute(
                 f"ALTER SEQUENCE IF EXISTS {clean_table}_{clean_table}id_seq RESTART WITH 1"
             )
-        print("✓ Database cleared")
+        print(" Database cleared")
 
     async def print_summary(self):
         """Print a summary of populated data"""
@@ -139,7 +139,7 @@ class FileManager:
         ]:
             if not self.minio_client.bucket_exists(bucket):
                 self.minio_client.make_bucket(bucket)
-        print("✓ MinIO connected and buckets ready")
+        print(" MinIO connected and buckets ready")
 
     def upload_file(self, file_path: Path, bucket_name: str, object_name: str) -> str:
         """Upload file to MinIO and return the object name"""
@@ -167,21 +167,12 @@ class FileManager:
                 "SELECT name FROM product WHERE productid = $1", product_id
             )
 
-            # Generate custom PDF in a temporary file
-            with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as temp_file:
-                generate_term_quote_pdf_topics(
-                    supplier_name, product_name, temp_file.name
-                )
-
-                # Upload the generated PDF
-                self.minio_client.fput_object(
-                    MINIO_CONFIG["quotes_bucket"], pdf_object_name, temp_file.name
-                )
-
-                # Clean up temporary file
-                os.unlink(temp_file.name)
-
-                return pdf_object_name
+            # Use fallback PDF to avoid Windows file permission issues
+            return self.upload_file(
+                SAMPLE_FILES["random_pdf"],
+                MINIO_CONFIG["quotes_bucket"],
+                pdf_object_name,
+            )
         else:
             # Fallback to default PDF if no database connection
             return self.upload_file(

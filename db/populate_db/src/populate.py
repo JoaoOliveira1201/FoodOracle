@@ -50,7 +50,7 @@ async def populate_users(db_manager):
 
     # Insert sample users
     print(
-        f"📍 Creating {len(sample_users)} sample users with pre-generated locations..."
+        f"Creating {len(sample_users)} sample users with pre-generated locations..."
     )
     for i, user_data in enumerate(sample_users, 1):
         lng, lat, address = user_data["location"]
@@ -69,7 +69,7 @@ async def populate_users(db_manager):
         db_manager.add_user_id(user_data["role"], user_id)
         created_count += 1
         print(
-            f"✅ Created user '{user_data['name']}' ({user_data['role']}) with address: {address}"
+            f" Created user '{user_data['name']}' ({user_data['role']}) with address: {address}"
         )
 
     # Generate additional users to reach targets
@@ -84,7 +84,7 @@ async def populate_users(db_manager):
 
         if to_generate > 0:
             print(
-                f"📍 Creating {to_generate} additional {role} users with pre-generated locations..."
+                f" Creating {to_generate} additional {role} users with pre-generated locations..."
             )
 
         for i in range(to_generate):
@@ -110,10 +110,10 @@ async def populate_users(db_manager):
             )
             db_manager.add_user_id(role, user_id)
             created_count += 1
-            print(f"✅ Created user '{name}' ({role}) with address: {address}")
+            print(f" Created user '{name}' ({role}) with address: {address}")
 
     total_users = sum(len(v) for v in db_manager.user_ids.values())
-    print(f"✓ Created {created_count} users using pre-generated locations")
+    print(f" Created {created_count} users using pre-generated locations")
 
 
 async def populate_products(db_manager):
@@ -135,7 +135,7 @@ async def populate_products(db_manager):
             if name in db_manager.product_ids:
                 name = f"{name} {faker.unique.numerify(text='###')}"
 
-        # Simple integer pricing (€/kg)
+        # Simple integer pricing (/kg)
         if name in ["Bananas", "Oranges", "Apples", "Potatoes", "Onions", "Carrots"]:
             base_price = random.randint(1, 2)
         elif name in ["Strawberries", "Blueberries", "Raspberries", "Blackberries", "Cherries"]:
@@ -203,7 +203,7 @@ async def populate_products(db_manager):
         )
         db_manager.add_product_id(name, product_id)
 
-    print(f"✓ Created {len(db_manager.get_product_ids())} products")
+    print(f" Created {len(db_manager.get_product_ids())} products")
 
 
 async def populate_warehouses(db_manager):
@@ -214,7 +214,7 @@ async def populate_warehouses(db_manager):
     warehouse_index = 1
 
     print(
-        f"📍 Creating {WAREHOUSE_TARGET_COUNT} warehouses with pre-generated locations..."
+        f" Creating {WAREHOUSE_TARGET_COUNT} warehouses with pre-generated locations..."
     )
     for i in range(WAREHOUSE_TARGET_COUNT):
         lng, lat, address = get_random_city_location()
@@ -251,9 +251,9 @@ async def populate_warehouses(db_manager):
         db_manager.add_warehouse_id(warehouse_index, warehouse_id)
         warehouse_index += 1
         created_count += 1
-        print(f"✅ Created warehouse '{full_name}' with address: {address}")
+        print(f" Created warehouse '{full_name}' with address: {address}")
 
-    print(f"✓ Created {created_count} warehouses using pre-generated locations")
+    print(f" Created {created_count} warehouses using pre-generated locations")
 
 
 async def get_truck_location(db_manager, warehouses, index):
@@ -292,7 +292,7 @@ async def populate_trucks(db_manager):
         if i == 0 and test_driver_id:
             driver_id = test_driver_id
             assigned_drivers.add(test_driver_id)
-            print(f"✓ Assigned truck {i + 1} to Test Driver (driver@test.com)")
+            print(f" Assigned truck {i + 1} to Test Driver (driver@test.com)")
         else:
             # Assign to other drivers, avoiding already assigned ones
             available_drivers = [d for d in drivers if d not in assigned_drivers]
@@ -349,7 +349,7 @@ async def populate_trucks(db_manager):
         )
         db_manager.add_truck_id(existing_count + i + 1, truck_id)
 
-    print(f"✓ Created {len(db_manager.get_truck_ids())} trucks")
+    print(f" Created {len(db_manager.get_truck_ids())} trucks")
 
 
 # ===============================
@@ -416,8 +416,8 @@ async def populate_quotes(db_manager, file_manager):
         quote_counter += 1
 
     total_quotes = guaranteed_quotes + remaining_quotes
-    print(f"✓ Created {total_quotes} quotes with PDF documents")
-    print(f"✓ Guaranteed: Each product has at least 3 pending supplier quotes")
+    print(f" Created {total_quotes} quotes with PDF documents")
+    print(f" Guaranteed: Each product has at least 3 pending supplier quotes")
 
 
 async def ensure_test_supplier_approved_quotes(db_manager, file_manager):
@@ -482,7 +482,7 @@ async def ensure_test_supplier_approved_quotes(db_manager, file_manager):
 
     total_approved = len(existing_product_ids) + created_count
     print(
-        f"✓ Test Supplier has {total_approved} approved quotes (created {created_count} new)"
+        f" Test Supplier has {total_approved} approved quotes (created {created_count} new)"
     )
 
 
@@ -581,7 +581,7 @@ async def populate_product_records(db_manager, file_manager):
             )
 
     print(
-        f"✓ Created {len(products) * records_per_product} product records distributed across warehouses"
+        f" Created {len(products) * records_per_product} product records distributed across warehouses"
     )
 
 
@@ -605,7 +605,7 @@ async def populate_orders(db_manager):
     # Create orders spanning last 12 months for better forecasting data
     for i in range(POPULATION_COUNTS["orders"]):
         if not buyers or not record_pool:
-            print(f"⚠️ Not enough buyers or sold records for orders. Buyers: {len(buyers) if buyers else 0}, Sold records: {len(record_pool)}")
+            print(f" Not enough buyers or sold records for orders. Buyers: {len(buyers) if buyers else 0}, Sold records: {len(record_pool)}")
             break
 
         buyer_id = random.choice(buyers)
@@ -633,7 +633,7 @@ async def populate_orders(db_manager):
         
         # Ensure we have at least 1 item available
         if max_items < 1:
-            print(f"⚠️ Not enough sold records for order {i+1}, skipping...")
+            print(f" Not enough sold records for order {i+1}, skipping...")
             continue
         
         # Weighted distribution for realistic order patterns
@@ -688,7 +688,7 @@ async def populate_orders(db_manager):
             order_id,
         )
 
-    print(f"✓ Created up to {POPULATION_COUNTS['orders']} orders with order items")
+    print(f" Created up to {POPULATION_COUNTS['orders']} orders with order items")
 
 
 async def populate_trips(db_manager):
@@ -736,7 +736,7 @@ async def populate_trips(db_manager):
         # Ensure Test Driver gets extra trips (at least 8)
         if truck_id == test_driver_truck_id:
             trips_for_driver = max(8, trips_for_driver)
-            print(f"✓ Guaranteed {trips_for_driver} trips for Test Driver")
+            print(f" Guaranteed {trips_for_driver} trips for Test Driver")
 
         # Ensure at least 1 trip per driver, max around 8-10
         trips_for_driver = max(1, min(trips_for_driver, 10))
@@ -797,7 +797,7 @@ async def populate_trips(db_manager):
             else:  # long
                 estimated_hours = random.randint(12, 24)
             
-            # Actual hours with realistic variation (±15% of estimated)
+            # Actual hours with realistic variation (15% of estimated)
             variation = random.uniform(0.85, 1.15)
             actual_hours = max(1, int(estimated_hours * variation))
 
@@ -829,8 +829,8 @@ async def populate_trips(db_manager):
 
             total_created += 1
 
-    print(f"✓ Created {total_created} trips across {len(trucks)} drivers")
-    print(f"✓ {len(drivers_with_active_trips)} drivers have active trips")
+    print(f" Created {total_created} trips across {len(trucks)} drivers")
+    print(f" {len(drivers_with_active_trips)} drivers have active trips")
 
 
 async def populate_warehouse_transfers(db_manager):
@@ -885,7 +885,7 @@ async def populate_warehouse_transfers(db_manager):
         # Ensure Test Driver gets extra transfers (at least 6)
         if truck_id == test_driver_truck_id:
             transfers_for_driver = max(6, transfers_for_driver)
-            print(f"✓ Guaranteed {transfers_for_driver} transfers for Test Driver")
+            print(f" Guaranteed {transfers_for_driver} transfers for Test Driver")
 
         # Ensure at least 1 transfer per driver, max around 6-8
         transfers_for_driver = max(1, min(transfers_for_driver, 8))
@@ -934,7 +934,7 @@ async def populate_warehouse_transfers(db_manager):
             else:  # long
                 estimated_hours = random.randint(12, 18)
             
-            # Actual hours with realistic variation (±10% of estimated)
+            # Actual hours with realistic variation (10% of estimated)
             variation = random.uniform(0.90, 1.10)
             actual_hours = max(1, int(estimated_hours * variation))
 
@@ -977,10 +977,10 @@ async def populate_warehouse_transfers(db_manager):
 
             total_created += 1
 
-    print(f"✓ Created {total_created} warehouse transfers across {len(trucks)} drivers")
-    print(f"✓ {len(drivers_with_active_trips)} drivers have active trips")
-    print(f"✓ {len(drivers_with_active_transfers)} drivers have active transfers")
-    print(f"✓ Constraint enforced: no driver has both active trip and active transfer")
+    print(f" Created {total_created} warehouse transfers across {len(trucks)} drivers")
+    print(f" {len(drivers_with_active_trips)} drivers have active trips")
+    print(f" {len(drivers_with_active_transfers)} drivers have active transfers")
+    print(f" Constraint enforced: no driver has both active trip and active transfer")
 
 
 # ===============================
@@ -993,19 +993,19 @@ async def populate_all_entities(db_manager, file_manager):
     print("Starting complete database population...")
 
     # Load pre-generated locations first
-    print("🌍 Loading pre-generated locations...")
+    print(" Loading pre-generated locations...")
     locations_loaded = load_locations_from_json("generated_locations.json")
 
     if not locations_loaded:
-        print("❌ Failed to load pre-generated locations!")
+        print(" Failed to load pre-generated locations!")
         print("Please run the location generator script first:")
         print("  python generate_locations.py")
         return False
 
     # Display location metadata
     metadata = get_locations_metadata()
-    print(f"📊 Location data: {metadata.get('total_generated', 0)} total locations")
-    print(f"📊 Generated at: {metadata.get('generated_at', 'unknown')}")
+    print(f" Location data: {metadata.get('total_generated', 0)} total locations")
+    print(f" Generated at: {metadata.get('generated_at', 'unknown')}")
 
     # Basic entities first (order matters due to foreign keys)
     await populate_users(db_manager)
@@ -1023,5 +1023,5 @@ async def populate_all_entities(db_manager, file_manager):
     await populate_trips(db_manager)
     await populate_warehouse_transfers(db_manager)
 
-    print("✅ All entities populated successfully using pre-generated locations!")
+    print(" All entities populated successfully using pre-generated locations!")
     return True

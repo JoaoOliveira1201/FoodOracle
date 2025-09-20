@@ -10,7 +10,7 @@ from datetime import datetime
 
 def merge_progress_files():
     """Merge all progress files into final locations JSON"""
-    print("🔄 Merging progress files...")
+    print("� Merging progress files...")
 
     # Load the final progress files
     user_file = "progress_user_240.json"
@@ -24,9 +24,9 @@ def merge_progress_files():
         with open(user_file, "r", encoding="utf-8") as f:
             user_data = json.load(f)
             user_locations = user_data["locations"]
-        print(f"✅ Loaded {len(user_locations)} user locations from {user_file}")
+        print(f" Loaded {len(user_locations)} user locations from {user_file}")
     except Exception as e:
-        print(f"❌ Failed to load {user_file}: {e}")
+        print(f" Failed to load {user_file}: {e}")
         return
 
     # Load city locations
@@ -34,9 +34,9 @@ def merge_progress_files():
         with open(city_file, "r", encoding="utf-8") as f:
             city_data = json.load(f)
             city_locations = city_data["locations"]
-        print(f"✅ Loaded {len(city_locations)} city locations from {city_file}")
+        print(f" Loaded {len(city_locations)} city locations from {city_file}")
     except Exception as e:
-        print(f"❌ Failed to load {city_file}: {e}")
+        print(f" Failed to load {city_file}: {e}")
         return
 
     # Create final merged data
@@ -62,10 +62,10 @@ def merge_progress_files():
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(locations_data, f, indent=2, ensure_ascii=False)
 
-    print(f"✅ Merged locations saved to {output_file}")
-    print(f"📊 Total locations: {total_generated}")
-    print(f"📊 User locations: {len(user_locations)}")
-    print(f"📊 City locations: {len(city_locations)}")
+    print(f" Merged locations saved to {output_file}")
+    print(f"� Total locations: {total_generated}")
+    print(f"� User locations: {len(user_locations)}")
+    print(f"� City locations: {len(city_locations)}")
 
     # Clean up progress files
     print("\n🧹 Cleaning up progress files...")
@@ -75,12 +75,12 @@ def merge_progress_files():
             import os
 
             os.remove(file)
-            print(f"🗑️ Removed: {file}")
+            print(f"�️ Removed: {file}")
         except Exception as e:
             print(f"⚠️ Failed to remove {file}: {e}")
 
-    print(f"\n🎉 Successfully merged {total_generated} locations!")
-    print(f"📄 Final file: {output_file}")
+    print(f"\n� Successfully merged {total_generated} locations!")
+    print(f"� Final file: {output_file}")
 
 
 if __name__ == "__main__":
