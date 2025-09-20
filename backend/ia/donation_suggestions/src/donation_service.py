@@ -3,11 +3,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, text
 from datetime import datetime, timedelta
 import re
+import csv
+import os
 
 from src.product_record.product_record_repository import ProductRecordRepository
 from src.product_record.product_record_entity import ProductRecordStatus
 from src.warehouse.warehouse_repository import WarehouseRepository
-from .bedrock import find_donation_locations
 
 
 class DonationService:
@@ -15,6 +16,96 @@ class DonationService:
         self.session = session
         self.product_record_repo = ProductRecordRepository(session)
         self.warehouse_repo = WarehouseRepository(session)
+        self._entidades_data = None
+
+    def _load_entidades_csv(self) -> List[Dict[str, str]]:
+        """
+        Load the entidades_autorizadas.csv file and return a list of organizations.
+        Returns a list of dicts with 'nome' and 'localidade' keys.
+        """
+        if self._entidades_data is not None:
+            return self._entidades_data
+        
+        # Get the path to the CSV file
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        csv_path = os.path.join(current_dir, '..', 'entidades.csv')
+        
+        entidades = []
+        try:
+            with open(csv_path, 'r', encoding='utf-8') as file:
+                # Skip the first 6 lines (headers and metadata)
+                for _ in range(6):
+                    next(file)
+                
+                csv_reader = csv.reader(file)
+                for row in csv_reader:
+                    if len(row) >= 3 and row[1] and row[2]:  # Ensure we have NOME and LOCALIDADE
+                        entidades.append({
+                            'nome': row[1].strip(),
+                            'localidade': row[2].strip()
+                        })
+            
+            self._entidades_data = entidades
+            return entidades
+            
+        except Exception as e:
+            print(f"Error loading entidades CSV: {e}")
+            return []
+
+    def _normalize_text(self, text: str) -> str:
+        """
+        Normalize text for case-insensitive and accent-insensitive matching.
+        Converts to lowercase and removes accents.
+        """
+        import unicodedata
+        
+        # Convert to lowercase
+        text = text.lower()
+        
+        # Remove accents by decomposing and filtering out combining characters
+        text = unicodedata.normalize('NFD', text)
+        text = ''.join(char for char in text if unicodedata.category(char) != 'Mn')
+        
+        return text
+
+    def _find_matching_organizations(self, warehouse_address: str) -> List[Dict[str, str]]:
+        """
+        Find organizations that match the warehouse location by splitting the address
+        and searching for matches in the CSV data.
+        """
+        if not warehouse_address:
+            return []
+        
+        # Split warehouse address by comma to get location parts
+        location_parts = [part.strip() for part in warehouse_address.split(',')]
+        
+        if not location_parts:
+            return []
+        
+        entidades = self._load_entidades_csv()
+        matches = []
+        
+        # Search for matches with each location part
+        for part in location_parts:
+            if not part:
+                continue
+                
+            # Normalize the search part
+            part_normalized = self._normalize_text(part)
+            
+            # Search for matches in the localidade column
+            for entidade in entidades:
+                localidade_normalized = self._normalize_text(entidade['localidade'])
+                
+                # Check if the location part is contained in the localidade
+                if part_normalized in localidade_normalized:
+                    matches.append(entidade)
+            
+            # If we found matches with the first part, don't test the second part
+            if matches:
+                break
+        
+        return matches
 
     async def get_products_expiring_soon(self, days: int = 3) -> List[Dict[str, Any]]:
         """
@@ -99,108 +190,29 @@ class DonationService:
         self, warehouse_location: Dict[str, float], warehouse_address: str = None
     ) -> List[Dict[str, Any]]:
         """
-        Get donation location suggestions for a specific warehouse location using AI.
+        Get donation location suggestions for a specific warehouse location using CSV matching.
         """
         try:
-            # Prepare location data for AI query
-            location_data = {
-                "latitude": warehouse_location["latitude"],
-                "longitude": warehouse_location["longitude"],
-                "address": warehouse_address
-                or f"Coordinates: {warehouse_location['latitude']}, {warehouse_location['longitude']}",
-            }
-
-            # Get AI suggestions
-            ai_response = find_donation_locations(location_data)
-
-            # Parse the AI response to extract structured donation locations
-            donation_locations = self._parse_donation_locations(ai_response)
-
+            if not warehouse_address:
+                return [{"name": "Local Food Banks and Charities"}]
+            
+            # Find matching organizations using string matching
+            matches = self._find_matching_organizations(warehouse_address)
+            
+            if not matches:
+                return [{"name": "Local Food Banks and Charities"}]
+            
+            # Convert matches to the expected format
+            donation_locations = []
+            for match in matches:
+                donation_locations.append({
+                    "name": match['nome'],
+                    "location": match['localidade']
+                })
+            
             return donation_locations
 
         except Exception as e:
-            # Return a fallback response if AI fails
-            return [{"name": "Local Food Bank"}]
+            # Return a fallback response if matching fails
+            return [{"name": "Local Food Banks and Charities"}]
 
-    def _parse_donation_locations(self, ai_response: str) -> List[Dict[str, Any]]:
-        """
-        Parse the AI response to extract organization names.
-        Returns only organization names without placeholder text.
-        """
-        locations = []
-
-        try:
-            # Split response by lines and look for organization names
-            lines = ai_response.split("\n")
-
-            # Skip common introductory phrases and descriptive text
-            skip_phrases = [
-                "here are some charitable organizations",
-                "here are some organizations",
-                "charitable organizations near",
-                "organizations near",
-                "that might accept food donations",
-                "that accept food donations",
-                "food donations",
-                "donation locations",
-                "suggested locations",
-                "nearby organizations",
-                "local organizations",
-                "organizations in the area",
-                "in the area",
-                "near this warehouse",
-                "near this location",
-            ]
-
-            for line in lines:
-                line = line.strip()
-                # Skip empty lines and very short lines
-                if len(line) < 3:
-                    continue
-
-                # Remove common prefixes like numbers, bullets, dashes
-                clean_name = re.sub(r"^[\d\.\-\*\s]+", "", line).strip()
-
-                # Skip if it's still too short
-                if len(clean_name) < 3:
-                    continue
-
-                # Skip lines that contain introductory phrases
-                line_lower = clean_name.lower()
-                if any(phrase in line_lower for phrase in skip_phrases):
-                    continue
-
-                # Skip if it looks like a header or common words
-                if line_lower in [
-                    "organization",
-                    "name",
-                    "list",
-                    "donation",
-                    "locations",
-                    "suggestions",
-                    "options",
-                ]:
-                    continue
-
-                # Skip lines that are too long (likely descriptive text)
-                if len(clean_name) > 100:
-                    continue
-
-                # Create simple location entry with just the name
-                location = {"name": clean_name}
-
-                locations.append(location)
-
-                # Limit to 5 locations to keep response manageable
-                if len(locations) >= 5:
-                    break
-
-            # If no organizations found, provide a generic response
-            if not locations:
-                locations = [{"name": "Local Food Banks and Charities"}]
-
-        except Exception as e:
-            # Fallback if parsing completely fails
-            locations = [{"name": "Local Charitable Organizations"}]
-
-        return locations
