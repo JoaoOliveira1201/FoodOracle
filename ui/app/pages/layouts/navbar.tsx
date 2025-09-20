@@ -100,7 +100,7 @@ export default function Navbar() {
               </div>
             )}
             {user && (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-4 select-none">
                 <div className="bg-white/10 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg px-4 py-3 border border-white/20 dark:border-gray-700/50">
                   <div className="flex items-center space-x-3">
                     <div className="text-sm font-semibold text-gray-900 dark:text-white">
