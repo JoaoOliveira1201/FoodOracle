@@ -135,18 +135,61 @@ async def populate_products(db_manager):
             if name in db_manager.product_ids:
                 name = f"{name} {faker.unique.numerify(text='###')}"
 
-        base_price = random.randint(80, 800)
-        discount_percentage = random.choice([5, 10, 15, 20, 25, 30, 35, 40])
+        # Simple integer pricing (€/kg)
+        if name in ["Bananas", "Oranges", "Apples", "Potatoes", "Onions", "Carrots"]:
+            base_price = random.randint(1, 2)
+        elif name in ["Strawberries", "Blueberries", "Raspberries", "Blackberries", "Cherries"]:
+            base_price = random.randint(3, 8)
+        elif name in ["Avocados", "Mangoes", "Pineapples", "Papayas", "Dragonfruit"]:
+            base_price = random.randint(2, 5)
+        elif name in ["Broccoli", "Cauliflower", "Asparagus", "Artichokes"]:
+            base_price = random.randint(2, 4)
+        elif name in ["Spinach", "Kale", "Arugula", "Lettuce", "Cabbage"]:
+            base_price = random.randint(1, 3)
+        elif name in ["Mushrooms", "Portobello", "Shiitake", "Oyster"]:
+            base_price = random.randint(4, 8)
+        elif name in ["Ginger", "Turmeric", "Basil", "Cilantro", "Parsley", "Mint", "Rosemary", "Thyme", "Sage"]:
+            base_price = random.randint(5, 12)
+        else:
+            base_price = random.randint(1, 3)
+        
+        # Realistic discount percentages for wholesale
+        discount_percentage = random.choice([5, 8, 10, 12, 15, 18, 20, 25])
         requires_refrigeration = name not in [
             "Onions","Garlic","Potatoes","Yams",
             "Beets","Turnips","Radishes","Rutabagas","Parsnips",
             "Ginger","Pumpkins","Butternut","Acorn","Spaghetti","Delicata",
         ]
 
-        shelf_life_days = random.choice([30, 45, 60, 90, 120, 150, 180])  # Much longer shelf life: 1-6 months
-        deadline_to_discount = max(
-            7, min(shelf_life_days - 7, random.choice([14, 21, 30, 45, 60]))  # Discount 1-2 months before expiry
-        )
+        # Realistic shelf life based on product type (in days)
+        if name in ["Bananas", "Strawberries", "Raspberries", "Blackberries", "Cherries", "Blueberries"]:
+            # Berries and soft fruits - short shelf life
+            shelf_life_days = random.choice([3, 5, 7, 10])
+        elif name in ["Lettuce", "Spinach", "Kale", "Arugula", "Cilantro", "Parsley", "Basil", "Mint"]:
+            # Leafy greens and herbs - very short shelf life
+            shelf_life_days = random.choice([2, 3, 5, 7])
+        elif name in ["Avocados", "Mangoes", "Pineapples", "Papayas", "Peaches", "Nectarines", "Plums"]:
+            # Tropical and stone fruits - moderate shelf life
+            shelf_life_days = random.choice([5, 7, 10, 14])
+        elif name in ["Apples", "Oranges", "Pears", "Grapes", "Lemons", "Limes"]:
+            # Hard fruits - longer shelf life
+            shelf_life_days = random.choice([14, 21, 30, 45])
+        elif name in ["Potatoes", "Onions", "Garlic", "Yams", "Beets", "Turnips", "Radishes"]:
+            # Root vegetables - longest shelf life
+            shelf_life_days = random.choice([60, 90, 120, 150, 180])
+        elif name in ["Carrots", "Celery", "Cabbage", "Brussels", "Broccoli", "Cauliflower"]:
+            # Hard vegetables - moderate to long shelf life
+            shelf_life_days = random.choice([14, 21, 30, 45, 60])
+        elif name in ["Mushrooms", "Portobello", "Shiitake", "Oyster"]:
+            # Mushrooms - short shelf life
+            shelf_life_days = random.choice([3, 5, 7, 10])
+        else:
+            # Standard produce - moderate shelf life
+            shelf_life_days = random.choice([7, 10, 14, 21, 30])
+        
+        # Set discount deadline based on shelf life (typically 20-30% of shelf life remaining)
+        discount_deadline_ratio = random.uniform(0.2, 0.3)
+        deadline_to_discount = max(1, int(shelf_life_days * discount_deadline_ratio))
 
         product_id = await db_manager.conn.fetchval(
             """INSERT INTO Product (Name, BasePrice, DiscountPercentage, RequiresRefrigeration, ShelfLifeDays, DeadlineToDiscount) 
@@ -181,9 +224,19 @@ async def populate_warehouses(db_manager):
         name = random.choice(WAREHOUSE_TYPES)
         full_name = f"{city_name} {name}"
 
-        # Demo-friendly warehouse capacities
-        normal_capacity = random.randrange(25000, 50001, 500)  # 25k-60k kg
-        refrigerated_capacity = random.randrange(15000, min(25000, normal_capacity) + 1, 500)  # 1k-20k kg
+        # Realistic warehouse capacities for food distribution centers (in kg)
+        # Small regional DC: 50-200 tons, Medium DC: 200-500 tons, Large DC: 500-2000 tons
+        capacity_tier = random.choices(["small", "medium", "large"], weights=[0.4, 0.4, 0.2])[0]
+        
+        if capacity_tier == "small":
+            normal_capacity = random.randrange(50000, 200001, 5000)  # 50-200 tons
+            refrigerated_capacity = random.randrange(20000, min(80000, normal_capacity), 2000)  # 20-80 tons
+        elif capacity_tier == "medium":
+            normal_capacity = random.randrange(200000, 500001, 10000)  # 200-500 tons
+            refrigerated_capacity = random.randrange(80000, min(200000, normal_capacity), 5000)  # 80-200 tons
+        else:  # large
+            normal_capacity = random.randrange(500000, 2000001, 25000)  # 500-2000 tons
+            refrigerated_capacity = random.randrange(200000, min(800000, normal_capacity), 10000)  # 200-800 tons
 
         warehouse_id = await db_manager.conn.fetchval(
             """INSERT INTO Warehouse (Name, Location, Address, NormalCapacityKg, RefrigeratedCapacityKg) 
@@ -275,7 +328,14 @@ async def populate_trucks(db_manager):
 
         truck_type = random.choices(["Refrigerated", "Normal"], weights=[0.4, 0.6])[0]
         status = random.choices(["Available", "InService"], weights=[0.8, 0.2])[0]
-        load_capacity = random.randrange(100, 2601, 100)
+        
+        # Realistic truck load capacities based on European commercial vehicle standards
+        if truck_type == "Refrigerated":
+            # Refrigerated trucks: 3.5t, 7.5t, 12t, 18t, 26t (common European weight classes)
+            load_capacity = random.choice([3500, 7500, 12000, 18000, 26000])
+        else:
+            # Normal trucks: 3.5t, 7.5t, 12t, 18t, 26t, 40t (including articulated)
+            load_capacity = random.choice([3500, 7500, 12000, 18000, 26000, 40000])
 
         truck_id = await db_manager.conn.fetchval(
             """INSERT INTO Truck (TruckDriverID, CurrentLocation, Status, Type, LoadCapacityKg) 
@@ -435,10 +495,10 @@ async def populate_product_records(db_manager, file_manager):
     products = db_manager.get_product_ids()
     quality_weights = [0.7, 0.2, 0.1]  # Good 70%, Sub-optimal 20%, Bad 10%
     status_weights = [
-        0.60,  # InStock 60% (index 0) - Increased to compensate for order processing
-        0.15,  # Sold 15% (index 1) - Reduced since orders will add more
-        0.10,  # Discarded 10% (index 2) - Reduced since some will expire naturally
-        0.15,  # Donated 15% (index 3) - Slightly reduced
+        0.40,  # InStock 40% (index 0) - Reduced to allow more sold items
+        0.35,  # Sold 35% (index 1) - Increased to ensure enough for orders
+        0.15,  # Discarded 15% (index 2) - Increased slightly
+        0.10,  # Donated 10% (index 3) - Reduced
     ]  # Initial distribution accounting for order processing and natural expiration
     # NOTE: Order must match STATUS_OPTIONS["product_record"] = ["InStock", "Sold", "Discarded", "Donated"]
 
@@ -461,15 +521,32 @@ async def populate_product_records(db_manager, file_manager):
                 STATUS_OPTIONS["product_record"], weights=status_weights
             )[0]
 
-            # Create realistic demo-friendly inventory quantities
-            if random.random() < 0.15:  # 15% chance of large inventory
-                quantity = random.randint(500, 1500)    # 500-1500 kg
-            elif random.random() < 0.25:  # 25% chance of medium inventory
-                quantity = random.randint(200, 500)     # 200-500 kg
-            elif random.random() < 0.4:  # 40% chance of small inventory
-                quantity = random.randint(50, 200)      # 50-200 kg
-            else:  # 20% chance of very small inventory
-                quantity = random.randint(10, 50)       # 10-50 kg
+            # Create realistic inventory quantities based on product type and shelf life
+            product_name = await db_manager.conn.fetchval(
+                "SELECT name FROM product WHERE productid = $1", product_id
+            )
+            
+            if product_name in ["Strawberries", "Raspberries", "Blackberries", "Cherries", "Blueberries", "Mushrooms"]:
+                # Berries and mushrooms - small quantities due to short shelf life
+                quantity = random.randint(20, 100)  # 20-100 kg
+            elif product_name in ["Lettuce", "Spinach", "Kale", "Arugula", "Cilantro", "Parsley", "Basil", "Mint"]:
+                # Leafy greens and herbs - small to medium quantities
+                quantity = random.randint(50, 200)  # 50-200 kg
+            elif product_name in ["Avocados", "Mangoes", "Pineapples", "Papayas", "Peaches", "Nectarines", "Plums"]:
+                # Tropical and stone fruits - medium quantities
+                quantity = random.randint(100, 500)  # 100-500 kg
+            elif product_name in ["Potatoes", "Onions", "Garlic", "Yams", "Beets", "Turnips", "Radishes"]:
+                # Root vegetables - large quantities due to long shelf life
+                quantity = random.randint(500, 2000)  # 500-2000 kg
+            elif product_name in ["Apples", "Oranges", "Pears", "Grapes", "Lemons", "Limes"]:
+                # Hard fruits - medium to large quantities
+                quantity = random.randint(200, 800)  # 200-800 kg
+            elif product_name in ["Bananas", "Carrots", "Celery", "Cabbage", "Broccoli", "Cauliflower"]:
+                # Common staples - medium to large quantities
+                quantity = random.randint(150, 600)  # 150-600 kg
+            else:
+                # Standard produce - medium quantities
+                quantity = random.randint(100, 400)  # 100-400 kg
 
             # Set registration date and sale date based on status to ensure logical consistency
             # With longer shelf life (30-180 days), we can have more realistic date ranges
@@ -528,6 +605,7 @@ async def populate_orders(db_manager):
     # Create orders spanning last 12 months for better forecasting data
     for i in range(POPULATION_COUNTS["orders"]):
         if not buyers or not record_pool:
+            print(f"⚠️ Not enough buyers or sold records for orders. Buyers: {len(buyers) if buyers else 0}, Sold records: {len(record_pool)}")
             break
 
         buyer_id = random.choice(buyers)
@@ -549,38 +627,42 @@ async def populate_orders(db_manager):
         )
 
         total_amount = 0
-        # Increased max items per order from 5 to 15 for more realistic order sizes
-        # Use weighted distribution to favor smaller orders but allow larger ones
-        max_items = min(15, max(1, len(record_pool)))
-        if max_items <= 3:
-            num_items = random.randint(1, max_items)
-        elif max_items <= 7:
-            # For small pools, use simpler distribution
-            num_items = random.randint(1, max_items)
+        # Realistic B2B order sizes for food supply chain
+        # Most orders are 3-8 items, with some larger bulk orders
+        max_items = min(20, max(1, len(record_pool)))
+        
+        # Ensure we have at least 1 item available
+        if max_items < 1:
+            print(f"⚠️ Not enough sold records for order {i+1}, skipping...")
+            continue
+        
+        # Weighted distribution for realistic order patterns
+        # 30% small orders (1-3 items), 45% medium orders (4-8 items), 20% large orders (9-15 items), 5% bulk orders (16+ items)
+        order_size_weights = [0.30, 0.45, 0.20, 0.05]
+        order_size_ranges = [(1, 3), (4, 8), (9, 15), (16, max_items)]
+        
+        # Filter out invalid ranges where start > end
+        valid_ranges = [(start, end) for start, end in order_size_ranges if start <= end]
+        if valid_ranges:
+            selected_range = random.choices(
+                valid_ranges, weights=order_size_weights[: len(valid_ranges)]
+            )[0]
+            num_items = random.randint(selected_range[0], selected_range[1])
         else:
-            # Weighted towards smaller orders: 40% chance 1-3 items, 35% chance 4-7 items, 25% chance 8-max_items
-            weights = [0.4, 0.35, 0.25]
-            ranges = [(1, 3), (4, 7), (8, max_items)]
-            # Filter out invalid ranges where start > end
-            valid_ranges = [(start, end) for start, end in ranges if start <= end]
-            if valid_ranges:
-                selected_range = random.choices(
-                    valid_ranges, weights=weights[: len(valid_ranges)]
-                )[0]
-                num_items = random.randint(selected_range[0], selected_range[1])
-            else:
-                # Fallback if no valid ranges
-                num_items = random.randint(1, max_items)
+            # Fallback if no valid ranges
+            num_items = random.randint(1, max_items)
+        
+        # Safety check for sampling
+        if num_items > len(record_pool):
+            num_items = len(record_pool)
+        
         chosen_indexes = random.sample(range(len(record_pool)), k=num_items)
 
         for idx in sorted(chosen_indexes, reverse=True):
             record = record_pool[idx]
-            base_price = record["baseprice"] or 200
+            base_price = record["baseprice"] or 2
             discount_pct = record["discountpercentage"] or 0
-            market_multiplier = random.uniform(0.85, 1.15)
-            effective_price = max(
-                50, int(base_price * (1 - discount_pct / 100.0) * market_multiplier)
-            )
+            effective_price = max(1, int(base_price * (1 - discount_pct / 100.0)))
             total_amount += effective_price
 
             await db_manager.conn.execute(
@@ -704,8 +786,20 @@ async def populate_trips(db_manager):
                     # All other trips must be completed
                     status = completed_status
 
-            estimated_hours = random.randint(3, 18)
-            actual_hours = max(1, int(random.gauss(mu=estimated_hours, sigma=2)))
+            # Realistic trip durations for food distribution
+            # Short trips (local): 2-6 hours, Medium trips (regional): 6-12 hours, Long trips (inter-regional): 12-24 hours
+            trip_distance_tier = random.choices(["short", "medium", "long"], weights=[0.5, 0.35, 0.15])[0]
+            
+            if trip_distance_tier == "short":
+                estimated_hours = random.randint(2, 6)
+            elif trip_distance_tier == "medium":
+                estimated_hours = random.randint(6, 12)
+            else:  # long
+                estimated_hours = random.randint(12, 24)
+            
+            # Actual hours with realistic variation (±15% of estimated)
+            variation = random.uniform(0.85, 1.15)
+            actual_hours = max(1, int(estimated_hours * variation))
 
             # Set dates based on status
             if status == completed_status:
@@ -828,8 +922,21 @@ async def populate_warehouse_transfers(db_manager):
 
             reason = random.choice(TRANSFER_REASONS)
             notes = random.choice(SAMPLE_TRANSFER_NOTES)
-            estimated_hours = random.randint(4, 16)
-            actual_hours = max(2, int(random.gauss(mu=estimated_hours, sigma=2)))
+            
+            # Realistic warehouse transfer durations
+            # Local transfers: 2-6 hours, Regional transfers: 6-12 hours, Long transfers: 12-18 hours
+            transfer_distance_tier = random.choices(["local", "regional", "long"], weights=[0.6, 0.3, 0.1])[0]
+            
+            if transfer_distance_tier == "local":
+                estimated_hours = random.randint(2, 6)
+            elif transfer_distance_tier == "regional":
+                estimated_hours = random.randint(6, 12)
+            else:  # long
+                estimated_hours = random.randint(12, 18)
+            
+            # Actual hours with realistic variation (±10% of estimated)
+            variation = random.uniform(0.90, 1.10)
+            actual_hours = max(1, int(estimated_hours * variation))
 
             # Set dates based on status
             if status in completed_statuses:

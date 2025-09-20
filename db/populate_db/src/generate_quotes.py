@@ -26,10 +26,32 @@ def generate_term_quote_pdf_topics(supplier_name, product_name, filename):
     elements.append(Paragraph(supplier_info, styles["Normal"]))
     elements.append(Spacer(1, 20))
 
-    # Contract details (randomized for realism)
-    weekly_quantity = random.choice([25, 50, 100, 200])
-    duration_months = random.choice([3, 6, 12])
-    unit_price = round(random.uniform(1, 5), 2)  # price per kg
+    # Realistic contract details based on product type
+    # Weekly quantities based on typical B2B supply contracts
+    if "berry" in product_name.lower() or "mushroom" in product_name.lower():
+        weekly_quantity = random.choice([50, 100, 200, 300])  # Smaller quantities for perishables
+    elif "herb" in product_name.lower() or "spice" in product_name.lower():
+        weekly_quantity = random.choice([25, 50, 100, 150])  # Even smaller for herbs/spices
+    elif "potato" in product_name.lower() or "onion" in product_name.lower():
+        weekly_quantity = random.choice([500, 1000, 2000, 3000])  # Large quantities for staples
+    else:
+        weekly_quantity = random.choice([100, 200, 500, 1000])  # Standard quantities
+    
+    # Contract duration - most B2B contracts are 6-12 months
+    duration_months = random.choice([6, 9, 12, 18])
+    
+    # Simple integer pricing (€/kg)
+    if "berry" in product_name.lower():
+        unit_price = random.randint(3, 8)
+    elif "herb" in product_name.lower() or "spice" in product_name.lower():
+        unit_price = random.randint(8, 15)
+    elif "potato" in product_name.lower() or "onion" in product_name.lower():
+        unit_price = random.randint(1, 2)
+    elif "tropical" in product_name.lower() or "avocado" in product_name.lower():
+        unit_price = random.randint(2, 5)
+    else:
+        unit_price = random.randint(1, 4)
+    
     weekly_cost = round(weekly_quantity * unit_price, 2)
     total_weeks = duration_months * 4
     total_cost = round(weekly_cost * total_weeks, 2)

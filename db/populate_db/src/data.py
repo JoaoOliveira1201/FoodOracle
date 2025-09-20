@@ -316,12 +316,12 @@ SAMPLE_USERS = []
 # ===============================
 
 SAMPLE_TRUCKS = [
-    {"type": "Refrigerated", "load_capacity": 1500, "status": "Available"},
-    {"type": "Refrigerated", "load_capacity": 1200, "status": "InService"},
-    {"type": "Normal", "load_capacity": 2000, "status": "Available"},
-    {"type": "Normal", "load_capacity": 1800, "status": "Available"},
-    {"type": "Refrigerated", "load_capacity": 1400, "status": "InService"},
-    {"type": "Normal", "load_capacity": 2200, "status": "Available"},
+    {"type": "Refrigerated", "load_capacity": 12000, "status": "Available"},
+    {"type": "Refrigerated", "load_capacity": 18000, "status": "InService"},
+    {"type": "Normal", "load_capacity": 26000, "status": "Available"},
+    {"type": "Normal", "load_capacity": 40000, "status": "Available"},
+    {"type": "Refrigerated", "load_capacity": 7500, "status": "InService"},
+    {"type": "Normal", "load_capacity": 12000, "status": "Available"},
 ]
 
 # ===============================
