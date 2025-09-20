@@ -66,11 +66,6 @@ interface TimeSeriesData {
   products_discarded_kg: number;
 }
 
-interface EnvironmentalImpact {
-  meals: number;
-  water_liters: number;
-  co2_kg: number;
-}
 
 interface AnalyticsData {
   financial: FinancialMetrics;
@@ -139,18 +134,6 @@ export function Analytics() {
     return `${value.toFixed(1)}%`;
   };
 
-  // Environmental impact calculations
-  // Based on average food waste impact studies:
-  // - 1 kg of food = approximately 2.5 meals
-  // - 1 kg of food = approximately 1000 liters of water (considering production water footprint)
-  // - 1 kg of food = approximately 3.3 kg CO2 equivalent (production, transport, disposal)
-  const calculateEnvironmentalImpact = (foodKg: number): EnvironmentalImpact => {
-    return {
-      meals: Math.round(foodKg * 2.5),
-      water_liters: Math.round(foodKg * 1000),
-      co2_kg: Math.round(foodKg * 3.3 * 100) / 100, // Round to 2 decimal places
-    };
-  };
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -383,100 +366,6 @@ export function Analytics() {
     );
   };
 
-  const renderEnvironmentalImpact = () => {
-    if (!analyticsData) return null;
-
-    const discardedImpact = calculateEnvironmentalImpact(analyticsData.inventory.total_discarded_kg);
-    const donatedImpact = calculateEnvironmentalImpact(analyticsData.inventory.total_donated_kg);
-
-    return (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Lost Environmental Impact */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border-l-4 border-red-500">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Environmental Impact Lost</h3>
-            <div className="w-12 h-12 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
-              <span className="text-red-600 dark:text-red-400 text-xl">⚠️</span>
-            </div>
-          </div>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-            From {formatNumber(analyticsData.inventory.total_discarded_kg)} kg of discarded food
-          </p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <span className="text-2xl">🍽️</span>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Meals Lost</span>
-              </div>
-              <span className="text-lg font-bold text-red-600 dark:text-red-400">
-                {formatNumber(discardedImpact.meals)}
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <span className="text-2xl">💧</span>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Water Wasted</span>
-              </div>
-              <span className="text-lg font-bold text-red-600 dark:text-red-400">
-                {formatNumber(discardedImpact.water_liters)} L
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <span className="text-2xl">🌍</span>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">CO₂ Emissions</span>
-              </div>
-              <span className="text-lg font-bold text-red-600 dark:text-red-400">
-                {discardedImpact.co2_kg} kg
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Saved Environmental Impact */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border-l-4 border-green-500">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Environmental Impact Saved</h3>
-            <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-              <span className="text-green-600 dark:text-green-400 text-xl">💚</span>
-            </div>
-          </div>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-            From {formatNumber(analyticsData.inventory.total_donated_kg)} kg of donated food
-          </p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <span className="text-2xl">🍽️</span>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Meals Provided</span>
-              </div>
-              <span className="text-lg font-bold text-green-600 dark:text-green-400">
-                {formatNumber(donatedImpact.meals)}
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <span className="text-2xl">💧</span>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Water Saved</span>
-              </div>
-              <span className="text-lg font-bold text-green-600 dark:text-green-400">
-                {formatNumber(donatedImpact.water_liters)} L
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <span className="text-2xl">🌱</span>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">CO₂ Avoided</span>
-              </div>
-              <span className="text-lg font-bold text-green-600 dark:text-green-400">
-                {donatedImpact.co2_kg} kg
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   if (loading && !analyticsData) {
     return (
@@ -619,29 +508,6 @@ export function Analytics() {
               {renderTimeSeriesChart()}
             </div>
 
-            {/* Environmental Impact */}
-            <div>
-              <div className="flex items-center space-x-2 mb-6">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Environmental Impact</h2>
-                <div className="relative group">
-                  <button className="w-5 h-5 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 rounded-full flex items-center justify-center transition-colors">
-                    <svg className="w-3 h-3 text-gray-600 dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                    </svg>
-                  </button>
-                  <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
-                    <div className="text-center">
-                      <div>Calculations based on:</div>
-                      <div>• Average meal size ~400g</div>
-                      <div>• Production water footprint</div>
-                      <div>• Production, transport & disposal emissions</div>
-                    </div>
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900 dark:border-t-gray-700"></div>
-                  </div>
-                </div>
-              </div>
-              {renderEnvironmentalImpact()}
-            </div>
 
             {/* Operational Metrics */}
             <div>
