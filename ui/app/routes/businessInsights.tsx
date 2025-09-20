@@ -39,7 +39,7 @@ export default function BusinessInsights() {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:8000/seasonal-suggestions/analyze", {
+      const response = await fetch("http://34.235.125.104:8000/seasonal-suggestions/analyze", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

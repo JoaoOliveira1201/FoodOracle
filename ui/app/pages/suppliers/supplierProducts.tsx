@@ -61,14 +61,14 @@ export function SupplierProducts() {
   const fetchProductsWithQuoteStatus = async () => {
     try {
       // Fetch all products
-      const productsResponse = await fetch("http://localhost:8000/products/");
+      const productsResponse = await fetch("http://34.235.125.104:8000/products/");
       if (!productsResponse.ok) {
         throw new Error(`Failed to fetch products: ${productsResponse.status}`);
       }
       const productsData = await productsResponse.json();
 
       // Fetch quotes for this supplier
-      const quotesResponse = await fetch(`http://localhost:8000/quotes/?supplier_id=${user?.user_id}`);
+      const quotesResponse = await fetch(`http://34.235.125.104:8000/quotes/?supplier_id=${user?.user_id}`);
       if (!quotesResponse.ok) {
         throw new Error(`Failed to fetch quotes: ${quotesResponse.status}`);
       }

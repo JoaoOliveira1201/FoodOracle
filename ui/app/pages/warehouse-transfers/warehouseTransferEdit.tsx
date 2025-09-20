@@ -68,8 +68,8 @@ export function EditWarehouseTransfer() {
 
       try {
         const [transferResponse, trucksResponse] = await Promise.all([
-          fetch(`http://localhost:8000/warehouse-transfers/${id}`),
-          fetch("http://localhost:8000/trucks/"),
+          fetch(`http://34.235.125.104:8000/warehouse-transfers/${id}`),
+          fetch("http://34.235.125.104:8000/trucks/"),
         ]);
 
         if (!transferResponse.ok) {
@@ -164,7 +164,7 @@ export function EditWarehouseTransfer() {
         updateData.estimated_time = estimated_time;
       }
 
-      const response = await fetch(`http://localhost:8000/warehouse-transfers/${id}`, {
+      const response = await fetch(`http://34.235.125.104:8000/warehouse-transfers/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

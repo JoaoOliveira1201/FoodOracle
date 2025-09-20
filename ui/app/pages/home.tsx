@@ -32,7 +32,7 @@ export function Home() {
 
     try {
       // First get the truck for this driver
-      const truckResponse = await fetch(`http://localhost:8000/trucks/driver/${user.user_id}`);
+      const truckResponse = await fetch(`http://34.235.125.104:8000/trucks/driver/${user.user_id}`);
       if (truckResponse.ok) {
         const truckData = await truckResponse.json();
         if (truckData.length > 0) {
@@ -54,7 +54,7 @@ export function Home() {
 
   const fetchCurrentTrip = async (truckId: number) => {
     try {
-      const response = await fetch(`http://localhost:8000/trips/truck/${truckId}`);
+      const response = await fetch(`http://34.235.125.104:8000/trips/truck/${truckId}`);
       if (response.ok) {
         const trips = await response.json();
         // Find active trip (not delivered)
@@ -70,7 +70,7 @@ export function Home() {
 
   const fetchCurrentTransfer = async (truckId: number) => {
     try {
-      const response = await fetch(`http://localhost:8000/warehouse-transfers/truck/${truckId}`);
+      const response = await fetch(`http://34.235.125.104:8000/warehouse-transfers/truck/${truckId}`);
       if (response.ok) {
         const transfers = await response.json();
         // Find active transfer (pending or in transit)
@@ -101,7 +101,7 @@ export function Home() {
     setUpdateError(null);
     
     try {
-      const response = await fetch(`http://localhost:8000/trips/${tripId}`, {
+      const response = await fetch(`http://34.235.125.104:8000/trips/${tripId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -134,7 +134,7 @@ export function Home() {
     setUpdateError(null);
     
     try {
-      const response = await fetch(`http://localhost:8000/warehouse-transfers/${transferId}`, {
+      const response = await fetch(`http://34.235.125.104:8000/warehouse-transfers/${transferId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -169,7 +169,7 @@ export function Home() {
     setUpdateError(null);
     
     try {
-      const response = await fetch(`http://localhost:8000/trucks/${truck.truck_id}/status`, {
+      const response = await fetch(`http://34.235.125.104:8000/trucks/${truck.truck_id}/status`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -203,7 +203,7 @@ export function Home() {
     setUpdateError(null);
     
     try {
-      const response = await fetch(`http://localhost:8000/trucks/${truck.truck_id}/status`, {
+      const response = await fetch(`http://34.235.125.104:8000/trucks/${truck.truck_id}/status`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

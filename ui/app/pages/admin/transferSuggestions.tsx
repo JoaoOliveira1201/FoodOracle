@@ -73,7 +73,7 @@ export function TransferSuggestionsPage() {
     setData(null);
     setTransferActions([]);
     try {
-      const resp = await fetch("http://localhost:8000/transfer-suggestions/generate", {
+      const resp = await fetch("http://34.235.125.104:8000/transfer-suggestions/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ max_trucks_to_use: maxTrucks }),
@@ -97,7 +97,7 @@ export function TransferSuggestionsPage() {
   const handlePlaceTransfer = async (transfer: TransferRecord) => {
     setActionLoading((prev) => new Set(prev).add(transfer.transfer_id));
     try {
-      const resp = await fetch("http://localhost:8000/warehouse-transfers/", {
+      const resp = await fetch("http://34.235.125.104:8000/warehouse-transfers/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

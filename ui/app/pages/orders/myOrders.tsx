@@ -41,7 +41,7 @@ export function MyOrders() {
 
       try {
         // Fetch orders for the current user
-        const response = await fetch(`http://localhost:8000/orders/?buyer_id=${user.user_id}`);
+        const response = await fetch(`http://34.235.125.104:8000/orders/?buyer_id=${user.user_id}`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

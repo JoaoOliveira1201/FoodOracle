@@ -50,8 +50,8 @@ export function OrderList() {
     async function fetchData() {
       try {
         const [ordersResponse, usersResponse] = await Promise.all([
-          fetch("http://localhost:8000/orders/"),
-          fetch("http://localhost:8000/users/"),
+          fetch("http://34.235.125.104:8000/orders/"),
+          fetch("http://34.235.125.104:8000/users/"),
         ]);
         
         if (!ordersResponse.ok || !usersResponse.ok) {

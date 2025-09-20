@@ -55,7 +55,7 @@ export function DonationSuggestionsPage() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("http://localhost:8000/donation-suggestions/expiring-products");
+      const response = await fetch("http://34.235.125.104:8000/donation-suggestions/expiring-products");
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(errorData.detail || `HTTP ${response.status}`);
@@ -72,7 +72,7 @@ export function DonationSuggestionsPage() {
 
   const fetchInventoryData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/analytics/comprehensive?days_back=30");
+      const response = await fetch("http://34.235.125.104:8000/analytics/comprehensive?days_back=30");
       if (response.ok) {
         const analyticsData = await response.json();
         setInventoryData({

@@ -38,7 +38,7 @@ export function CreateProduct() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/products/", {
+      const response = await fetch("http://34.235.125.104:8000/products/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

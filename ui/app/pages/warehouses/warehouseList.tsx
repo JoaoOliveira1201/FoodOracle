@@ -23,7 +23,7 @@ export function WarehouseList() {
   useEffect(() => {
     async function fetchWarehouses() {
       try {
-        const response = await fetch("http://localhost:8000/warehouses/");
+        const response = await fetch("http://34.235.125.104:8000/warehouses/");
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -44,7 +44,7 @@ export function WarehouseList() {
   const handleDelete = async (warehouseId: number) => {
     setDeletingId(warehouseId);
     try {
-      const response = await fetch(`http://localhost:8000/warehouses/${warehouseId}`, {
+      const response = await fetch(`http://34.235.125.104:8000/warehouses/${warehouseId}`, {
         method: "DELETE",
       });
 

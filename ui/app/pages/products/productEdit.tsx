@@ -30,7 +30,7 @@ export function EditProduct() {
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const response = await fetch(`http://localhost:8000/products/${id}`);
+        const response = await fetch(`http://34.235.125.104:8000/products/${id}`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -71,7 +71,7 @@ export function EditProduct() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`http://localhost:8000/products/${id}`, {
+      const response = await fetch(`http://34.235.125.104:8000/products/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

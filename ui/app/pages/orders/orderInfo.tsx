@@ -42,7 +42,7 @@ export function OrderInfo() {
       }
 
       try {
-        const orderResponse = await fetch(`http://localhost:8000/orders/${id}`);
+        const orderResponse = await fetch(`http://34.235.125.104:8000/orders/${id}`);
         
         if (!orderResponse.ok) {
           throw new Error(`Failed to fetch order: ${orderResponse.status}`);
@@ -54,7 +54,7 @@ export function OrderInfo() {
         // Fetch buyer information if buyer_id exists
         if (orderData.buyer_id) {
           try {
-            const buyerResponse = await fetch(`http://localhost:8000/users/${orderData.buyer_id}`);
+            const buyerResponse = await fetch(`http://34.235.125.104:8000/users/${orderData.buyer_id}`);
             if (buyerResponse.ok) {
               const buyerData = await buyerResponse.json();
               setBuyer(buyerData);

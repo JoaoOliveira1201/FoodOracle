@@ -48,9 +48,9 @@ export function WarehouseTransferList() {
     async function fetchData() {
       try {
         const [transfersResponse, warehousesResponse, trucksResponse] = await Promise.all([
-          fetch("http://localhost:8000/warehouse-transfers/"),
-          fetch("http://localhost:8000/warehouses/"),
-          fetch("http://localhost:8000/trucks/"),
+          fetch("http://34.235.125.104:8000/warehouse-transfers/"),
+          fetch("http://34.235.125.104:8000/warehouses/"),
+          fetch("http://34.235.125.104:8000/trucks/"),
         ]);
         
         if (!transfersResponse.ok || !warehousesResponse.ok || !trucksResponse.ok) {

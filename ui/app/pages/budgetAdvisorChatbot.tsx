@@ -11,7 +11,7 @@ export function BudgetAdvisorChatbot() {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/budget-advisor/ask", {
+      const response = await fetch("http://34.235.125.104:8000/budget-advisor/ask", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export function BudgetAdvisorChatbot() {
 
     try {
       const status = action === "accept" ? "Approved" : "Rejected";
-      const response = await fetch(`http://localhost:8000/quotes/${cardId}/status`, {
+      const response = await fetch(`http://34.235.125.104:8000/quotes/${cardId}/status`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export function BudgetAdvisorChatbot() {
 
       // Refresh the quotes after updating status (only pending quotes)
       if (selectedOption !== "default") {
-        const quotesResponse = await fetch(`http://localhost:8000/quotes/?product_id=${selectedOption}&status=Pending`);
+        const quotesResponse = await fetch(`http://34.235.125.104:8000/quotes/?product_id=${selectedOption}&status=Pending`);
         if (quotesResponse.ok) {
           const quotes = await quotesResponse.json();
 
@@ -148,7 +148,7 @@ export function BudgetAdvisorChatbot() {
   // Function to fetch supplier tier
   async function fetchSupplierTier(supplierId: number): Promise<string> {
     try {
-      const response = await fetch(`http://localhost:8000/product-records/supplier/${supplierId}/statistics`);
+      const response = await fetch(`http://34.235.125.104:8000/product-records/supplier/${supplierId}/statistics`);
       if (response.ok) {
         const stats = await response.json();
         return stats.supplier_tier || "basic";
@@ -166,7 +166,7 @@ export function BudgetAdvisorChatbot() {
         setLoading(true);
 
         // Fetch products
-        const productsResponse = await fetch("http://localhost:8000/products/");
+        const productsResponse = await fetch("http://34.235.125.104:8000/products/");
         if (!productsResponse.ok) {
           throw new Error(`HTTP error! status: ${productsResponse.status}`);
         }
@@ -177,7 +177,7 @@ export function BudgetAdvisorChatbot() {
         }));
 
         // Fetch suppliers (users)
-        const usersResponse = await fetch("http://localhost:8000/users/");
+        const usersResponse = await fetch("http://34.235.125.104:8000/users/");
         if (usersResponse.ok) {
           const users = await usersResponse.json();
           const supplierMap = new Map(users.map((user: any) => [user.user_id, user.name]));
@@ -206,7 +206,7 @@ export function BudgetAdvisorChatbot() {
 
     async function fetchQuotes() {
       try {
-        const response = await fetch(`http://localhost:8000/quotes/?product_id=${selectedOption}&status=Pending`);
+        const response = await fetch(`http://34.235.125.104:8000/quotes/?product_id=${selectedOption}&status=Pending`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -497,7 +497,7 @@ export function BudgetAdvisorChatbot() {
                     </div>
                     {card.pdf_document_path ? (
                       <a
-                        href={`http://localhost:8000/quotes/${card.id}/document`}
+                        href={`http://34.235.125.104:8000/quotes/${card.id}/document`}
                         download={`quote_${card.id}.pdf`}
                         className="block bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm font-medium text-center transition"
                       >

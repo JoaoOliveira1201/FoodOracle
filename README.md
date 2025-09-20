@@ -40,8 +40,8 @@ make all    # Start core services (database, storage, backend, frontend)
 - **Password**: `supply_chain_password`
 
 ### API Backend
-- **Documentation**: http://localhost:8000/docs
-- **Base URL**: http://localhost:8000
+- **Documentation**: http://34.235.125.104:8000/docs
+- **Base URL**: http://34.235.125.104:8000
 
 ### Frontend Application
 - **Website**: http://localhost:3000

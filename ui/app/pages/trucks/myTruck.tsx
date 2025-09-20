@@ -42,7 +42,7 @@ export function MyTruck() {
     if (!user) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/trucks/driver/${user.user_id}`);
+      const response = await fetch(`http://34.235.125.104:8000/trucks/driver/${user.user_id}`);
       if (response.ok) {
         const data = await response.json();
         if (data.length > 0) {
@@ -67,7 +67,7 @@ export function MyTruck() {
     if (!user) return;
 
     try {
-      const response = await fetch("http://localhost:8000/trucks/", {
+      const response = await fetch("http://34.235.125.104:8000/trucks/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +95,7 @@ export function MyTruck() {
     if (!truck) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/trucks/${truck.truck_id}/status`, {
+      const response = await fetch(`http://34.235.125.104:8000/trucks/${truck.truck_id}/status`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

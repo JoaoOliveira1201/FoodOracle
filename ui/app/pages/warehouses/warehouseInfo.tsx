@@ -41,7 +41,7 @@ export function WarehouseInfo() {
   useEffect(() => {
     async function fetchWarehouseDetail() {
       try {
-        const response = await fetch(`http://localhost:8000/warehouses/${id}`);
+        const response = await fetch(`http://34.235.125.104:8000/warehouses/${id}`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -107,7 +107,7 @@ export function WarehouseInfo() {
       if (!imageUrls[recordId]) {
         setImageUrls(prev => ({ 
           ...prev, 
-          [recordId]: `http://localhost:8000/product-records/${recordId}/image` 
+          [recordId]: `http://34.235.125.104:8000/product-records/${recordId}/image` 
         }));
       }
     }

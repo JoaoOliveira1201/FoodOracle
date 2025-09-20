@@ -62,7 +62,7 @@ export function MyTransfers() {
     if (!user) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/trucks/driver/${user.user_id}`);
+      const response = await fetch(`http://34.235.125.104:8000/trucks/driver/${user.user_id}`);
       if (response.ok) {
         const data = await response.json();
         if (data.length > 0) {
@@ -83,8 +83,8 @@ export function MyTransfers() {
 
     try {
       const [transfersResponse, warehousesResponse] = await Promise.all([
-        fetch(`http://localhost:8000/warehouse-transfers/truck/${truck.truck_id}`),
-        fetch("http://localhost:8000/warehouses/"),
+        fetch(`http://34.235.125.104:8000/warehouse-transfers/truck/${truck.truck_id}`),
+        fetch("http://34.235.125.104:8000/warehouses/"),
       ]);
 
       if (transfersResponse.ok && warehousesResponse.ok) {

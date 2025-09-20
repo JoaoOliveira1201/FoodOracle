@@ -63,7 +63,7 @@ export function QuoteSubmissionModal({
       formData.append('status', 'Pending');
       formData.append('file', file);
 
-      const response = await fetch('http://localhost:8000/quotes/', {
+      const response = await fetch('http://34.235.125.104:8000/quotes/', {
         method: 'POST',
         body: formData,
       });

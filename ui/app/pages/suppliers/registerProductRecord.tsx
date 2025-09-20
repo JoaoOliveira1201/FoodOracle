@@ -95,7 +95,7 @@ export function RegisterProductRecord() {
       setLoading(true);
 
       // Fetch supplier's approved quotes
-      const quotesResponse = await fetch(`http://localhost:8000/quotes/?supplier_id=${user?.user_id}`);
+      const quotesResponse = await fetch(`http://34.235.125.104:8000/quotes/?supplier_id=${user?.user_id}`);
       if (!quotesResponse.ok) {
         throw new Error(`Failed to fetch quotes: ${quotesResponse.status}`);
       }
@@ -103,7 +103,7 @@ export function RegisterProductRecord() {
       const approvedQuotes = quotesData.filter((quote) => quote.status === "Approved");
 
       // Fetch all products
-      const productsResponse = await fetch("http://localhost:8000/products/");
+      const productsResponse = await fetch("http://34.235.125.104:8000/products/");
       if (!productsResponse.ok) {
         throw new Error(`Failed to fetch products: ${productsResponse.status}`);
       }
@@ -121,7 +121,7 @@ export function RegisterProductRecord() {
         .filter(Boolean);
 
       // Fetch all warehouses
-      const warehousesResponse = await fetch("http://localhost:8000/warehouses/");
+      const warehousesResponse = await fetch("http://34.235.125.104:8000/warehouses/");
       if (!warehousesResponse.ok) {
         throw new Error(`Failed to fetch warehouses: ${warehousesResponse.status}`);
       }
@@ -253,7 +253,7 @@ export function RegisterProductRecord() {
       classificationFormData.append("product_id", productId.toString());
       classificationFormData.append("image", imageFile);
 
-      const response = await fetch("http://localhost:8000/quality-control/classify", {
+      const response = await fetch("http://34.235.125.104:8000/quality-control/classify", {
         method: "POST",
         body: classificationFormData,
       });
@@ -366,7 +366,7 @@ export function RegisterProductRecord() {
         submitFormData.append("image_file", formData.image_file);
       }
 
-      const response = await fetch("http://localhost:8000/product-records/", {
+      const response = await fetch("http://34.235.125.104:8000/product-records/", {
         method: "POST",
         body: submitFormData,
       });

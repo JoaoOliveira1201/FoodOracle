@@ -82,7 +82,7 @@ export function CreateUser() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/users/", {
+      const response = await fetch("http://34.235.125.104:8000/users/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

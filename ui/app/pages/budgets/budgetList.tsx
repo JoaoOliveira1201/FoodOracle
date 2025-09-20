@@ -44,7 +44,7 @@ export function BudgetList() {
         setError("");
 
         // Fetch quotes (which serve as budget requests)
-        const quotesResponse = await fetch("http://localhost:8000/quotes/");
+        const quotesResponse = await fetch("http://34.235.125.104:8000/quotes/");
         if (!quotesResponse.ok) {
           throw new Error(`Failed to fetch quotes: ${quotesResponse.status}`);
         }
@@ -52,8 +52,8 @@ export function BudgetList() {
 
         // Fetch users and products to enrich the data
         const [usersResponse, productsResponse] = await Promise.all([
-          fetch("http://localhost:8000/users/"),
-          fetch("http://localhost:8000/products/")
+          fetch("http://34.235.125.104:8000/users/"),
+          fetch("http://34.235.125.104:8000/products/")
         ]);
 
         let users: User[] = [];
@@ -185,7 +185,7 @@ export function BudgetList() {
                   <td className="px-6 py-4">
                     {budget.pdf_document_path ? (
                       <a
-                        href={`http://localhost:8000/quotes/${budget.quote_id}/document`}
+                        href={`http://34.235.125.104:8000/quotes/${budget.quote_id}/document`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="cursor-pointer font-medium text-green-600 dark:text-green-500 hover:underline"

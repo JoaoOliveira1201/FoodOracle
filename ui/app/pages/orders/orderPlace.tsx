@@ -62,8 +62,8 @@ export function PlaceOrder() {
         
         // Fetch product records and products data
         const [recordsResponse, productsResponse] = await Promise.all([
-          fetch("http://localhost:8000/product-records/"),
-          fetch("http://localhost:8000/products/"),
+          fetch("http://34.235.125.104:8000/product-records/"),
+          fetch("http://34.235.125.104:8000/products/"),
         ]);
 
         if (!recordsResponse.ok || !productsResponse.ok) {
@@ -181,7 +181,7 @@ export function PlaceOrder() {
         total_amount: calculateTotal(),
       };
 
-      const response = await fetch("http://localhost:8000/orders/", {
+      const response = await fetch("http://34.235.125.104:8000/orders/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

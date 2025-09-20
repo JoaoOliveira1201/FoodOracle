@@ -44,7 +44,7 @@ export function AvailableItems() {
     if (!user?.user_id) return;
     
     try {
-      await fetch(`http://localhost:8000/client-advisor/clear-history`, {
+      await fetch(`http://34.235.125.104:8000/client-advisor/clear-history`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export function AvailableItems() {
       // Check if this is a product-specific question
       if (selectedProductId && productId !== "available-items") {
         // Product-specific question
-        response = await fetch(`http://localhost:8000/client-advisor/ask-product?user_id=${user.user_id}`, {
+        response = await fetch(`http://34.235.125.104:8000/client-advisor/ask-product?user_id=${user.user_id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export function AvailableItems() {
         });
       } else {
         // General question about available items
-        response = await fetch(`http://localhost:8000/client-advisor/ask?user_id=${user.user_id}`, {
+        response = await fetch(`http://34.235.125.104:8000/client-advisor/ask?user_id=${user.user_id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ export function AvailableItems() {
       try {
         setLoading(true);
         // Use the dedicated buyer endpoint that handles all calculations server-side
-        const resp = await fetch("http://localhost:8000/product-records/buyer/available-items");
+        const resp = await fetch("http://34.235.125.104:8000/product-records/buyer/available-items");
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const buyerStock: BuyerStockResponse = await resp.json();
         

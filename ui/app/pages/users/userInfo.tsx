@@ -65,7 +65,7 @@ export function UserInfo() {
   useEffect(() => {
     async function fetchUserDetail() {
       try {
-        const response = await fetch(`http://localhost:8000/users/${id}`);
+        const response = await fetch(`http://34.235.125.104:8000/users/${id}`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -89,7 +89,7 @@ export function UserInfo() {
 
     async function fetchSupplierStats() {
       try {
-        const response = await fetch(`http://localhost:8000/product-records/supplier/${id}/statistics`);
+        const response = await fetch(`http://34.235.125.104:8000/product-records/supplier/${id}/statistics`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

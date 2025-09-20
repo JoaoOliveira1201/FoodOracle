@@ -54,7 +54,7 @@ export function WarehouseTransferInfo() {
       }
 
       try {
-        const transferResponse = await fetch(`http://localhost:8000/warehouse-transfers/${id}`);
+        const transferResponse = await fetch(`http://34.235.125.104:8000/warehouse-transfers/${id}`);
         
         if (!transferResponse.ok) {
           throw new Error(`Failed to fetch transfer: ${transferResponse.status}`);
@@ -65,8 +65,8 @@ export function WarehouseTransferInfo() {
 
         // Fetch related data
         const [warehousesResponse, trucksResponse] = await Promise.all([
-          fetch("http://localhost:8000/warehouses/"),
-          fetch("http://localhost:8000/trucks/"),
+          fetch("http://34.235.125.104:8000/warehouses/"),
+          fetch("http://34.235.125.104:8000/trucks/"),
         ]);
 
         if (warehousesResponse.ok && trucksResponse.ok) {

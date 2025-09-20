@@ -62,8 +62,8 @@ export function CreateWarehouseTransfer() {
       try {
         setLoadingData(true);
         const [warehousesResponse, recordsResponse] = await Promise.all([
-          fetch("http://localhost:8000/warehouses/"),
-          fetch("http://localhost:8000/product-records/"),
+          fetch("http://34.235.125.104:8000/warehouses/"),
+          fetch("http://34.235.125.104:8000/product-records/"),
         ]);
 
         if (!warehousesResponse.ok || !recordsResponse.ok) {
@@ -158,7 +158,7 @@ export function CreateWarehouseTransfer() {
         notes: formData.notes || null,
       };
 
-      const response = await fetch("http://localhost:8000/warehouse-transfers/", {
+      const response = await fetch("http://34.235.125.104:8000/warehouse-transfers/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

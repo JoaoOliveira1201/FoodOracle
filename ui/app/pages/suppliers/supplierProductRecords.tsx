@@ -60,14 +60,14 @@ export function SupplierProductRecords() {
       setLoading(true);
 
       // Fetch product records for this supplier
-      const recordsResponse = await fetch(`http://localhost:8000/product-records/supplier/${user?.user_id}`);
+      const recordsResponse = await fetch(`http://34.235.125.104:8000/product-records/supplier/${user?.user_id}`);
       if (!recordsResponse.ok) {
         throw new Error(`Failed to fetch product records: ${recordsResponse.status}`);
       }
       const recordsData: ProductRecord[] = await recordsResponse.json();
 
       // Fetch all products to get product names
-      const productsResponse = await fetch("http://localhost:8000/products/");
+      const productsResponse = await fetch("http://34.235.125.104:8000/products/");
       if (!productsResponse.ok) {
         throw new Error(`Failed to fetch products: ${productsResponse.status}`);
       }

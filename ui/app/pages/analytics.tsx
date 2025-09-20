@@ -93,7 +93,7 @@ export function Analytics() {
     setError(null);
 
     try {
-      const response = await fetch(`http://localhost:8000/analytics/comprehensive?days_back=${daysBack}`, {
+      const response = await fetch(`http://34.235.125.104:8000/analytics/comprehensive?days_back=${daysBack}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

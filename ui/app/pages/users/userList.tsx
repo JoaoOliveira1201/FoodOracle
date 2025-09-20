@@ -38,7 +38,7 @@ export function UserList() {
   useEffect(() => {
     async function fetchUsers() {
       try {
-        const response = await fetch("http://localhost:8000/users/");
+        const response = await fetch("http://34.235.125.104:8000/users/");
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -59,7 +59,7 @@ export function UserList() {
   const handleDelete = async (userId: number) => {
     setDeletingId(userId);
     try {
-      const response = await fetch(`http://localhost:8000/users/${userId}`, {
+      const response = await fetch(`http://34.235.125.104:8000/users/${userId}`, {
         method: "DELETE",
       });
 

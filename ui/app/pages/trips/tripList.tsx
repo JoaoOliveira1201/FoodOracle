@@ -65,9 +65,9 @@ export function TripList() {
     async function fetchData() {
       try {
         const [tripsResponse, trucksResponse, ordersResponse] = await Promise.all([
-          fetch("http://localhost:8000/trips/"),
-          fetch("http://localhost:8000/trucks/"),
-          fetch("http://localhost:8000/orders/"),
+          fetch("http://34.235.125.104:8000/trips/"),
+          fetch("http://34.235.125.104:8000/trucks/"),
+          fetch("http://34.235.125.104:8000/orders/"),
         ]);
         
         if (!tripsResponse.ok || !trucksResponse.ok || !ordersResponse.ok) {

@@ -76,9 +76,9 @@ export function CreateTrip() {
       try {
         setLoadingData(true);
         const [trucksResponse, ordersResponse, clientsResponse] = await Promise.all([
-          fetch("http://localhost:8000/trucks/"),
-          fetch("http://localhost:8000/orders/"),
-          fetch("http://localhost:8000/users/role/Buyer"),
+          fetch("http://34.235.125.104:8000/trucks/"),
+          fetch("http://34.235.125.104:8000/orders/"),
+          fetch("http://34.235.125.104:8000/users/role/Buyer"),
         ]);
 
         if (!trucksResponse.ok || !ordersResponse.ok || !clientsResponse.ok) {
@@ -187,7 +187,7 @@ export function CreateTrip() {
         tripData.start_date = new Date(formData.start_date).toISOString();
       }
 
-      const response = await fetch("http://localhost:8000/trips/", {
+      const response = await fetch("http://34.235.125.104:8000/trips/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

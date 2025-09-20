@@ -65,7 +65,7 @@ export function TripInfo() {
       }
 
       try {
-        const tripResponse = await fetch(`http://localhost:8000/trips/${id}`);
+        const tripResponse = await fetch(`http://34.235.125.104:8000/trips/${id}`);
         
         if (!tripResponse.ok) {
           throw new Error(`Failed to fetch trip: ${tripResponse.status}`);
@@ -76,9 +76,9 @@ export function TripInfo() {
 
         // Fetch related data
         const [trucksResponse, ordersResponse, usersResponse] = await Promise.all([
-          fetch("http://localhost:8000/trucks/"),
-          fetch("http://localhost:8000/orders/"),
-          fetch("http://localhost:8000/users/"),
+          fetch("http://34.235.125.104:8000/trucks/"),
+          fetch("http://34.235.125.104:8000/orders/"),
+          fetch("http://34.235.125.104:8000/users/"),
         ]);
 
         if (trucksResponse.ok && ordersResponse.ok && usersResponse.ok) {

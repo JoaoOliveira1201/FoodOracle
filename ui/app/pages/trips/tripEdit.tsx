@@ -89,9 +89,9 @@ export function EditTrip() {
 
       try {
         const [tripResponse, trucksResponse, ordersResponse] = await Promise.all([
-          fetch(`http://localhost:8000/trips/${id}`),
-          fetch("http://localhost:8000/trucks/"),
-          fetch("http://localhost:8000/orders/"),
+          fetch(`http://34.235.125.104:8000/trips/${id}`),
+          fetch("http://34.235.125.104:8000/trucks/"),
+          fetch("http://34.235.125.104:8000/orders/"),
         ]);
 
         if (!tripResponse.ok) {
@@ -240,7 +240,7 @@ export function EditTrip() {
         updateData.end_date = new Date(formData.end_date).toISOString();
       }
 
-      const response = await fetch(`http://localhost:8000/trips/${id}`, {
+      const response = await fetch(`http://34.235.125.104:8000/trips/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

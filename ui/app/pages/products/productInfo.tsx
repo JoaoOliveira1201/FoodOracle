@@ -83,7 +83,7 @@ export function ProductInfo() {
   useEffect(() => {
     async function fetchProductRecords() {
       try {
-        const response = await fetch(`http://localhost:8000/product-records/product/${id}`);
+        const response = await fetch(`http://34.235.125.104:8000/product-records/product/${id}`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -100,7 +100,7 @@ export function ProductInfo() {
 
     async function fetchProduct() {
       try {
-        const response = await fetch(`http://localhost:8000/products/${id}`);
+        const response = await fetch(`http://34.235.125.104:8000/products/${id}`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -116,7 +116,7 @@ export function ProductInfo() {
 
     async function fetchMetrics() {
       try {
-        const response = await fetch(`http://localhost:8000/product-records/product/${id}/metrics`);
+        const response = await fetch(`http://34.235.125.104:8000/product-records/product/${id}/metrics`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -134,7 +134,7 @@ export function ProductInfo() {
 
     async function fetchApprovedSuppliers() {
       try {
-        const response = await fetch(`http://localhost:8000/quotes/product/${id}/approved-suppliers`);
+        const response = await fetch(`http://34.235.125.104:8000/quotes/product/${id}/approved-suppliers`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -202,7 +202,7 @@ export function ProductInfo() {
       if (!imageUrls[recordId]) {
         setImageUrls(prev => ({ 
           ...prev, 
-          [recordId]: `http://localhost:8000/product-records/${recordId}/image` 
+          [recordId]: `http://34.235.125.104:8000/product-records/${recordId}/image` 
         }));
       }
     }

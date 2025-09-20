@@ -33,7 +33,7 @@ export function LocationInfoModal({
     setLocationInfo(null);
 
     try {
-      const response = await fetch("http://localhost:8000/donation-suggestions/location-info", {
+      const response = await fetch("http://34.235.125.104:8000/donation-suggestions/location-info", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

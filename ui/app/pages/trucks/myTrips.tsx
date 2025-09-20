@@ -59,7 +59,7 @@ export function MyTrips() {
     if (!user) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/trucks/driver/${user.user_id}`);
+      const response = await fetch(`http://34.235.125.104:8000/trucks/driver/${user.user_id}`);
       if (response.ok) {
         const data = await response.json();
         if (data.length > 0) {
@@ -79,7 +79,7 @@ export function MyTrips() {
     if (!truck) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/trips/truck/${truck.truck_id}/with-names`);
+      const response = await fetch(`http://34.235.125.104:8000/trips/truck/${truck.truck_id}/with-names`);
       if (response.ok) {
         const data = await response.json();
         setTrips(data);
