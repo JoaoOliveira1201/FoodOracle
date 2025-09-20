@@ -129,11 +129,11 @@ async def populate_products(db_manager):
         base_price = random.randint(80, 800)
         discount_percentage = random.choice([5, 10, 15, 20, 25, 30, 35, 40])
         requires_refrigeration = name not in [
-            "Onions",
-            "Garlic",
-            "Potatoes",
-            "Sweet Potatoes",
+            "Onions","Garlic","Potatoes","Yams",
+            "Beets","Turnips","Radishes","Rutabagas","Parsnips",
+            "Ginger","Pumpkins","Butternut","Acorn","Spaghetti","Delicata",
         ]
+
         shelf_life_days = random.choice([30, 45, 60, 90, 120, 150, 180])  # Much longer shelf life: 1-6 months
         deadline_to_discount = max(
             7, min(shelf_life_days - 7, random.choice([14, 21, 30, 45, 60]))  # Discount 1-2 months before expiry
