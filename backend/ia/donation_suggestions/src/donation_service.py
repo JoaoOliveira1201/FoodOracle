@@ -7,7 +7,7 @@ import re
 from src.product_record.product_record_repository import ProductRecordRepository
 from src.product_record.product_record_entity import ProductRecordStatus
 from src.warehouse.warehouse_repository import WarehouseRepository
-from .bedrock import find_donation_locations
+from .csv_search_service import CSVSearchService
 
 
 class DonationService:
@@ -15,6 +15,7 @@ class DonationService:
         self.session = session
         self.product_record_repo = ProductRecordRepository(session)
         self.warehouse_repo = WarehouseRepository(session)
+        self.csv_search_service = CSVSearchService()
 
     async def get_products_expiring_soon(self, days: int = 3) -> List[Dict[str, Any]]:
         """
@@ -99,108 +100,23 @@ class DonationService:
         self, warehouse_location: Dict[str, float], warehouse_address: str = None
     ) -> List[Dict[str, Any]]:
         """
-        Get donation location suggestions for a specific warehouse location using AI.
+        Get donation location suggestions for a specific warehouse location using CSV search.
         """
         try:
-            # Prepare location data for AI query
-            location_data = {
-                "latitude": warehouse_location["latitude"],
-                "longitude": warehouse_location["longitude"],
-                "address": warehouse_address
-                or f"Coordinates: {warehouse_location['latitude']}, {warehouse_location['longitude']}",
-            }
+            # Use warehouse address for CSV search
+            if not warehouse_address:
+                warehouse_address = f"Coordinates: {warehouse_location['latitude']}, {warehouse_location['longitude']}"
 
-            # Get AI suggestions
-            ai_response = find_donation_locations(location_data)
+            # Get CSV-based suggestions
+            donation_locations = self.csv_search_service.search_donation_locations(warehouse_address)
 
-            # Parse the AI response to extract structured donation locations
-            donation_locations = self._parse_donation_locations(ai_response)
+            # If no matches found, return a fallback
+            if not donation_locations:
+                return [{"name": "Local Food Banks and Charities", "location": "Various locations"}]
 
             return donation_locations
 
         except Exception as e:
-            # Return a fallback response if AI fails
-            return [{"name": "Local Food Bank"}]
+            # Return a fallback response if CSV search fails
+            return [{"name": "Local Food Bank", "location": "Various locations"}]
 
-    def _parse_donation_locations(self, ai_response: str) -> List[Dict[str, Any]]:
-        """
-        Parse the AI response to extract organization names.
-        Returns only organization names without placeholder text.
-        """
-        locations = []
-
-        try:
-            # Split response by lines and look for organization names
-            lines = ai_response.split("\n")
-
-            # Skip common introductory phrases and descriptive text
-            skip_phrases = [
-                "here are some charitable organizations",
-                "here are some organizations",
-                "charitable organizations near",
-                "organizations near",
-                "that might accept food donations",
-                "that accept food donations",
-                "food donations",
-                "donation locations",
-                "suggested locations",
-                "nearby organizations",
-                "local organizations",
-                "organizations in the area",
-                "in the area",
-                "near this warehouse",
-                "near this location",
-            ]
-
-            for line in lines:
-                line = line.strip()
-                # Skip empty lines and very short lines
-                if len(line) < 3:
-                    continue
-
-                # Remove common prefixes like numbers, bullets, dashes
-                clean_name = re.sub(r"^[\d\.\-\*\s]+", "", line).strip()
-
-                # Skip if it's still too short
-                if len(clean_name) < 3:
-                    continue
-
-                # Skip lines that contain introductory phrases
-                line_lower = clean_name.lower()
-                if any(phrase in line_lower for phrase in skip_phrases):
-                    continue
-
-                # Skip if it looks like a header or common words
-                if line_lower in [
-                    "organization",
-                    "name",
-                    "list",
-                    "donation",
-                    "locations",
-                    "suggestions",
-                    "options",
-                ]:
-                    continue
-
-                # Skip lines that are too long (likely descriptive text)
-                if len(clean_name) > 100:
-                    continue
-
-                # Create simple location entry with just the name
-                location = {"name": clean_name}
-
-                locations.append(location)
-
-                # Limit to 5 locations to keep response manageable
-                if len(locations) >= 5:
-                    break
-
-            # If no organizations found, provide a generic response
-            if not locations:
-                locations = [{"name": "Local Food Banks and Charities"}]
-
-        except Exception as e:
-            # Fallback if parsing completely fails
-            locations = [{"name": "Local Charitable Organizations"}]
-
-        return locations
