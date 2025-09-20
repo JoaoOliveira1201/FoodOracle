@@ -80,11 +80,11 @@ export function DonationSuggestionsPage() {
   };
 
   useEffect(() => {
-    if (isAdmin() || isSupplier()) {
+    if (isAdmin()) {
       fetchDonationSuggestions();
       fetchInventoryData();
     }
-  }, [isAdmin, isSupplier]);
+  }, [isAdmin]);
 
 
   const formatDate = (dateString: string) => {
