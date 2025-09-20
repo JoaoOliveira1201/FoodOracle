@@ -327,29 +327,32 @@ SAMPLE_TRUCKS = [
 # ===============================
 # PRODUCT DATA
 # ===============================
-
 PRODUCE_ITEMS = [
-    "Bananas",
-    "Strawberries",
-    "Blueberries",
-    "Broccoli",
-    "Cucumbers",
-    "Spinach",
-    "Kale",
-    "Avocados",
-    "Mangoes",
-    "Oranges",
-    "Pears",
-    "Grapes",
-    "Onions",
-    "Garlic",
-    "Zucchini",
-    "Eggplants",
-    "Asparagus",
-    "Cauliflower",
-    "Lemons",
-    "Limes",
+    "Bananas", "Strawberries", "Blueberries", "Broccoli", "Cucumbers",
+    "Spinach", "Kale", "Avocados", "Mangoes", "Oranges",
+    "Pears", "Grapes", "Onions", "Garlic", "Zucchini",
+    "Eggplants", "Asparagus", "Cauliflower", "Lemons", "Limes",
+    "Apples", "Cherries", "Pineapples", "Watermelons", "Cantaloupes",
+    "Honeydew", "Papayas", "Passionfruit", "Raspberries", "Blackberries",
+    "Cranberries", "Peaches", "Nectarines", "Plums", "Apricots",
+    "Pomegranates", "Kiwi", "Dragonfruit", "Lychee", "Coconuts",
+    "Guavas", "Tangerines", "Mandarins", "Clementines", "Starfruit",
+    "Figs", "Dates", "Persimmons", "Gooseberries", "Mulberries",
+    "Jackfruit", "Durian", "Cherimoya", "Breadfruit", "Carrots",
+    "Potatoes", "Yams", "Beets", "Turnips", "Radishes",
+    "Rutabagas", "Parsnips", "Celery", "Lettuce", "Arugula",
+    "Collards", "Mustard", "Chard", "Cabbage", "Brussels",
+    "Artichokes", "Okra", "Beans", "Peas", "Peppers",
+    "Jalapenos", "Habaneros", "Serranos", "Poblanos", "Corn",
+    "Mushrooms", "Portobello", "Shiitake", "Oyster", "Pumpkins",
+    "Butternut", "Acorn", "Spaghetti", "Delicata", "Ginger",
+    "Turmeric", "Basil", "Cilantro", "Parsley", "Dill",
+    "Mint", "Rosemary", "Thyme", "Sage", "Chives",
+    "Leeks", "Shallots", "Kohlrabi", "Endive", "Radicchio",
+    "Cress", "Fennel", "Tatsoi", "Mizuna", "Sorrel"
 ]
+
+
 
 WAREHOUSE_TYPES = [
     "Distribution Center",
