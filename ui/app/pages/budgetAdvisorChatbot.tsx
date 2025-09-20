@@ -34,15 +34,15 @@ export function BudgetAdvisorChatbot() {
     }
   }
 
-  async function handleCardAction(action: 'accept' | 'reject', cardId: number) {
+  async function handleCardAction(action: "accept" | "reject", cardId: number) {
     console.log(`${action} clicked for card ${cardId}`);
-    
+
     try {
-      const status = action === 'accept' ? 'Approved' : 'Rejected';
+      const status = action === "accept" ? "Approved" : "Rejected";
       const response = await fetch(`http://localhost:8000/quotes/${cardId}/status`, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           status: status,
@@ -71,8 +71,10 @@ export function BudgetAdvisorChatbot() {
           setSupplierTiers(newSupplierTiers);
 
           const quoteCards: Card[] = quotes.map((quote: any) => {
-            const supplierName = quote.supplier_id ? suppliers.get(quote.supplier_id) || `Unknown Supplier (ID: ${quote.supplier_id})` : 'N/A';
-            const supplierTier = quote.supplier_id ? newSupplierTiers.get(quote.supplier_id) || 'basic' : 'basic';
+            const supplierName = quote.supplier_id
+              ? suppliers.get(quote.supplier_id) || `Unknown Supplier (ID: ${quote.supplier_id})`
+              : "N/A";
+            const supplierTier = quote.supplier_id ? newSupplierTiers.get(quote.supplier_id) || "basic" : "basic";
 
             return {
               id: quote.quote_id,
@@ -90,7 +92,6 @@ export function BudgetAdvisorChatbot() {
       // You could show a toast notification here
     }
   }
-
 
   const [selectedOption, setSelectedOption] = useState("default");
 
@@ -114,32 +115,32 @@ export function BudgetAdvisorChatbot() {
         return {
           bgColor: "bg-purple-100 dark:bg-purple-900/20",
           textColor: "text-purple-800 dark:text-purple-200",
-          borderColor: "border-purple-300 dark:border-purple-700"
+          borderColor: "border-purple-300 dark:border-purple-700",
         };
       case "gold":
         return {
           bgColor: "bg-yellow-100 dark:bg-yellow-900/20",
           textColor: "text-yellow-800 dark:text-yellow-200",
-          borderColor: "border-yellow-300 dark:border-yellow-700"
+          borderColor: "border-yellow-300 dark:border-yellow-700",
         };
       case "silver":
         return {
           bgColor: "bg-gray-100 dark:bg-gray-700/20",
           textColor: "text-gray-800 dark:text-gray-200",
-          borderColor: "border-gray-300 dark:border-gray-600"
+          borderColor: "border-gray-300 dark:border-gray-600",
         };
       case "bronze":
         return {
           bgColor: "bg-orange-100 dark:bg-orange-900/20",
           textColor: "text-orange-800 dark:text-orange-200",
-          borderColor: "border-orange-300 dark:border-orange-700"
+          borderColor: "border-orange-300 dark:border-orange-700",
         };
       case "basic":
       default:
         return {
           bgColor: "bg-gray-50 dark:bg-gray-800/20",
           textColor: "text-gray-700 dark:text-gray-300",
-          borderColor: "border-gray-200 dark:border-gray-600"
+          borderColor: "border-gray-200 dark:border-gray-600",
         };
     }
   };
@@ -150,12 +151,12 @@ export function BudgetAdvisorChatbot() {
       const response = await fetch(`http://localhost:8000/product-records/supplier/${supplierId}/statistics`);
       if (response.ok) {
         const stats = await response.json();
-        return stats.supplier_tier || 'basic';
+        return stats.supplier_tier || "basic";
       }
     } catch (error) {
       console.warn(`Failed to fetch tier for supplier ${supplierId}:`, error);
     }
-    return 'basic';
+    return "basic";
   }
 
   // Fetch dropdown options from products API and suppliers
@@ -163,7 +164,7 @@ export function BudgetAdvisorChatbot() {
     async function fetchInitialData() {
       try {
         setLoading(true);
-        
+
         // Fetch products
         const productsResponse = await fetch("http://localhost:8000/products/");
         if (!productsResponse.ok) {
@@ -174,7 +175,7 @@ export function BudgetAdvisorChatbot() {
           value: product.product_id.toString(),
           label: product.name,
         }));
-        
+
         // Fetch suppliers (users)
         const usersResponse = await fetch("http://localhost:8000/users/");
         if (usersResponse.ok) {
@@ -182,7 +183,7 @@ export function BudgetAdvisorChatbot() {
           const supplierMap = new Map(users.map((user: any) => [user.user_id, user.name]));
           setSuppliers(supplierMap);
         }
-        
+
         setOptions(productOptions);
         setError("");
       } catch (err) {
@@ -206,11 +207,11 @@ export function BudgetAdvisorChatbot() {
     async function fetchQuotes() {
       try {
         const response = await fetch(`http://localhost:8000/quotes/?product_id=${selectedOption}&status=Pending`);
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const quotes = await response.json();
 
         // Fetch supplier tiers for all quotes
@@ -225,8 +226,10 @@ export function BudgetAdvisorChatbot() {
         setSupplierTiers(newSupplierTiers);
 
         const quoteCards: Card[] = quotes.map((quote: any) => {
-          const supplierName = quote.supplier_id ? suppliers.get(quote.supplier_id) || `Unknown Supplier (ID: ${quote.supplier_id})` : 'N/A';
-          const supplierTier = quote.supplier_id ? newSupplierTiers.get(quote.supplier_id) || 'basic' : 'basic';
+          const supplierName = quote.supplier_id
+            ? suppliers.get(quote.supplier_id) || `Unknown Supplier (ID: ${quote.supplier_id})`
+            : "N/A";
+          const supplierTier = quote.supplier_id ? newSupplierTiers.get(quote.supplier_id) || "basic" : "basic";
 
           return {
             id: quote.quote_id,
@@ -256,21 +259,30 @@ export function BudgetAdvisorChatbot() {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                      {" "}
+                      <path
+                        d="M19.9992 20.9999H11.9992V7.99991M11.9992 7.99991C13.1038 7.99991 13.9992 7.10448 13.9992 5.99991C13.9992 5.75961 13.9568 5.5292 13.8792 5.31576M11.9992 7.99991C10.8947 7.99991 9.99923 7.10448 9.99923 5.99991C9.99923 4.89534 10.8947 3.99991 11.9992 3.99991C12.8635 3.99991 13.5997 4.54811 13.8792 5.31576M10.1203 6.68387L4.48214 8.73599M19.5172 3.26367L13.8792 5.31576M5.99923 20.9999C7.51177 20.9999 8.76287 20.1583 8.96934 18.7512C8.98242 18.662 8.98897 18.6174 8.98385 18.5185C8.98031 18.4502 8.95717 18.3255 8.93599 18.2604C8.90531 18.1663 8.86812 18.1002 8.79375 17.9679L5.99923 12.9999L3.2047 17.9679C3.13575 18.0905 3.10128 18.1518 3.06939 18.2583C3.04977 18.3238 3.02706 18.481 3.02735 18.5494C3.02781 18.6605 3.03453 18.6898 3.04799 18.7485C3.30295 19.8599 4.5273 20.9999 5.99923 20.9999ZM17.9992 16.9999C19.5118 16.9999 20.7629 16.1583 20.9693 14.7512C20.9824 14.662 20.989 14.6174 20.9838 14.5185C20.9803 14.4502 20.9572 14.3255 20.936 14.2604C20.9053 14.1663 20.8681 14.1002 20.7937 13.9679L17.9992 8.99991L15.2047 13.9679C15.1358 14.0905 15.1013 14.1518 15.0694 14.2583C15.0498 14.3238 15.0271 14.481 15.0273 14.5494C15.0278 14.6605 15.0345 14.6898 15.048 14.7485C15.303 15.8599 16.5273 16.9999 17.9992 16.9999Z"
+                        stroke="#ffffff"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>{" "}
+                    </g>
                   </svg>
                 </div>
               </div>
               <div className="ml-4">
-                <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Budget Advisor
-                </h1>
+                <h1 className="text-lg font-semibold text-gray-900 dark:text-white">Smart Budget Advisor</h1>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Intelligent budget analysis and pending quote management
+                  Optimize spending with AI-powered supplier comparisons and budget recommendations.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-center">
               {loading ? (
                 <div className="flex items-center space-x-2">
@@ -300,8 +312,19 @@ export function BudgetAdvisorChatbot() {
                     ))}
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                      <g id="SVGRepo_iconCarrier">
+                        {" "}
+                        <path
+                          d="M19.9992 20.9999H11.9992V7.99991M11.9992 7.99991C13.1038 7.99991 13.9992 7.10448 13.9992 5.99991C13.9992 5.75961 13.9568 5.5292 13.8792 5.31576M11.9992 7.99991C10.8947 7.99991 9.99923 7.10448 9.99923 5.99991C9.99923 4.89534 10.8947 3.99991 11.9992 3.99991C12.8635 3.99991 13.5997 4.54811 13.8792 5.31576M10.1203 6.68387L4.48214 8.73599M19.5172 3.26367L13.8792 5.31576M5.99923 20.9999C7.51177 20.9999 8.76287 20.1583 8.96934 18.7512C8.98242 18.662 8.98897 18.6174 8.98385 18.5185C8.98031 18.4502 8.95717 18.3255 8.93599 18.2604C8.90531 18.1663 8.86812 18.1002 8.79375 17.9679L5.99923 12.9999L3.2047 17.9679C3.13575 18.0905 3.10128 18.1518 3.06939 18.2583C3.04977 18.3238 3.02706 18.481 3.02735 18.5494C3.02781 18.6605 3.03453 18.6898 3.04799 18.7485C3.30295 19.8599 4.5273 20.9999 5.99923 20.9999ZM17.9992 16.9999C19.5118 16.9999 20.7629 16.1583 20.9693 14.7512C20.9824 14.662 20.989 14.6174 20.9838 14.5185C20.9803 14.4502 20.9572 14.3255 20.936 14.2604C20.9053 14.1663 20.8681 14.1002 20.7937 13.9679L17.9992 8.99991L15.2047 13.9679C15.1358 14.0905 15.1013 14.1518 15.0694 14.2583C15.0498 14.3238 15.0271 14.481 15.0273 14.5494C15.0278 14.6605 15.0345 14.6898 15.048 14.7485C15.303 15.8599 16.5273 16.9999 17.9992 16.9999Z"
+                          stroke="#ffffff"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>{" "}
+                      </g>
                     </svg>
                   </div>
                 </div>
@@ -318,24 +341,38 @@ export function BudgetAdvisorChatbot() {
           <div className="text-center max-w-md mx-auto p-8">
             <div className="mb-6">
               <div className="w-20 h-20 mx-auto mb-4 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center">
-                <svg className="w-10 h-10 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                <svg className="scale-80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <path
+                      d="M19.9992 20.9999H11.9992V7.99991M11.9992 7.99991C13.1038 7.99991 13.9992 7.10448 13.9992 5.99991C13.9992 5.75961 13.9568 5.5292 13.8792 5.31576M11.9992 7.99991C10.8947 7.99991 9.99923 7.10448 9.99923 5.99991C9.99923 4.89534 10.8947 3.99991 11.9992 3.99991C12.8635 3.99991 13.5997 4.54811 13.8792 5.31576M10.1203 6.68387L4.48214 8.73599M19.5172 3.26367L13.8792 5.31576M5.99923 20.9999C7.51177 20.9999 8.76287 20.1583 8.96934 18.7512C8.98242 18.662 8.98897 18.6174 8.98385 18.5185C8.98031 18.4502 8.95717 18.3255 8.93599 18.2604C8.90531 18.1663 8.86812 18.1002 8.79375 17.9679L5.99923 12.9999L3.2047 17.9679C3.13575 18.0905 3.10128 18.1518 3.06939 18.2583C3.04977 18.3238 3.02706 18.481 3.02735 18.5494C3.02781 18.6605 3.03453 18.6898 3.04799 18.7485C3.30295 19.8599 4.5273 20.9999 5.99923 20.9999ZM17.9992 16.9999C19.5118 16.9999 20.7629 16.1583 20.9693 14.7512C20.9824 14.662 20.989 14.6174 20.9838 14.5185C20.9803 14.4502 20.9572 14.3255 20.936 14.2604C20.9053 14.1663 20.8681 14.1002 20.7937 13.9679L17.9992 8.99991L15.2047 13.9679C15.1358 14.0905 15.1013 14.1518 15.0694 14.2583C15.0498 14.3238 15.0271 14.481 15.0273 14.5494C15.0278 14.6605 15.0345 14.6898 15.048 14.7485C15.303 15.8599 16.5273 16.9999 17.9992 16.9999Z"
+                      stroke="#ffffff"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>{" "}
+                  </g>
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                Budget Advisor Assistant
-              </h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Budget Advisor Assistant</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
-                Get personalized budget advice and manage quotes for your products. 
-                Select a product from the dropdown above to get started.
+                Get personalized budget advice and manage quotes for your products. Select a product from the dropdown
+                above to get started.
               </p>
             </div>
-            
+
             <div className="space-y-4">
               <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
                   <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                   Budget Analysis
                 </h3>
@@ -343,11 +380,16 @@ export function BudgetAdvisorChatbot() {
                   Get intelligent budget recommendations based on product data and market trends.
                 </p>
               </div>
-              
+
               <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
                   <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
                   </svg>
                   Quote Management
                 </h3>
@@ -355,11 +397,16 @@ export function BudgetAdvisorChatbot() {
                   Review, approve, or reject supplier quotes with integrated document viewing.
                 </p>
               </div>
-              
+
               <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
                   <svg className="w-5 h-5 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                    />
                   </svg>
                   AI Chat Support
                 </h3>
@@ -368,11 +415,16 @@ export function BudgetAdvisorChatbot() {
                 </p>
               </div>
             </div>
-            
+
             <div className="mt-8">
               <div className="inline-flex items-center text-sm text-gray-500 dark:text-gray-400">
                 <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
                 Select a product above to begin
               </div>
@@ -387,13 +439,24 @@ export function BudgetAdvisorChatbot() {
             {cards.length === 0 ? (
               <div className="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6 text-center border border-gray-200 dark:border-gray-600">
                 <div className="mb-4">
-                  <svg className="w-12 h-12 mx-auto text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  <svg
+                    className="w-12 h-12 mx-auto text-gray-400 dark:text-gray-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">No Pending Quotes</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  There are currently no pending quotes for this product. Pending quotes will appear here when submitted by suppliers.
+                  There are currently no pending quotes for this product. Pending quotes will appear here when submitted
+                  by suppliers.
                 </p>
               </div>
             ) : (
@@ -408,27 +471,25 @@ export function BudgetAdvisorChatbot() {
                       <span
                         className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border ${
                           getTierInfo(card.supplier_tier).bgColor
-                        } ${getTierInfo(card.supplier_tier).textColor} ${
-                          getTierInfo(card.supplier_tier).borderColor
-                        }`}
+                        } ${getTierInfo(card.supplier_tier).textColor} ${getTierInfo(card.supplier_tier).borderColor}`}
                       >
                         {card.supplier_tier.toUpperCase()}
                       </span>
                     )}
                   </div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{card.description}</p>
-                  
+
                   {/* Action buttons */}
                   <div className="flex flex-col space-y-2">
                     <div className="flex space-x-2">
                       <button
-                        onClick={() => handleCardAction('accept', card.id)}
+                        onClick={() => handleCardAction("accept", card.id)}
                         className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition cursor-pointer"
                       >
                         Accept
                       </button>
                       <button
-                        onClick={() => handleCardAction('reject', card.id)}
+                        onClick={() => handleCardAction("reject", card.id)}
                         className="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition cursor-pointer"
                       >
                         Reject

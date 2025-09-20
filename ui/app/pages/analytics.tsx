@@ -66,7 +66,6 @@ interface TimeSeriesData {
   products_discarded_kg: number;
 }
 
-
 interface AnalyticsData {
   financial: FinancialMetrics;
   inventory: InventoryMetrics;
@@ -94,15 +93,12 @@ export function Analytics() {
     setError(null);
 
     try {
-      const response = await fetch(
-        `http://localhost:8000/analytics/comprehensive?days_back=${daysBack}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:8000/analytics/comprehensive?days_back=${daysBack}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -120,38 +116,37 @@ export function Analytics() {
   };
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-PT', {
-      style: 'currency',
-      currency: 'EUR'
+    return new Intl.NumberFormat("pt-PT", {
+      style: "currency",
+      currency: "EUR",
     }).format(value);
   };
 
   const formatNumber = (value: number) => {
-    return new Intl.NumberFormat('pt-PT').format(value);
+    return new Intl.NumberFormat("pt-PT").format(value);
   };
 
   const formatPercentage = (value: number) => {
     return `${value.toFixed(1)}%`;
   };
 
-
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
-      case 'completed':
-      case 'sold':
-      case 'approved':
-        return 'text-green-600 bg-green-100';
-      case 'pending':
-      case 'in_progress':
-        return 'text-yellow-600 bg-yellow-100';
-      case 'cancelled':
-      case 'discarded':
-      case 'rejected':
-        return 'text-red-600 bg-red-100';
-      case 'donated':
-        return 'text-blue-600 bg-blue-100';
+      case "completed":
+      case "sold":
+      case "approved":
+        return "text-green-600 bg-green-100";
+      case "pending":
+      case "in_progress":
+        return "text-yellow-600 bg-yellow-100";
+      case "cancelled":
+      case "discarded":
+      case "rejected":
+        return "text-red-600 bg-red-100";
+      case "donated":
+        return "text-blue-600 bg-blue-100";
       default:
-        return 'text-gray-600 bg-gray-100';
+        return "text-gray-600 bg-gray-100";
     }
   };
 
@@ -161,11 +156,9 @@ export function Analytics() {
         <div className="flex-1">
           <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">{title}</p>
           <p className="text-2xl font-bold text-gray-900 dark:text-white">
-            {typeof value === 'number' ? formatNumber(value) : value}
+            {typeof value === "number" ? formatNumber(value) : value}
           </p>
-          {subtitle && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{subtitle}</p>
-          )}
+          {subtitle && <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{subtitle}</p>}
         </div>
         {icon && (
           <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
@@ -175,9 +168,11 @@ export function Analytics() {
       </div>
       {trend && (
         <div className="mt-3">
-          <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-            trend.startsWith('+') ? 'text-green-700 bg-green-100' : 'text-red-700 bg-red-100'
-          }`}>
+          <span
+            className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+              trend.startsWith("+") ? "text-green-700 bg-green-100" : "text-red-700 bg-red-100"
+            }`}
+          >
             {trend}
           </span>
         </div>
@@ -189,13 +184,34 @@ export function Analytics() {
     if (!analyticsData) return null;
 
     const { inventory } = analyticsData;
-    const total = inventory.total_sold_kg + inventory.total_discarded_kg + inventory.total_donated_kg + inventory.total_in_stock_kg;
+    const total =
+      inventory.total_sold_kg + inventory.total_discarded_kg + inventory.total_donated_kg + inventory.total_in_stock_kg;
 
     const data = [
-      { label: 'In Stock', value: inventory.total_in_stock_kg, color: 'bg-blue-500', percentage: (inventory.total_in_stock_kg / total * 100) },
-      { label: 'Sold', value: inventory.total_sold_kg, color: 'bg-green-500', percentage: (inventory.total_sold_kg / total * 100) },
-      { label: 'Donated', value: inventory.total_donated_kg, color: 'bg-yellow-500', percentage: (inventory.total_donated_kg / total * 100) },
-      { label: 'Discarded', value: inventory.total_discarded_kg, color: 'bg-red-500', percentage: (inventory.total_discarded_kg / total * 100) },
+      {
+        label: "In Stock",
+        value: inventory.total_in_stock_kg,
+        color: "bg-blue-500",
+        percentage: (inventory.total_in_stock_kg / total) * 100,
+      },
+      {
+        label: "Sold",
+        value: inventory.total_sold_kg,
+        color: "bg-green-500",
+        percentage: (inventory.total_sold_kg / total) * 100,
+      },
+      {
+        label: "Donated",
+        value: inventory.total_donated_kg,
+        color: "bg-yellow-500",
+        percentage: (inventory.total_donated_kg / total) * 100,
+      },
+      {
+        label: "Discarded",
+        value: inventory.total_discarded_kg,
+        color: "bg-red-500",
+        percentage: (inventory.total_discarded_kg / total) * 100,
+      },
     ];
 
     return (
@@ -217,11 +233,7 @@ export function Analytics() {
         </div>
         <div className="mt-4 flex space-x-1 h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
           {data.map((item, index) => (
-            <div
-              key={index}
-              className={item.color}
-              style={{ width: `${item.percentage}%` }}
-            ></div>
+            <div key={index} className={item.color} style={{ width: `${item.percentage}%` }}></div>
           ))}
         </div>
       </div>
@@ -255,9 +267,7 @@ export function Analytics() {
             <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {analyticsData.top_products.map((product) => (
                 <tr key={product.product_id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                  <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">
-                    {product.name}
-                  </td>
+                  <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">{product.name}</td>
                   <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">
                     {formatNumber(product.total_sold_kg)}
                   </td>
@@ -265,11 +275,15 @@ export function Analytics() {
                     {formatCurrency(product.total_revenue)}
                   </td>
                   <td className="px-4 py-3 text-sm">
-                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                      product.loss_rate < 10 ? 'text-green-800 bg-green-100' :
-                      product.loss_rate < 25 ? 'text-yellow-800 bg-yellow-100' :
-                      'text-red-800 bg-red-100'
-                    }`}>
+                    <span
+                      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        product.loss_rate < 10
+                          ? "text-green-800 bg-green-100"
+                          : product.loss_rate < 25
+                            ? "text-yellow-800 bg-yellow-100"
+                            : "text-red-800 bg-red-100"
+                      }`}
+                    >
                       {formatPercentage(product.loss_rate)}
                     </span>
                   </td>
@@ -298,7 +312,9 @@ export function Analytics() {
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600 dark:text-gray-400">Stock:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{formatNumber(warehouse.total_stock_kg)} kg</span>
+                  <span className="font-medium text-gray-900 dark:text-white">
+                    {formatNumber(warehouse.total_stock_kg)} kg
+                  </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600 dark:text-gray-400">Products:</span>
@@ -306,11 +322,15 @@ export function Analytics() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600 dark:text-gray-400">Utilization:</span>
-                  <span className={`font-medium ${
-                    warehouse.utilization_percentage > 80 ? 'text-red-600' :
-                    warehouse.utilization_percentage > 60 ? 'text-yellow-600' :
-                    'text-green-600'
-                  }`}>
+                  <span
+                    className={`font-medium ${
+                      warehouse.utilization_percentage > 80
+                        ? "text-red-600"
+                        : warehouse.utilization_percentage > 60
+                          ? "text-yellow-600"
+                          : "text-green-600"
+                    }`}
+                  >
                     {formatPercentage(warehouse.utilization_percentage)}
                   </span>
                 </div>
@@ -325,8 +345,8 @@ export function Analytics() {
   const renderTimeSeriesChart = () => {
     if (!analyticsData?.time_series.length) return null;
 
-    const maxRevenue = Math.max(...analyticsData.time_series.map(d => d.revenue));
-    const maxOrders = Math.max(...analyticsData.time_series.map(d => d.orders_count));
+    const maxRevenue = Math.max(...analyticsData.time_series.map((d) => d.revenue));
+    const maxOrders = Math.max(...analyticsData.time_series.map((d) => d.orders_count));
 
     return (
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
@@ -347,7 +367,7 @@ export function Analytics() {
                 ></div>
               </div>
               <span className="text-xs text-gray-600 dark:text-gray-400 transform -rotate-45 origin-top-left">
-                {new Date(data.date).toLocaleDateString('pt-PT', { month: 'short', day: 'numeric' })}
+                {new Date(data.date).toLocaleDateString("pt-PT", { month: "short", day: "numeric" })}
               </span>
             </div>
           ))}
@@ -365,7 +385,6 @@ export function Analytics() {
       </div>
     );
   };
-
 
   if (loading && !analyticsData) {
     return (
@@ -397,11 +416,9 @@ export function Analytics() {
 
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-2">
-                Analytics Dashboard
-              </h1>
+              <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-2">Analytics Hub</h1>
               <p className="text-xl text-gray-600 dark:text-gray-300">
-                Comprehensive platform metrics and performance insights
+                Centralized analytics providing insights across smart factory features.
               </p>
             </div>
             <div className="flex items-center space-x-4">
@@ -423,15 +440,31 @@ export function Analytics() {
                 {loading ? (
                   <>
                     <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     Refreshing...
                   </>
                 ) : (
                   <>
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      />
                     </svg>
                     Refresh
                   </>
@@ -445,7 +478,12 @@ export function Analytics() {
           <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
             <div className="flex">
               <svg className="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
               <p className="text-red-800">{error}</p>
             </div>
@@ -508,12 +546,16 @@ export function Analytics() {
               {renderTimeSeriesChart()}
             </div>
 
-
             {/* Operational Metrics */}
             <div>
               <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">Operational Metrics</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {renderKPICard("Total Users", analyticsData.operational.total_suppliers + analyticsData.operational.total_buyers + analyticsData.operational.total_drivers)}
+                {renderKPICard(
+                  "Total Users",
+                  analyticsData.operational.total_suppliers +
+                    analyticsData.operational.total_buyers +
+                    analyticsData.operational.total_drivers
+                )}
                 {renderKPICard("Suppliers", analyticsData.operational.total_suppliers)}
                 {renderKPICard("Buyers", analyticsData.operational.total_buyers)}
                 {renderKPICard("Drivers", analyticsData.operational.total_drivers)}
@@ -532,7 +574,7 @@ export function Analytics() {
 
             {/* Last Updated */}
             <div className="text-center text-sm text-gray-500 dark:text-gray-400">
-              Last updated: {new Date(analyticsData.analysis_timestamp).toLocaleString('pt-PT')}
+              Last updated: {new Date(analyticsData.analysis_timestamp).toLocaleString("pt-PT")}
             </div>
           </div>
         )}

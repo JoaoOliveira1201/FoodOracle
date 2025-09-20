@@ -24,7 +24,7 @@ interface TransferRecord {
 
 interface TransferAction {
   transfer_id: string;
-  action: 'placed' | 'discarded';
+  action: "placed" | "discarded";
   timestamp: string;
 }
 
@@ -95,7 +95,7 @@ export function TransferSuggestionsPage() {
   };
 
   const handlePlaceTransfer = async (transfer: TransferRecord) => {
-    setActionLoading(prev => new Set(prev).add(transfer.transfer_id));
+    setActionLoading((prev) => new Set(prev).add(transfer.transfer_id));
     try {
       const resp = await fetch("http://localhost:8000/warehouse-transfers/", {
         method: "POST",
@@ -105,28 +105,30 @@ export function TransferSuggestionsPage() {
           origin_warehouse_id: transfer.origin_warehouse_id,
           destination_warehouse_id: transfer.destination_warehouse_id,
           reason: "Optimization",
-          notes: `Generated from transfer suggestion`
+          notes: `Generated from transfer suggestion`,
         }),
       });
-      
+
       if (!resp.ok) {
         const err = await resp.json().catch(() => ({}));
         throw new Error(err.detail || `HTTP ${resp.status}`);
       }
-      
+
       const result = await resp.json();
-      
+
       // Mark as placed
-      setTransferActions(prev => [...prev, {
-        transfer_id: transfer.transfer_id,
-        action: 'placed',
-        timestamp: new Date().toISOString()
-      }]);
-      
+      setTransferActions((prev) => [
+        ...prev,
+        {
+          transfer_id: transfer.transfer_id,
+          action: "placed",
+          timestamp: new Date().toISOString(),
+        },
+      ]);
     } catch (e: any) {
       setError(e?.message || "Failed to place transfer");
     } finally {
-      setActionLoading(prev => {
+      setActionLoading((prev) => {
         const newSet = new Set(prev);
         newSet.delete(transfer.transfer_id);
         return newSet;
@@ -135,19 +137,22 @@ export function TransferSuggestionsPage() {
   };
 
   const handleDiscardTransfer = (transfer: TransferRecord) => {
-    setTransferActions(prev => [...prev, {
-      transfer_id: transfer.transfer_id,
-      action: 'discarded',
-      timestamp: new Date().toISOString()
-    }]);
+    setTransferActions((prev) => [
+      ...prev,
+      {
+        transfer_id: transfer.transfer_id,
+        action: "discarded",
+        timestamp: new Date().toISOString(),
+      },
+    ]);
   };
 
   const getTransferAction = (transferId: string): TransferAction | undefined => {
-    return transferActions.find(action => action.transfer_id === transferId);
+    return transferActions.find((action) => action.transfer_id === transferId);
   };
 
   const toggleGroupCollapse = (groupKey: string) => {
-    setCollapsedGroups(prev => {
+    setCollapsedGroups((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(groupKey)) {
         newSet.delete(groupKey);
@@ -164,8 +169,8 @@ export function TransferSuggestionsPage() {
 
     const groups: Record<string, TransferRecord[]> = {};
 
-    data.transfer_records.forEach(transfer => {
-      const truckId = transfer.assigned_truck_id || 'unassigned';
+    data.transfer_records.forEach((transfer) => {
+      const truckId = transfer.assigned_truck_id || "unassigned";
       const key = `${transfer.origin_warehouse_id}-${transfer.destination_warehouse_id}-${truckId}`;
 
       if (!groups[key]) {
@@ -190,7 +195,7 @@ export function TransferSuggestionsPage() {
   return (
     <div className="px-8 pt-8 max-w-7xl mx-auto">
       <div className="flex items-center justify-center mb-6">
-        <h1 className="text-3xl font-bold">Transfer Suggestions</h1>
+        <h1 className="text-3xl font-bold">Logistics Optimizer</h1>
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
@@ -222,14 +227,15 @@ export function TransferSuggestionsPage() {
         {error && (
           <div className="mt-4 p-3 text-sm text-red-300 bg-red-900/20 border border-red-800 rounded-md">{error}</div>
         )}
-
       </div>
 
       {data && data.success && (
         <div className="space-y-8">
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Transfer Records</h3>
-            <div className="text-sm text-gray-500 dark:text-gray-400">{data.transfer_records.length} records in {Object.keys(groupedTransfers).length} groups</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">
+              {data.transfer_records.length} records in {Object.keys(groupedTransfers).length} groups
+            </div>
           </div>
           {data.transfer_records.length === 0 ? (
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 text-gray-500">
@@ -240,12 +246,15 @@ export function TransferSuggestionsPage() {
               {Object.entries(groupedTransfers).map(([groupKey, transfers]) => {
                 const firstTransfer = transfers[0];
                 const totalQuantity = transfers.reduce((sum, t) => sum + t.quantity_kg, 0);
-                const uniqueProducts = new Set(transfers.map(t => t.product_name)).size;
+                const uniqueProducts = new Set(transfers.map((t) => t.product_name)).size;
 
                 const isCollapsed = collapsedGroups.has(groupKey);
 
                 return (
-                  <div key={groupKey} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                  <div
+                    key={groupKey}
+                    className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden"
+                  >
                     {/* Group Header */}
                     <div
                       className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 px-6 py-4 border-b border-gray-200 dark:border-gray-700 cursor-pointer hover:from-indigo-100 hover:to-purple-100 dark:hover:from-indigo-900/30 dark:hover:to-purple-900/30 transition-colors"
@@ -257,7 +266,7 @@ export function TransferSuggestionsPage() {
                             {/* Collapse/Expand Icon */}
                             <button className="p-1 rounded-full hover:bg-white/50 dark:hover:bg-gray-700/50 transition-colors">
                               <svg
-                                className={`w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform ${isCollapsed ? 'rotate-0' : 'rotate-90'}`}
+                                className={`w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform ${isCollapsed ? "rotate-0" : "rotate-90"}`}
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -268,8 +277,18 @@ export function TransferSuggestionsPage() {
                             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300">
                               From: {firstTransfer.origin_warehouse_name}
                             </span>
-                            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            <svg
+                              className="w-4 h-4 text-gray-400"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M13 7l5 5m0 0l-5 5m5-5H6"
+                              />
                             </svg>
                             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300">
                               To: {firstTransfer.destination_warehouse_name}
@@ -289,7 +308,9 @@ export function TransferSuggestionsPage() {
                         </div>
                         <div className="text-right">
                           <div className="text-lg font-bold text-gray-900 dark:text-white">{totalQuantity} kg</div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">{transfers.length} transfers • {uniqueProducts} products</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                            {transfers.length} transfers • {uniqueProducts} products
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -303,16 +324,25 @@ export function TransferSuggestionsPage() {
                             const isActionLoading = actionLoading.has(t.transfer_id);
 
                             return (
-                              <div key={t.transfer_id} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
+                              <div
+                                key={t.transfer_id}
+                                className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600"
+                              >
                                 <div className="flex items-center justify-between mb-2">
-                                  <div className="text-xs font-medium text-indigo-600 dark:text-indigo-400">{t.transfer_id}</div>
+                                  <div className="text-xs font-medium text-indigo-600 dark:text-indigo-400">
+                                    {t.transfer_id}
+                                  </div>
                                   <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200">
                                     {new Date(t.generated_timestamp).toLocaleString()}
                                   </span>
                                 </div>
                                 <div className="flex items-center justify-between mb-3">
-                                  <div className="text-sm font-semibold text-gray-900 dark:text-white">{t.product_name}</div>
-                                  <div className="text-sm font-bold text-green-600 dark:text-green-400">{t.quantity_kg} kg</div>
+                                  <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                                    {t.product_name}
+                                  </div>
+                                  <div className="text-sm font-bold text-green-600 dark:text-green-400">
+                                    {t.quantity_kg} kg
+                                  </div>
                                 </div>
                                 <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-300 mb-3">
                                   <div className="inline-flex items-center gap-1">
@@ -325,13 +355,15 @@ export function TransferSuggestionsPage() {
                                   </div>
                                 </div>
                                 <div className="border-t border-gray-200 dark:border-gray-600 pt-3 mb-4">
-                                  <div className="text-xs text-gray-500 dark:text-gray-400">Record #{t.product_record_id}</div>
+                                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                                    Record #{t.product_record_id}
+                                  </div>
                                 </div>
 
                                 {/* Action Status */}
                                 {action && (
                                   <div className="mb-4 p-2 rounded-md text-xs">
-                                    {action.action === 'placed' ? (
+                                    {action.action === "placed" ? (
                                       <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
                                         <span className="w-2 h-2 rounded-full bg-green-500"></span>
                                         <span>Transfer placed successfully</span>
@@ -384,5 +416,3 @@ export function TransferSuggestionsPage() {
 }
 
 export default TransferSuggestionsPage;
-
-

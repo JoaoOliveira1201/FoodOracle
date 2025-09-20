@@ -86,19 +86,18 @@ export function DonationSuggestionsPage() {
     }
   }, [isAdmin]);
 
-
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
   const formatNumber = (value: number) => {
-    return new Intl.NumberFormat('pt-PT').format(value);
+    return new Intl.NumberFormat("pt-PT").format(value);
   };
 
   // Environmental impact calculations
@@ -167,9 +166,7 @@ export function DonationSuggestionsPage() {
                 <span className="text-2xl">🌍</span>
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">CO₂ Emissions</span>
               </div>
-              <span className="text-lg font-bold text-red-600 dark:text-red-400">
-                {discardedImpact.co2_kg} kg
-              </span>
+              <span className="text-lg font-bold text-red-600 dark:text-red-400">{discardedImpact.co2_kg} kg</span>
             </div>
           </div>
         </div>
@@ -209,9 +206,7 @@ export function DonationSuggestionsPage() {
                 <span className="text-2xl">🌱</span>
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">CO₂ Avoided</span>
               </div>
-              <span className="text-lg font-bold text-green-600 dark:text-green-400">
-                {donatedImpact.co2_kg} kg
-              </span>
+              <span className="text-lg font-bold text-green-600 dark:text-green-400">{donatedImpact.co2_kg} kg</span>
             </div>
           </div>
         </div>
@@ -233,16 +228,14 @@ export function DonationSuggestionsPage() {
   return (
     <div className="px-8 pt-8">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Donation Suggestions</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Smart Donation Assistant</h1>
         <p className="text-gray-600 dark:text-gray-400 mt-2">
-          AI-powered suggestions for donating products that are about to expire
+          Match near-expiry products with local charities using AI to cut waste and support communities.
         </p>
       </div>
 
       {error && (
-        <div className="mb-6 p-4 text-sm text-red-300 bg-red-900/20 border border-red-800 rounded-md">
-          {error}
-        </div>
+        <div className="mb-6 p-4 text-sm text-red-300 bg-red-900/20 border border-red-800 rounded-md">{error}</div>
       )}
 
       {data && (
@@ -252,30 +245,22 @@ export function DonationSuggestionsPage() {
               <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
                 {data.total_products_expiring}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                Products Expiring Soon
-              </div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Products Expiring Soon</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                 {data.top_10_by_weight.length}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                Top Priority Items
-              </div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Top Priority Items</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
                 {data.top_10_by_weight.reduce((sum, item) => sum + item.quantity_kg, 0)} kg
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                Total Weight to Donate
-              </div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Total Weight to Donate</div>
             </div>
           </div>
-          <div className="mt-4 text-sm text-gray-600 dark:text-gray-400 text-center">
-            {data.message}
-          </div>
+          <div className="mt-4 text-sm text-gray-600 dark:text-gray-400 text-center">{data.message}</div>
         </div>
       )}
 
@@ -286,7 +271,11 @@ export function DonationSuggestionsPage() {
           <div className="relative group">
             <button className="w-5 h-5 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 rounded-full flex items-center justify-center transition-colors">
               <svg className="w-3 h-3 text-gray-600 dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clipRule="evenodd"
+                />
               </svg>
             </button>
             <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
@@ -313,9 +302,7 @@ export function DonationSuggestionsPage() {
       {data && data.top_10_by_weight.length === 0 && (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center">
           <div className="text-6xl mb-4">🎉</div>
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-            Great News!
-          </h3>
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Great News!</h3>
           <p className="text-gray-600 dark:text-gray-400">
             No products are expiring in the next 3 days. Your inventory management is on track!
           </p>
@@ -327,7 +314,7 @@ export function DonationSuggestionsPage() {
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
             Priority Donation Items (Top 10 by Weight)
           </h3>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {data.top_10_by_weight.map((suggestion, index) => (
               <div
@@ -345,9 +332,7 @@ export function DonationSuggestionsPage() {
                         <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
                           {suggestion.product_name}
                         </h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          Record ID: {suggestion.record_id}
-                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Record ID: {suggestion.record_id}</p>
                       </div>
                     </div>
                     <div className="text-right">
@@ -360,10 +345,14 @@ export function DonationSuggestionsPage() {
                   {/* Expiration Info */}
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center">
-                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getExpirationColor(suggestion.days_until_expiration)}`}>
-                        {suggestion.days_until_expiration === 0 ? "Expires Today" : 
-                         suggestion.days_until_expiration === 1 ? "Expires Tomorrow" :
-                         `Expires in ${suggestion.days_until_expiration} days`}
+                      <span
+                        className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getExpirationColor(suggestion.days_until_expiration)}`}
+                      >
+                        {suggestion.days_until_expiration === 0
+                          ? "Expires Today"
+                          : suggestion.days_until_expiration === 1
+                            ? "Expires Tomorrow"
+                            : `Expires in ${suggestion.days_until_expiration} days`}
                       </span>
                     </div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">
@@ -379,12 +368,11 @@ export function DonationSuggestionsPage() {
                           {suggestion.warehouse_name}
                         </div>
                         <div className="text-xs text-gray-600 dark:text-gray-400">
-                          {suggestion.warehouse_location.latitude.toFixed(4)}, {suggestion.warehouse_location.longitude.toFixed(4)}
+                          {suggestion.warehouse_location.latitude.toFixed(4)},{" "}
+                          {suggestion.warehouse_location.longitude.toFixed(4)}
                         </div>
                       </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">
-                        📍 Warehouse Location
-                      </div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">📍 Warehouse Location</div>
                     </div>
                   </div>
 
@@ -406,20 +394,18 @@ export function DonationSuggestionsPage() {
                       {suggestion.suggested_donation_locations
                         .slice(0, expandedCard === suggestion.record_id ? undefined : 3)
                         .map((location, locationIndex) => (
-                        <div
-                          key={locationIndex}
-                          className="border border-gray-200 dark:border-gray-600 rounded-lg p-3 bg-gray-50 dark:bg-gray-700"
-                        >
-                          <div className="flex items-center">
-                            <div className="w-6 h-6 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-3">
-                              <span className="text-green-600 dark:text-green-400 text-xs">✓</span>
+                          <div
+                            key={locationIndex}
+                            className="border border-gray-200 dark:border-gray-600 rounded-lg p-3 bg-gray-50 dark:bg-gray-700"
+                          >
+                            <div className="flex items-center">
+                              <div className="w-6 h-6 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-3">
+                                <span className="text-green-600 dark:text-green-400 text-xs">✓</span>
+                              </div>
+                              <h6 className="font-medium text-gray-900 dark:text-white text-sm">{location.name}</h6>
                             </div>
-                            <h6 className="font-medium text-gray-900 dark:text-white text-sm">
-                              {location.name}
-                            </h6>
                           </div>
-                        </div>
-                      ))}
+                        ))}
                     </div>
 
                     {suggestion.suggested_donation_locations.length > 3 && expandedCard !== suggestion.record_id && (

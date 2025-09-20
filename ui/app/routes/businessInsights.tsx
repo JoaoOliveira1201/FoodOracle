@@ -37,7 +37,7 @@ export default function BusinessInsights() {
   const fetchSeasonalSuggestions = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await fetch("http://localhost:8000/seasonal-suggestions/analyze", {
         method: "POST",
@@ -106,19 +106,33 @@ export default function BusinessInsights() {
             </svg>
             Back to Home
           </button>
-          
+
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-2">
-                Business Insights
-              </h1>
+              <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-2">Seasonal Demand Predictor</h1>
               <p className="text-xl text-gray-600 dark:text-gray-300">
-                AI-powered recommendations and strategic business intelligence
+                Forecast seasonal demand with AI to guide smarter stocking and sales decisions.
               </p>
             </div>
             <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl shadow-lg flex items-center justify-center">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000">
+                <defs>
+                  <style>
+                    {`.cls-1 {
+              fill: none;
+              stroke: #ffffff;
+              stroke-miterlimit: 10;
+              stroke-width: 1.91px;
+            }`}
+                  </style>
+                </defs>
+                <path
+                  className="cls-1"
+                  d="M22.52,7.24V9.53a5.34,5.34,0,0,1-3,4.82,4.21,4.21,0,0,1,1.11,2.83v1.54H16.2A4.19,4.19,0,0,1,12,14.89H12A4.19,4.19,0,0,1,7.8,18.72H3.39V17.18A4.21,4.21,0,0,1,4.5,14.35a5.34,5.34,0,0,1-3-4.82V7.24H6.63a4.94,4.94,0,0,1,1,.09A9.81,9.81,0,0,1,12,1.5a9.81,9.81,0,0,1,4.42,5.83,4.94,4.94,0,0,1,.95-.09Z"
+                />
+                <line className="cls-1" x1="12" y1="7.24" x2="12" y2="23.5" />
+                <line className="cls-1" x1="6.26" y1="11.07" x2="12" y2="14.89" />
+                <line className="cls-1" x1="16.78" y1="11.07" x2="12" y2="13.93" />
               </svg>
             </div>
           </div>
@@ -132,16 +146,12 @@ export default function BusinessInsights() {
               className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg p-2 transition-colors"
             >
               <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg mr-3 flex items-center justify-center">
-                <span className="text-white text-lg">
-                  {seasonalData ? getSeasonalIcon(seasonalData.season) : "📊"}
-                </span>
+                <span className="text-white text-lg">{seasonalData ? getSeasonalIcon(seasonalData.season) : "📊"}</span>
               </div>
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
-                Seasonal Suggestions
-              </h2>
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Seasonal Suggestions</h2>
               <svg
                 className={`w-6 h-6 ml-3 text-gray-500 dark:text-gray-400 transition-transform duration-200 ${
-                  isSeasonalExpanded ? 'rotate-180' : ''
+                  isSeasonalExpanded ? "rotate-180" : ""
                 }`}
                 fill="none"
                 stroke="currentColor"
@@ -158,15 +168,31 @@ export default function BusinessInsights() {
               {loading ? (
                 <>
                   <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
                   </svg>
                   Analyzing...
                 </>
               ) : (
                 <>
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
                   </svg>
                   Refresh Analysis
                 </>
@@ -175,14 +201,21 @@ export default function BusinessInsights() {
           </div>
 
           {/* Collapsible Content */}
-          <div className={`transition-all duration-300 ease-in-out overflow-hidden ${
-            isSeasonalExpanded ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
-          }`}>
+          <div
+            className={`transition-all duration-300 ease-in-out overflow-hidden ${
+              isSeasonalExpanded ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
             {error && (
               <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
                 <div className="flex">
                   <svg className="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                   <p className="text-red-800">{error}</p>
                 </div>
@@ -201,11 +234,14 @@ export default function BusinessInsights() {
             {seasonalData && (
               <div className="space-y-6">
                 {/* Season Overview */}
-                <div className={`bg-gradient-to-r ${getSeasonalColor(seasonalData.season)} rounded-2xl shadow-lg p-6 text-white`}>
+                <div
+                  className={`bg-gradient-to-r ${getSeasonalColor(seasonalData.season)} rounded-2xl shadow-lg p-6 text-white`}
+                >
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-2xl font-bold mb-2">
-                        {getSeasonalIcon(seasonalData.season)} {seasonalData.season.charAt(0).toUpperCase() + seasonalData.season.slice(1)} Season
+                        {getSeasonalIcon(seasonalData.season)}{" "}
+                        {seasonalData.season.charAt(0).toUpperCase() + seasonalData.season.slice(1)} Season
                       </h3>
                       <p className="text-lg opacity-90">
                         Analysis for {new Date(seasonalData.analysis_date).toLocaleDateString()}
@@ -252,15 +288,30 @@ export default function BusinessInsights() {
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
                     <svg className="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                      />
                     </svg>
                     AI Recommendations
                   </h3>
-                  
+
                   {seasonalData.suggestions.length === 0 ? (
                     <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                      <svg className="w-12 h-12 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                      <svg
+                        className="w-12 h-12 mx-auto mb-4 opacity-50"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                        />
                       </svg>
                       <p>No specific recommendations available at this time.</p>
                     </div>
@@ -271,12 +322,8 @@ export default function BusinessInsights() {
                           key={index}
                           className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow"
                         >
-                          <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                            {suggestion.title}
-                          </h4>
-                          <p className="text-gray-600 dark:text-gray-300 text-sm">
-                            {suggestion.summary}
-                          </p>
+                          <h4 className="font-semibold text-gray-900 dark:text-white mb-2">{suggestion.title}</h4>
+                          <p className="text-gray-600 dark:text-gray-300 text-sm">{suggestion.summary}</p>
                         </div>
                       ))}
                     </div>
@@ -289,12 +336,10 @@ export default function BusinessInsights() {
 
         {/* Future sections can be added here */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-            More Insights Coming Soon
-          </h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">More Insights Coming Soon</h2>
           <p className="text-gray-600 dark:text-gray-300">
-            Additional business intelligence features will be added here, including market trends, 
-            performance analytics, and predictive insights.
+            Additional business intelligence features will be added here, including market trends, performance
+            analytics, and predictive insights.
           </p>
         </div>
       </div>
