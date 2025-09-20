@@ -76,11 +76,11 @@ export function SupplierProducts() {
 
       // Combine products with their quote status
       const productsWithStatus: ProductWithQuoteStatus[] = productsData.map((product: Product) => {
-        const quote = quotesData.find(q => q.product_id === product.product_id);
+        const quote = quotesData.find((q) => q.product_id === product.product_id);
         return {
           ...product,
           quoteStatus: quote ? quote.status : "Not Submitted",
-          quoteId: quote?.quote_id
+          quoteId: quote?.quote_id,
         };
       });
 
@@ -141,24 +141,10 @@ export function SupplierProducts() {
 
   const getActionButton = (product: ProductWithQuoteStatus) => {
     if (product.quoteStatus === "Rejected") {
-      return (
-        <Button
-          color="primary"
-          size="small"
-          label="Submit New"
-          onClick={() => handleOpenQuoteModal(product)}
-        />
-      );
+      return <Button color="primary" size="small" label="Submit New" onClick={() => handleOpenQuoteModal(product)} />;
     }
     if (product.quoteStatus === "Not Submitted") {
-      return (
-        <Button
-          color="success"
-          size="small"
-          label="Submit Quote"
-          onClick={() => handleOpenQuoteModal(product)}
-        />
-      );
+      return <Button color="success" size="small" label="Submit Quote" onClick={() => handleOpenQuoteModal(product)} />;
     }
     return null;
   };
@@ -175,9 +161,7 @@ export function SupplierProducts() {
   if (error) {
     return (
       <div className="px-28 pt-14">
-        <div className="p-4 text-sm text-red-300 bg-red-900/20 border border-red-800 rounded-md">
-          Error: {error}
-        </div>
+        <div className="p-4 text-sm text-red-300 bg-red-900/20 border border-red-800 rounded-md">Error: {error}</div>
       </div>
     );
   }
@@ -185,7 +169,7 @@ export function SupplierProducts() {
   return (
     <>
       <div className="flex items-center justify-between px-28 pt-14">
-        <h1 className="text-4xl font-bold">Product Registration Status</h1>
+        <h1 className="text-4xl font-bold">Product Quotations</h1>
       </div>
       <div className="px-28 pt-2">
         {successMessage && (
@@ -195,8 +179,8 @@ export function SupplierProducts() {
         )}
         <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
           <p className="text-sm text-blue-800 dark:text-blue-300">
-            <strong>How it works:</strong> To register products for sale, you need approval from administrators. 
-            Submit quotes for products you want to sell. Once approved, you can create product records.
+            <strong>How it works:</strong> To register products for sale, you need approval from administrators. Submit
+            quotes for products you want to sell. Once approved, you can create product records.
           </p>
         </div>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg border border-gray-600">
@@ -238,9 +222,7 @@ export function SupplierProducts() {
                   <tr
                     key={product.product_id}
                     className={`${
-                      idx % 2 === 0
-                        ? "bg-white dark:bg-gray-900"
-                        : "bg-gray-50 dark:bg-gray-800"
+                      idx % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50 dark:bg-gray-800"
                     } border-b border-gray-200 dark:border-gray-700`}
                   >
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -260,12 +242,8 @@ export function SupplierProducts() {
                       </span>
                     </td>
                     <td className="px-6 py-4">{product.shelf_life_days}</td>
-                    <td className="px-6 py-4">
-                      {getStatusBadge(product.quoteStatus)}
-                    </td>
-                    <td className="px-6 py-4">
-                      {getActionButton(product)}
-                    </td>
+                    <td className="px-6 py-4">{getStatusBadge(product.quoteStatus)}</td>
+                    <td className="px-6 py-4">{getActionButton(product)}</td>
                   </tr>
                 ))
               )}

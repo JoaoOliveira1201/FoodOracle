@@ -58,7 +58,7 @@ export function SupplierProductRecords() {
   const fetchProductRecords = async () => {
     try {
       setLoading(true);
-      
+
       // Fetch product records for this supplier
       const recordsResponse = await fetch(`http://localhost:8000/product-records/supplier/${user?.user_id}`);
       if (!recordsResponse.ok) {
@@ -74,11 +74,11 @@ export function SupplierProductRecords() {
       const productsData: Product[] = await productsResponse.json();
 
       // Combine records with product names
-      const recordsWithProductNames: ProductRecordWithProductName[] = recordsData.map(record => {
-        const product = productsData.find(p => p.product_id === record.product_id);
+      const recordsWithProductNames: ProductRecordWithProductName[] = recordsData.map((record) => {
+        const product = productsData.find((p) => p.product_id === record.product_id);
         return {
           ...record,
-          product_name: product?.name || "Unknown Product"
+          product_name: product?.name || "Unknown Product",
         };
       });
 
@@ -167,15 +167,9 @@ export function SupplierProductRecords() {
   if (error) {
     return (
       <div className="px-28 pt-14">
-        <div className="p-4 text-sm text-red-300 bg-red-900/20 border border-red-800 rounded-md">
-          Error: {error}
-        </div>
+        <div className="p-4 text-sm text-red-300 bg-red-900/20 border border-red-800 rounded-md">Error: {error}</div>
         <div className="mt-4">
-          <Button
-            color="secondary"
-            label="Back to Home"
-            onClick={() => navigate('/home')}
-          />
+          <Button color="secondary" label="Back to Home" onClick={() => navigate("/home")} />
         </div>
       </div>
     );
@@ -184,12 +178,8 @@ export function SupplierProductRecords() {
   return (
     <>
       <div className="flex items-center justify-between px-28 pt-14">
-        <h1 className="text-4xl font-bold">My Product Records</h1>
-        <Button 
-          color="primary" 
-          label="Register New Product" 
-          onClick={() => navigate("/register-product-record")} 
-        />
+        <h1 className="text-4xl font-bold">Product Records</h1>
+        <Button color="primary" label="Register New Product" onClick={() => navigate("/register-product-record")} />
       </div>
       <div className="px-28 pt-2">
         {successMessage && (
@@ -199,8 +189,8 @@ export function SupplierProductRecords() {
         )}
         <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
           <p className="text-sm text-blue-800 dark:text-blue-300">
-            <strong>Your Product Inventory:</strong> These are the product records you've submitted to the system. 
-            Each record represents a specific batch of products with quantity, quality classification, and current status.
+            <strong>Your Product Inventory:</strong> These are the product records you've submitted to the system. Each
+            record represents a specific batch of products with quantity, quality classification, and current status.
           </p>
         </div>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg border border-gray-600">
@@ -252,9 +242,7 @@ export function SupplierProductRecords() {
                   <tr
                     key={record.record_id}
                     className={`${
-                      idx % 2 === 0
-                        ? "bg-white dark:bg-gray-900"
-                        : "bg-gray-50 dark:bg-gray-800"
+                      idx % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50 dark:bg-gray-800"
                     } border-b border-gray-200 dark:border-gray-700`}
                   >
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -262,20 +250,20 @@ export function SupplierProductRecords() {
                     </th>
                     <td className="px-6 py-4 font-medium">{record.product_name}</td>
                     <td className="px-6 py-4">{record.quantity_kg || "—"} kg</td>
-                    <td className="px-6 py-4">
-                      {getQualityBadge(record.quality_classification)}
-                    </td>
-                    <td className="px-6 py-4">
-                      {getStatusBadge(record.status)}
-                    </td>
+                    <td className="px-6 py-4">{getQualityBadge(record.quality_classification)}</td>
+                    <td className="px-6 py-4">{getStatusBadge(record.status)}</td>
                     <td className="px-6 py-4">
                       {record.warehouse_name ? (
                         record.warehouse_name
                       ) : (
                         <span className="text-gray-400 italic">
-                          {record.status === "Discarded" ? "No warehouse (discarded)" :
-                           record.status === "Sold" ? "No warehouse (sold)" :
-                           record.status === "Donated" ? "No warehouse (donated)" : "No warehouse assigned"}
+                          {record.status === "Discarded"
+                            ? "No warehouse (discarded)"
+                            : record.status === "Sold"
+                              ? "No warehouse (sold)"
+                              : record.status === "Donated"
+                                ? "No warehouse (donated)"
+                                : "No warehouse assigned"}
                         </span>
                       )}
                     </td>
@@ -298,38 +286,36 @@ export function SupplierProductRecords() {
             </tbody>
           </table>
         </div>
-        
+
         {productRecords.length > 0 && (
           <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border">
             <h3 className="text-lg font-semibold mb-2">Summary</h3>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
-                  {productRecords.length}
-                </div>
+                <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">{productRecords.length}</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Total Records</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                  {productRecords.filter(r => r.status === "InStock").length}
+                  {productRecords.filter((r) => r.status === "InStock").length}
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">In Stock</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                  {productRecords.filter(r => r.status === "Sold").length}
+                  {productRecords.filter((r) => r.status === "Sold").length}
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Sold</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-red-600 dark:text-red-400">
-                  {productRecords.filter(r => r.status === "Discarded").length}
+                  {productRecords.filter((r) => r.status === "Discarded").length}
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Discarded</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                  {productRecords.filter(r => r.status === "Donated").length}
+                  {productRecords.filter((r) => r.status === "Donated").length}
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Donated</div>
               </div>
