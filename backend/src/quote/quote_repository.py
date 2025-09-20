@@ -153,6 +153,53 @@ class QuoteRepository:
                 f"Failed to get pending quotes with supplier names by product ID: {str(e)}"
             )
 
+    async def get_pending_by_product_id_with_supplier_details(
+        self, product_id: int
+    ) -> List[tuple]:
+        """Get pending quotes by product ID with supplier names and tier information"""
+        from src.product_record.product_record_repository import ProductRecordRepository
+
+        try:
+            result = await self.session.execute(
+                select(
+                    QuoteModel,
+                    UserModel.Name.label("supplier_name"),
+                )
+                .outerjoin(UserModel, QuoteModel.SupplierID == UserModel.UserID)
+                .where(
+                    QuoteModel.ProductID == product_id,
+                    QuoteModel.Status == QuoteStatus.PENDING.value,
+                )
+            )
+            rows = result.all()
+
+            # Get supplier tiers for all suppliers
+            product_record_repo = ProductRecordRepository(self.session)
+            supplier_details = []
+
+            for row in rows:
+                quote = self._model_to_entity(row.QuoteModel)
+                supplier_name = row.supplier_name
+
+                # Get supplier tier
+                supplier_tier = "Basic"  # Default
+                if quote.supplier_id:
+                    try:
+                        stats = await product_record_repo.get_supplier_statistics(quote.supplier_id)
+                        supplier_tier = stats.get("supplier_tier", "Basic")
+                    except Exception:
+                        # If we can't get supplier stats, default to Basic
+                        pass
+
+                supplier_details.append((quote, supplier_name, supplier_tier))
+
+            return supplier_details
+
+        except SQLAlchemyError as e:
+            raise Exception(
+                f"Failed to get pending quotes with supplier details by product ID: {str(e)}"
+            )
+
     # --------------------------------------------------------------------------------------------------------------------------------------------------
     # --------------------------------------------------------------------------------------------------------------------------------------------------
     # --------------------------------------------------------------------------------------------------------------------------------------------------

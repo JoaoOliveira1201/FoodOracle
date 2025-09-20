@@ -37,9 +37,9 @@ async def get_product_data(product_id: int, db: AsyncSession) -> Dict[str, Any]:
             status_code=404, detail=f"Product with ID {product_id} not found"
         )
 
-    # Fetch pending quotes for this product with supplier names
-    quotes_with_supplier_names = (
-        await quote_repo.get_pending_by_product_id_with_supplier_names(product_id)
+    # Fetch pending quotes for this product with supplier names and tiers
+    quotes_with_supplier_details = (
+        await quote_repo.get_pending_by_product_id_with_supplier_details(product_id)
     )
 
     # Fetch product records (history) for this product
@@ -47,7 +47,7 @@ async def get_product_data(product_id: int, db: AsyncSession) -> Dict[str, Any]:
 
     return {
         "product": product,
-        "quotes_with_supplier_names": quotes_with_supplier_names,
+        "quotes_with_supplier_details": quotes_with_supplier_details,
         "product_records": product_records,
     }
 
@@ -55,7 +55,7 @@ async def get_product_data(product_id: int, db: AsyncSession) -> Dict[str, Any]:
 def format_product_context(product_data: Dict[str, Any]) -> str:
     """Format product data into a readable context for budget decision making"""
     product = product_data["product"]
-    quotes_with_supplier_names = product_data["quotes_with_supplier_names"]
+    quotes_with_supplier_details = product_data["quotes_with_supplier_details"]
     product_records = product_data["product_records"]
 
     context = f"""
@@ -89,20 +89,21 @@ Donated: {len(donated_records)} records ({total_donated} kg total)
 
 === PENDING SUPPLIER QUOTES & BUDGET INFORMATION ==="""
 
-    if not quotes_with_supplier_names:
+    if not quotes_with_supplier_details:
         context += "\nNo pending quotes available for this product."
     else:
         context += (
-            f"\nTotal Pending Quotes Available: {len(quotes_with_supplier_names)}"
+            f"\nTotal Pending Quotes Available: {len(quotes_with_supplier_details)}"
         )
 
-        for i, (quote, supplier_name) in enumerate(quotes_with_supplier_names, 1):
+        for i, (quote, supplier_name, supplier_tier) in enumerate(quotes_with_supplier_details, 1):
             context += f"""
 
 --- Quote {i} ---
 Quote ID: {quote.quote_id}
 Supplier ID: {quote.supplier_id}
 Supplier Name: {supplier_name or "Unknown Supplier"}
+Supplier Tier: {supplier_tier} (Performance classification: Basic < Bronze < Silver < Gold < Platinum)
 Status: {quote.status.value}
 Submission Date: {quote.submission_date}"""
 
@@ -157,7 +158,7 @@ async def ask_budget_question(
             "answer": answer,
             "product_summary": {
                 "name": product_data["product"].name,
-                "quotes_count": len(product_data["quotes_with_supplier_names"]),
+                "quotes_count": len(product_data["quotes_with_supplier_details"]),
                 "records_count": len(product_data["product_records"]),
             },
         }
@@ -186,3 +187,14 @@ def get_status():
         "chat_history_length": len(chat_history),
         "description": "Budget advisor integrated with supply chain data",
     }
+
+
+@router.get("/debug-context/{product_id}")
+async def debug_context(product_id: int, db: AsyncSession = Depends(get_db_session)):
+    """Debug endpoint to see the context being generated"""
+    try:
+        product_data = await get_product_data(product_id, db)
+        context = format_product_context(product_data)
+        return {"context": context}
+    except Exception as e:
+        return {"error": str(e)}

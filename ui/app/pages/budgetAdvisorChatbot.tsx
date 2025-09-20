@@ -58,13 +58,28 @@ export function BudgetAdvisorChatbot() {
         const quotesResponse = await fetch(`http://localhost:8000/quotes/?product_id=${selectedOption}&status=Pending`);
         if (quotesResponse.ok) {
           const quotes = await quotesResponse.json();
+
+          // Fetch supplier tiers for all quotes
+          const uniqueSupplierIds = [...new Set(quotes.map((quote: any) => quote.supplier_id).filter(Boolean))];
+          const tierPromises = uniqueSupplierIds.map(async (supplierId: number) => {
+            const tier = await fetchSupplierTier(supplierId);
+            return [supplierId, tier];
+          });
+
+          const tierResults = await Promise.all(tierPromises);
+          const newSupplierTiers = new Map(tierResults);
+          setSupplierTiers(newSupplierTiers);
+
           const quoteCards: Card[] = quotes.map((quote: any) => {
             const supplierName = quote.supplier_id ? suppliers.get(quote.supplier_id) || `Unknown Supplier (ID: ${quote.supplier_id})` : 'N/A';
+            const supplierTier = quote.supplier_id ? newSupplierTiers.get(quote.supplier_id) || 'basic' : 'basic';
+
             return {
               id: quote.quote_id,
               title: `Quote #${quote.quote_id}`,
               description: `Supplier: ${supplierName} | Status: ${quote.status} | Submitted: ${new Date(quote.submission_date).toLocaleDateString()}`,
               pdf_document_path: quote.pdf_document_path,
+              supplier_tier: supplierTier,
             };
           });
           setCards(quoteCards);
@@ -84,11 +99,64 @@ export function BudgetAdvisorChatbot() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  type Card = { id: number; title: string; description: string; pdf_document_path?: string };
+  type Card = { id: number; title: string; description: string; pdf_document_path?: string; supplier_tier?: string };
   const [cards, setCards] = useState<Card[]>([]);
-  
+
   // State to store supplier lookup
   const [suppliers, setSuppliers] = useState<Map<number, string>>(new Map());
+  // State to store supplier tiers
+  const [supplierTiers, setSupplierTiers] = useState<Map<number, string>>(new Map());
+
+  // Function to get tier styling (similar to userInfo.tsx)
+  const getTierInfo = (tier: string) => {
+    switch (tier?.toLowerCase()) {
+      case "platinum":
+        return {
+          bgColor: "bg-purple-100 dark:bg-purple-900/20",
+          textColor: "text-purple-800 dark:text-purple-200",
+          borderColor: "border-purple-300 dark:border-purple-700"
+        };
+      case "gold":
+        return {
+          bgColor: "bg-yellow-100 dark:bg-yellow-900/20",
+          textColor: "text-yellow-800 dark:text-yellow-200",
+          borderColor: "border-yellow-300 dark:border-yellow-700"
+        };
+      case "silver":
+        return {
+          bgColor: "bg-gray-100 dark:bg-gray-700/20",
+          textColor: "text-gray-800 dark:text-gray-200",
+          borderColor: "border-gray-300 dark:border-gray-600"
+        };
+      case "bronze":
+        return {
+          bgColor: "bg-orange-100 dark:bg-orange-900/20",
+          textColor: "text-orange-800 dark:text-orange-200",
+          borderColor: "border-orange-300 dark:border-orange-700"
+        };
+      case "basic":
+      default:
+        return {
+          bgColor: "bg-gray-50 dark:bg-gray-800/20",
+          textColor: "text-gray-700 dark:text-gray-300",
+          borderColor: "border-gray-200 dark:border-gray-600"
+        };
+    }
+  };
+
+  // Function to fetch supplier tier
+  async function fetchSupplierTier(supplierId: number): Promise<string> {
+    try {
+      const response = await fetch(`http://localhost:8000/product-records/supplier/${supplierId}/statistics`);
+      if (response.ok) {
+        const stats = await response.json();
+        return stats.supplier_tier || 'basic';
+      }
+    } catch (error) {
+      console.warn(`Failed to fetch tier for supplier ${supplierId}:`, error);
+    }
+    return 'basic';
+  }
 
   // Fetch dropdown options from products API and suppliers
   useEffect(() => {
@@ -144,16 +212,31 @@ export function BudgetAdvisorChatbot() {
         }
         
         const quotes = await response.json();
+
+        // Fetch supplier tiers for all quotes
+        const uniqueSupplierIds = [...new Set(quotes.map((quote: any) => quote.supplier_id).filter(Boolean))];
+        const tierPromises = uniqueSupplierIds.map(async (supplierId: number) => {
+          const tier = await fetchSupplierTier(supplierId);
+          return [supplierId, tier];
+        });
+
+        const tierResults = await Promise.all(tierPromises);
+        const newSupplierTiers = new Map(tierResults);
+        setSupplierTiers(newSupplierTiers);
+
         const quoteCards: Card[] = quotes.map((quote: any) => {
           const supplierName = quote.supplier_id ? suppliers.get(quote.supplier_id) || `Unknown Supplier (ID: ${quote.supplier_id})` : 'N/A';
+          const supplierTier = quote.supplier_id ? newSupplierTiers.get(quote.supplier_id) || 'basic' : 'basic';
+
           return {
             id: quote.quote_id,
             title: `Quote #${quote.quote_id}`,
             description: `Supplier: ${supplierName} | Status: ${quote.status} | Submitted: ${new Date(quote.submission_date).toLocaleDateString()}`,
             pdf_document_path: quote.pdf_document_path,
+            supplier_tier: supplierTier,
           };
         });
-        
+
         setCards(quoteCards);
       } catch (err) {
         console.error("Error fetching quotes:", err);
@@ -319,7 +402,20 @@ export function BudgetAdvisorChatbot() {
                   key={card.id}
                   className="bg-white dark:bg-gray-700 shadow-sm hover:shadow-md rounded-2xl p-4 transition border border-gray-200 dark:border-gray-600"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{card.title}</h3>
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{card.title}</h3>
+                    {card.supplier_tier && (
+                      <span
+                        className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border ${
+                          getTierInfo(card.supplier_tier).bgColor
+                        } ${getTierInfo(card.supplier_tier).textColor} ${
+                          getTierInfo(card.supplier_tier).borderColor
+                        }`}
+                      >
+                        {card.supplier_tier.toUpperCase()}
+                      </span>
+                    )}
+                  </div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{card.description}</p>
                   
                   {/* Action buttons */}
