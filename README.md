@@ -59,6 +59,9 @@ An AI takes as context the buyer history, the items already in the cart, and the
 
 (We also have dark mode ;D )
 
+
+Besides everything we also have a full functioning Supply Chain platform. The trucks and warehouse have realistic storage limits, the products eventually expire, etc etc.
+
 ## How to test it
 
 If you want you can just try it at http://food-oracle.joao-oliveira.org
@@ -113,3 +116,9 @@ Heres the command list and the relevant links and credentials
 
 ### Frontend Application
 - **Website**: http://localhost:3000
+
+## Roadmap
+
+- [ ] Have AI generate weekly reports
+- [ ] Add to the Seasonal Demand Predictor recommendations based on web scrapped news
+- [ ] Have a chatbot able to make queries on the database to convert natural language to valuable insights
